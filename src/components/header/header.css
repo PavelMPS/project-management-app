@@ -1,5 +1,7 @@
 header {
   background: rgb(223, 238, 251);
+  position: fixed;
+  width: 100%;
 }
 
 .header-title {
@@ -9,7 +11,6 @@ header {
 }
 
 .menu-container {
-  border: 1px solid green;
   display: flex;
   justify-content: flex-end;
 }
@@ -18,4 +19,67 @@ header {
   height: 40px;
   margin-left: 5px;
   margin-right: 20px;
+}
+
+.edit-btn {
+  width: 36px;
+  background: transparent;
+  background-image: url('/public/cog.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+}
+
+.logout-btn {
+  width: 38px;
+  background: transparent;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border: none;
+  
+  background-image: url('/public/logout.png');
+}
+
+.user-delete-btn {
+  width: 36px;
+  background: transparent;
+  background-image: url('/public/user-delete.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+}
+
+.create-board-btn {
+  width: 40px;
+  background: transparent;
+  background-image: url('/public/create-board.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+}
+
+.en-btn {
+  width: 40px;
+  background: transparent;
+  background-image: url('/public/en.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+}
+
+.ru-btn {
+  width: 40px;
+  background: transparent;
+  background-image: url('/public/ru.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+}
+
+.edit-btn:hover {
 }

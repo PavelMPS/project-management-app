@@ -8,16 +8,17 @@ const Header = (): JSX.Element => {
     <header>
       <h1 className="header-title">Project managment application</h1>
       <div className="menu-container">
-        <Link to={'/edit'}>
-          <button className="button">Edit profile</button>
+        <Link className="edit-link" to={'/edit'}>
+          <button className="button edit-btn"></button>
         </Link>
         <Link to={'/'}>
-          <button className="button">Logout</button>
+          <button className="button logout-btn"></button>
         </Link>
 
-        <button className="button">User delete</button>
-        <button className="button">Create new board</button>
-        <button className="button">Change lang(будет тогглер)</button>
+        <button className="button user-delete-btn"></button>
+        <button className="button create-board-btn"></button>
+        <button className="button en-btn"></button>
+        <button className="button ru-btn"></button>
       </div>
     </header>
   );
