@@ -16,14 +16,13 @@ function App() {
       <Aside />
       <div className="main-container">
         <Routes>
-          <Route path="/" element={<Welcome />}/>
-          <Route path="/*" element={<NotFound />}/>
-          <Route path="/main" element={<Main />}/>
+          <Route path="/" element={<Welcome />} />
+          <Route path="/*" element={<NotFound />} />
+          <Route path="/main" element={<Main />} />
         </Routes>
       </div>
       <Footer />
     </>
-    
   );
 }
 
