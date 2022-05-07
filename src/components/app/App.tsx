@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Aside from '../aside/Aside';
+
+import EditProfile from '../edit-profile-page/EditProfile';
 import Footer from '../footer-page/Footer';
 import Header from '../header/Header';
 import Main from '../main-page/Main';
@@ -13,12 +14,12 @@ function App() {
   return (
     <>
       <Header />
-      <Aside />
       <div className="main-container">
         <Routes>
           <Route path="/" element={<Welcome />} />
           <Route path="/*" element={<NotFound />} />
           <Route path="/main" element={<Main />} />
+          <Route path="/edit" element={<EditProfile />} />
         </Routes>
       </div>
       <Footer />
