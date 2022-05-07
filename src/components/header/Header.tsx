@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { createBoardSlice, store } from '../../redux/CreateBoardSlice';
 import ModalFormBoardCreate from '../modal-form-board-create/ModalFormBoardCreate';
 
 import './header.css';
@@ -8,6 +10,10 @@ const Header = (): JSX.Element => {
   const [createBoardClicked, setCreateBoardToggle] = useState(false);
   function createBoardToggle() {
     setCreateBoardToggle(!createBoardClicked);
+  }
+  function togglePopup(): void {
+    setCreateBoardToggle(!createBoardClicked);
+    console.log(createBoardClicked);
   }
   return (
     <header>
@@ -24,7 +30,18 @@ const Header = (): JSX.Element => {
         <button className="button create-board-btn" onClick={createBoardToggle}></button>
         <button className="button en-btn"></button>
         <button className="button ru-btn"></button>
-        {createBoardClicked ? <ModalFormBoardCreate /> : ''}
+        {createBoardClicked ? (
+          <div className="modal-form-create-container">
+            <div className="popup-body">
+              <ModalFormBoardCreate />
+              <button className="close-modal-btn" onClick={togglePopup}>
+                CLOSE
+              </button>
+            </div>
+          </div>
+        ) : (
+          ''
+        )}
       </div>
     </header>
   );

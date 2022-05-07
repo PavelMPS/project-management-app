@@ -57,8 +57,9 @@
 
 .close-modal-btn {
   position: absolute;
-  top: -40px;
-  right: 0;
+  z-index: 6;
+  top: 314px;
+  right: 719px; 
   margin-top: 40px;
   cursor: pointer;
   border: none;
