@@ -1,13 +1,16 @@
 .board-prew-container {
   min-width: 300px;
   padding: 5px;
+  text-align: center;
+  background-color: rgb(210, 232, 250);
+}
+
+.board-prew-wrapper {
   height: 50px;
   display: flex;
   justify-content: space-between;
   column-gap: 25px;
-  line-height: 40px;
-  text-align: center;
-  background-color: rgb(210, 232, 250);
+  line-height: 50px;
 }
 
 .board-prew-bin {
@@ -18,4 +21,17 @@
 }
 .board-prew-bin:active {
   transform: scale(1.2);
+}
+
+.board-open-btn {
+  width: 100px;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+  background-color: rgb(163, 214, 255);
+}
+
+.board-open-btn:active {
+  transform: scale(1.2);
+  background-color: rgb(121, 195, 255);
 }
