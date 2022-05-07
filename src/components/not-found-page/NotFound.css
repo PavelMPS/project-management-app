@@ -1,0 +1,15 @@
+.not-found-page {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+}
+  
+.not-found-page-title {
+    align-items: center;
+    align-content: center;
+    display: flex;
+    flex-direction: column;
+    margin: 10px auto;
+    position: absolute;
+}
