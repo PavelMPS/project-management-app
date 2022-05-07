@@ -1,0 +1,13 @@
+.main-container {
+  width: 100%;
+  padding: 0px 50px;
+}
+
+.boards-prew-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  column-gap: 25px;
+  color: rgb(85, 72, 2);
+}
