@@ -1,0 +1,67 @@
+.modal-form-create-container {
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+}
+
+.popup-body {
+  position: relative;
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 10px;
+}
+
+.popup-content {
+    position: relative;
+    z-index: 2;
+    background-color: #fff;
+    color: black;
+    max-width: 800px;
+    min-height: 230px;
+    padding: 30px;
+}
+
+.modal-board-title {
+  background: rgb(245, 245, 188);
+  margin: auto;
+  font-size: 24px;
+}
+
+.board-label {
+    margin-left: 25px;
+    margin-top: 50px;
+}
+
+.modal-board-form {
+  display: flex;
+}
+
+.board-create-btn {
+  position: absolute;
+  top: 230px;
+  left: 200px;
+  width: 100px;
+  height: 40px;
+  font-size: 22px;
+  cursor: pointer;
+  border: none;
+  background: rgb(249, 186, 249);
+}
+
+.close-modal-btn {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  margin-top: 40px;
+  cursor: pointer;
+  border: none;
+  background: rgb(138, 156, 251);
+  font-size: 22px;
+}
