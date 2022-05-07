@@ -1,0 +1,76 @@
+header {
+  background: rgb(210, 232, 250);
+  /* position: fixed;
+  width: 100%; */
+}
+
+.header-title {
+  color: rgb(85, 72, 2);
+  margin: auto;
+  padding-top: 20px;
+  text-align: center;
+}
+
+.menu-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.button {
+  height: 40px;
+  margin-left: 5px;
+  margin-right: 20px;
+}
+
+.edit-btn,
+.logout-btn,
+.user-delete-btn,
+.create-board-btn,
+.en-btn,
+.ru-btn {
+  background: transparent;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  transition: all 0.4s;
+}
+
+.edit-btn {
+  width: 36px;
+  background-image: url('/public/cog.png');
+}
+
+.logout-btn {
+  width: 38px;
+  background-image: url('/public/logout.png');
+}
+
+.user-delete-btn {
+  width: 36px;
+  background-image: url('/public/user-delete.png');
+}
+
+.create-board-btn {
+  width: 40px;
+  background-image: url('/public/create-board.png');
+}
+
+.en-btn {
+  width: 40px;
+  background-image: url('/public/en.png');
+}
+
+.ru-btn {
+  width: 40px;
+  background-image: url('/public/ru.png');
+}
+
+.edit-btn:hover,
+.logout-btn:hover,
+.user-delete-btn:hover,
+.create-board-btn:hover,
+.en-btn:hover,
+.ru-btn:hover {
+  transform: scale(1.2);
+}

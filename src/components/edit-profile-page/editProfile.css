@@ -1,0 +1,41 @@
+.edit-container {
+    margin: auto;
+    width: 80%;
+    height: 70vh;
+    background: rgb(212, 249, 235);
+}
+
+.edit-title {
+    text-align: center;
+    font-size: 1.7rem;
+    background: rgb(172, 215, 251);
+}
+
+.edit-form {
+    margin: auto;
+    width: 80%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.form-label {
+    margin-left: 150px;
+    margin-top: 100px;
+    background: rgb(250, 222, 149);
+}
+
+.title-label {
+    font-size: 24px;
+    margin-left: 10px;
+}
+
+.edit-submit-btn,
+.edit-cancel-btn {
+    font-size: 26px;
+    width: 200px;
+    position: relative;
+    right: 465px;
+    top: 300px;
+    background: rgb(173, 173, 250);
+    border: none;
+}
