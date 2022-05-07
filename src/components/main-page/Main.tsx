@@ -23,7 +23,6 @@ const Main = (): JSX.Element => {
     if (status === 'idle') {
       dispatch(fetchBoards());
     }
-    console.log(status, boards, error);
   }, [dispatch, boards, status]);
 
   return (
@@ -31,9 +30,10 @@ const Main = (): JSX.Element => {
       <div className="main-container">
         <h1>Main</h1>
         <div className="boards-prew-container">
-          {boards.map((board: IBoard) => {
-            return <BoardPrew key={board.id} boardInf={board} />;
-          })}
+          {boards.length > 0 &&
+            boards.map((board: IBoard) => {
+              return <BoardPrew key={board.id} boardInf={board} />;
+            })}
         </div>
       </div>
     </>
