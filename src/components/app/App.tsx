@@ -5,6 +5,7 @@ import Footer from '../footer-page/Footer';
 import Header from '../header/Header';
 import Main from '../main-page/Main';
 import NotFound from '../not-found-page/NotFound';
+import SignupPage from '../signup-page/SignupPage';
 import Welcome from '../welcome-page/Welcome';
 
 import './App.css';
@@ -19,6 +20,7 @@ function App() {
           <Route path="/" element={<Welcome />} />
           <Route path="/*" element={<NotFound />} />
           <Route path="/main" element={<Main />} />
+          <Route path="/sign-up" element={<SignupPage />} />
         </Routes>
       </div>
       <Footer />
