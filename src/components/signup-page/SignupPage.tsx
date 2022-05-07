@@ -4,9 +4,7 @@ const SignupPage = () => {
   return (
     <>
       <div className="sign-up-page">
-        <form>
-          <h1>sign-up pagege</h1>
-        </form>
+        <h1>sign-up page</h1>
       </div>
       ;
     </>
