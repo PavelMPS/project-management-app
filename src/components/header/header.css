@@ -1,12 +1,13 @@
 header {
-  background: rgb(223, 238, 251);
-  position: fixed;
-  width: 100%;
+  background: rgb(210, 232, 250);
+  /* position: fixed;
+  width: 100%; */
 }
 
 .header-title {
   color: rgb(85, 72, 2);
   margin: auto;
+  padding-top: 20px;
   text-align: center;
 }
 
@@ -21,65 +22,55 @@ header {
   margin-right: 20px;
 }
 
-.edit-btn {
-  width: 36px;
+.edit-btn,
+.logout-btn,
+.user-delete-btn,
+.create-board-btn,
+.en-btn,
+.ru-btn {
   background: transparent;
-  background-image: url('/public/cog.png');
   background-size: cover;
   background-repeat: no-repeat;
   border: none;
   cursor: pointer;
+  transition: all 0.4s;
+}
+
+.edit-btn {
+  width: 36px;
+  background-image: url('/public/cog.png');
 }
 
 .logout-btn {
   width: 38px;
-  background: transparent;
-  background-size: cover;
-  background-repeat: no-repeat;
-  border: none;
-  
   background-image: url('/public/logout.png');
 }
 
 .user-delete-btn {
   width: 36px;
-  background: transparent;
   background-image: url('/public/user-delete.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  border: none;
-  cursor: pointer;
 }
 
 .create-board-btn {
   width: 40px;
-  background: transparent;
   background-image: url('/public/create-board.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  border: none;
-  cursor: pointer;
 }
 
 .en-btn {
   width: 40px;
-  background: transparent;
   background-image: url('/public/en.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  border: none;
-  cursor: pointer;
 }
 
 .ru-btn {
   width: 40px;
-  background: transparent;
   background-image: url('/public/ru.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  border: none;
-  cursor: pointer;
 }
 
-.edit-btn:hover {
+.edit-btn:hover,
+.logout-btn:hover,
+.user-delete-btn:hover,
+.create-board-btn:hover,
+.en-btn:hover,
+.ru-btn:hover {
+  transform: scale(1.2);
 }

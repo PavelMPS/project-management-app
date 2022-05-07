@@ -29,6 +29,8 @@ const EditProfile = (): JSX.Element => {
             </p>
             <input type="text" placeholder="Edit your password" />
           </label>
+          <button className="button edit-submit-btn">SUBMIT</button>
+          <button className="button edit-cancel-btn">CANCEL</button>
         </form>
       </div>
     </>
