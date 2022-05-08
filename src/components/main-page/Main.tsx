@@ -1,12 +1,21 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { selectBoards, selectBoardsFetchStatus, fetchBoards } from '../../redux/MainSlice';
+import { BoardPrew } from '../boardPrew/BoardPrew';
+import './Main.css';
+
+import {
+  selectBoards,
+  selectBoardsFetchStatus,
+  selectBoardsError,
+  fetchBoards,
+} from '../../redux/MainSlice';
 import { AppDispatch } from '../../redux/Store';
 
 const Main = (): JSX.Element => {
-  const boards: IBoard = useSelector(selectBoards);
+  const boards: IBoard[] = useSelector(selectBoards);
   const status: string = useSelector(selectBoardsFetchStatus);
+  const error: string | null = useSelector(selectBoardsError);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -14,14 +23,19 @@ const Main = (): JSX.Element => {
     if (status === 'idle') {
       dispatch(fetchBoards());
     }
-    console.log(status, boards);
-  }, []);
-
-  // console.log(status, boards);
+  }, [dispatch, boards, status]);
 
   return (
     <>
-      <h1>Main</h1>
+      <div className="main-container">
+        <h1>Main</h1>
+        <div className="boards-prew-container">
+          {boards.length > 0 &&
+            boards.map((board: IBoard) => {
+              return <BoardPrew key={board.id} boardInf={board} />;
+            })}
+        </div>
+      </div>
     </>
   );
 };
