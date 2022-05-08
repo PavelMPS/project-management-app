@@ -1,5 +1,6 @@
 header {
   background: rgb(210, 232, 250);
+  min-height: 100px;
   /* position: fixed;
   width: 100%; */
 }
