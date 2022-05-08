@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+
 import { Link } from 'react-router-dom';
 import { createBoardSlice, store } from '../../redux/CreateBoardSlice';
 import ModalFormBoardCreate from '../modal-form-board-create/ModalFormBoardCreate';

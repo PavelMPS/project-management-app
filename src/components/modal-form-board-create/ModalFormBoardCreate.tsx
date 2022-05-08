@@ -1,6 +1,7 @@
 import React, { FormEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createBoard } from '../../redux/CreateBoardSlice';
+import { fetchBoards } from '../../redux/MainSlice';
 import { AppDispatch } from '../../redux/Store';
 
 import './modalFormBoardCreate.css';
@@ -8,9 +9,10 @@ import './modalFormBoardCreate.css';
 const ModalFormBoardCreate = (): JSX.Element => {
   const [title, setTitle] = useState('');
   const dispatch = useDispatch<AppDispatch>();
-  function createBoardHandler(e: FormEvent) {
+  async function createBoardHandler(e: FormEvent) {
     e.preventDefault();
-    dispatch(createBoard(title));
+    await dispatch(createBoard(title));
+    await dispatch(fetchBoards());
   }
 
   return (
