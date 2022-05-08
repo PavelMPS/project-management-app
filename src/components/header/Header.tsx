@@ -8,12 +8,8 @@ import './header.css';
 
 const Header = (): JSX.Element => {
   const [createBoardClicked, setCreateBoardToggle] = useState(false);
-  function createBoardToggle() {
-    setCreateBoardToggle(!createBoardClicked);
-  }
   function togglePopup(): void {
     setCreateBoardToggle(!createBoardClicked);
-    console.log(createBoardClicked);
   }
   return (
     <header>
@@ -27,7 +23,7 @@ const Header = (): JSX.Element => {
         </Link>
 
         <button className="button user-delete-btn"></button>
-        <button className="button create-board-btn" onClick={createBoardToggle}></button>
+        <button className="button create-board-btn" onClick={togglePopup}></button>
         <button className="button en-btn"></button>
         <button className="button ru-btn"></button>
         {createBoardClicked ? (

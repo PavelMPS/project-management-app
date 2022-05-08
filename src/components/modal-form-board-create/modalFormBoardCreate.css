@@ -56,10 +56,10 @@
 }
 
 .close-modal-btn {
-  position: absolute;
+  position: relative;
   z-index: 6;
-  top: 314px;
-  right: 719px; 
+  top: -151px;
+  right: 86px; 
   margin-top: 40px;
   cursor: pointer;
   border: none;

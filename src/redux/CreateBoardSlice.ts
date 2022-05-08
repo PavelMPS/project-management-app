@@ -18,21 +18,22 @@ const initialState: CreateBoardState = {
 };
 
 export const createBoard = createAsyncThunk(
-  'boards/createBoard',
+  'board/createBoard',
   async (boardTitle: string, thunkAPI) => {
-    try {
-      await axios.post(path, {
+    await axios
+      .post(path, {
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/JSON',
           Authorization: `Bearer ${token}`,
         },
         body: {
           title: boardTitle,
         },
+      })
+      .then((res) => console.log(res))
+      .catch((err) => {
+        console.log(err);
       });
-    } catch (e) {
-      return thunkAPI.rejectWithValue(e);
-    }
   }
 );
 
@@ -44,7 +45,6 @@ export const createBoardSlice = createSlice({
     [createBoard.fulfilled.type]: (state: CreateBoardState, action: PayloadAction<string>) => {
       state.isLoading = false;
       state.title = action.payload;
-      console.log('Action payload: ' + action.payload);
       state.error = '';
     },
     [createBoard.pending.type]: (state: CreateBoardState) => {

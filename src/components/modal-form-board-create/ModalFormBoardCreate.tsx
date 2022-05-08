@@ -1,17 +1,18 @@
-import React, { FormEvent } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { createBoard, createBoardSlice, store } from '../../redux/CreateBoardSlice';
+import React, { FormEvent, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { createBoard } from '../../redux/CreateBoardSlice';
 import { AppDispatch } from '../../redux/Store';
 
 import './modalFormBoardCreate.css';
 
 const ModalFormBoardCreate = (): JSX.Element => {
+  const [title, setTitle] = useState('');
   const dispatch = useDispatch<AppDispatch>();
+
   function createBoardHandler(e: FormEvent) {
-    const title = 'My super board';
     e.preventDefault();
     dispatch(createBoard(title));
-    console.log('create board data');
+    console.log('create board data ' + title);
   }
 
   return (
@@ -23,7 +24,12 @@ const ModalFormBoardCreate = (): JSX.Element => {
             Board title:
             {/* <span className="errors">{errors[label] && errMess}</span> */}
           </p>
-          <input type="text" placeholder="Enter board title" />
+          <input
+            onChange={(e) => setTitle(e.target.value)}
+            type="text"
+            placeholder="Enter board title"
+            value={title}
+          />
         </label>
         <label className="form-label board-label">
           <p className="title-label">
