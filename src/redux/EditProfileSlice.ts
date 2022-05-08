@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import jwt_decode from 'jwt-decode';
 import axios, { AxiosResponse } from 'axios';
 
-type EditProfileState = {
+export type ProfileState = {
   name: string;
   login: string;
   password: string;
@@ -15,7 +15,7 @@ type DecodeParams = {
   userId: string;
 };
 
-const initialState: EditProfileState = {
+const initialState: ProfileState = {
   name: '',
   login: '',
   password: '',
@@ -31,7 +31,7 @@ export function getIdFromToken(): string {
 export const editProfile = createAsyncThunk(
   'profile/editProfile',
   async (arg: { userID: string; name: string; login: string; password: string }) => {
-    const response: AxiosResponse<EditProfileState> = await axios.put(
+    const response: AxiosResponse<ProfileState> = await axios.put(
       `${path}/${arg.userID}`,
       {
         name: arg.name,
@@ -52,7 +52,7 @@ export const editProfileSlice = createSlice({
   name: 'editProfile',
   initialState,
   reducers: {
-    editProfile(state: EditProfileState, action: PayloadAction<EditProfileState>) {
+    editProfile(state: ProfileState, action: PayloadAction<ProfileState>) {
       return { ...state, ...action.payload };
     },
   },

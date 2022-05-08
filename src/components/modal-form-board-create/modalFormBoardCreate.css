@@ -24,7 +24,7 @@
     background-color: #fff;
     color: black;
     max-width: 800px;
-    min-height: 290px;
+    min-height: 320px;
     padding: 30px;
 }
 
@@ -45,8 +45,8 @@
 
 .board-create-btn {
   position: absolute;
-  top: 230px;
-  left: 80px;
+  top: 270px;
+  left: 120px;
   width: 100px;
   height: 40px;
   font-size: 22px;
@@ -58,8 +58,8 @@
 .close-modal-btn {
   position: relative;
   z-index: 6;
-  top: -151px;
-  right: 86px; 
+  top: -166px;
+  right: 87px; 
   margin-top: 40px;
   cursor: pointer;
   border: none;
