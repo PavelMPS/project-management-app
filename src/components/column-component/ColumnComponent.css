@@ -1,0 +1,24 @@
+.column-container {
+  min-width: 300px;
+  padding: 5px;
+  text-align: center;
+  background-color: rgb(210, 232, 250);
+}
+
+.column-wrapper {
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  column-gap: 25px;
+  line-height: 50px;
+}
+
+.column-bin {
+  width: 40px;
+  height: 40px;
+  background-image: url(../../assets/bin.png);
+  background-size: cover;
+}
+.column-bin:active {
+  transform: scale(1.2);
+}
