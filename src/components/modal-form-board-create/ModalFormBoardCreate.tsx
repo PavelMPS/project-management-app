@@ -22,6 +22,7 @@ const ModalFormBoardCreate = (): JSX.Element => {
         <label className="form-label board-label">
           <p className="title-label">Board title:</p>
           <input
+            className="edit-input"
             onChange={(e) => setTitle(e.target.value)}
             type="text"
             placeholder="Enter board title"
