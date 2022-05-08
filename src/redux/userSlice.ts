@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { ILoginData } from '../components/login-page/LoginPage';
 import { IUserCredentials } from '../components/signup-page/SignupPage';
 
 interface userSlice {
@@ -6,6 +7,10 @@ interface userSlice {
   login: string;
   password: string;
   error: string;
+  token: string;
+  isAuth: boolean;
+  authLogin: string;
+  authPass: string;
 }
 
 const initialState: userSlice = {
@@ -13,6 +18,10 @@ const initialState: userSlice = {
   login: '',
   password: '',
   error: '',
+  token: '',
+  isAuth: false,
+  authLogin: '',
+  authPass: '',
 };
 
 export const userSlice = createSlice({
@@ -27,8 +36,28 @@ export const userSlice = createSlice({
     setError: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
     },
+    setToken: (state, action: PayloadAction<string>) => {
+      state.token = action.payload;
+      if (state.token) {
+        state.isAuth = true;
+      }
+    },
+    setAuthCredentials: (state, action: PayloadAction<ILoginData>) => {
+      state.authLogin = action.payload.login;
+      state.authPass = action.payload.password;
+    },
+    logout: (state) => {
+      state.name = '';
+      state.login = '';
+      state.password = '';
+      state.authLogin = '';
+      state.authPass = '';
+      state.isAuth = false;
+      localStorage.removeItem('token');
+      state.token = '';
+    },
   },
 });
 
-export const { setCredentials, setError } = userSlice.actions;
+export const { setCredentials, setError, setToken, setAuthCredentials, logout } = userSlice.actions;
 export default userSlice.reducer;
