@@ -65,7 +65,6 @@ const boardSlice = createSlice({
       }
     ) {
       state.board = action.payload;
-      console.log(state.board);
     },
     closeBoard(state: boardState) {
       state.columns = [] as IColumn[];
@@ -125,7 +124,6 @@ const boardSlice = createSlice({
         state.statusTasks = fetchStatus.loading;
         state.tasks = [] as ITask[];
         state.error = null;
-        console.log('loading', state.tasks);
       })
       .addCase(
         fetchTasks.fulfilled,
@@ -145,7 +143,6 @@ const boardSlice = createSlice({
           state.statusTasks = fetchStatus.succeeded;
           const newTasks = state.tasks.concat(action.payload);
           state.tasks = newTasks;
-          console.log('succeeded', state.tasks);
         }
       )
       .addCase(fetchTasks.rejected, (state: boardState, action) => {

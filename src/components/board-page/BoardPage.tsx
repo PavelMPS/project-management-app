@@ -25,7 +25,6 @@ const BoardPage = (): JSX.Element => {
     if (status === 'idle') {
       dispatch(fetchColumns(board.id));
     }
-    console.log(columns);
   }, [board.id, columns, dispatch, status]);
 
   return (

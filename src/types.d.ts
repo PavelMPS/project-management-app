@@ -13,6 +13,10 @@ type boardState = {
   error: string | null;
 };
 
+interface ITasksObj {
+  string: ITask[];
+}
+
 interface IBoard {
   id: string;
   title: string;

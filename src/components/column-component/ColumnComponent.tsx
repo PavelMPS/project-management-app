@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import './ColumnComponent.css';
 
@@ -12,19 +12,26 @@ import {
   deleteColumnFetch,
 } from '../../redux/BoardSlice';
 import { AppDispatch } from '../../redux/Store';
+import { Task } from '../task-component/TaskComponent';
 
 export const Column = (props: { columnInf: IColumn }): JSX.Element => {
   const status = useSelector(selectStatusTasks);
-  const tasks = useSelector(selectTasks);
+  const allTasks = useSelector(selectTasks);
   const board = useSelector(selectBoard);
+
   const dispatch = useDispatch<AppDispatch>();
+
+  const [tasks, setTasks] = useState<ITask[] | null>(null);
 
   useEffect((): void => {
     if (status === 'idle') {
       dispatch(fetchTasks({ boardId: board.id, columnId: props.columnInf.id }));
     }
-    console.log(tasks);
-  }, [board.id, dispatch, props.columnInf.id, status, tasks]);
+    const newTasks = allTasks.filter((task: ITask) => {
+      return task.columnId === props.columnInf.id;
+    });
+    setTasks(newTasks);
+  }, [allTasks, board.id, props.columnInf.id, status]);
 
   return (
     <>
@@ -39,6 +46,12 @@ export const Column = (props: { columnInf: IColumn }): JSX.Element => {
               //TODO добавить confirmation modal
             }}
           ></div>
+        </div>
+        <div className="tasks-container">
+          {tasks &&
+            tasks.map((task: ITask) => {
+              return <Task key={task.id} taskInf={task} />;
+            })}
         </div>
       </div>
     </>
