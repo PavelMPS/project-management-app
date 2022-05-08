@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import EditProfile from '../edit-profile-page/EditProfile';
 import Footer from '../footer-page/Footer';
@@ -9,10 +10,15 @@ import Main from '../main-page/Main';
 import NotFound from '../not-found-page/NotFound';
 import SignupPage from '../signup-page/SignupPage';
 import Welcome from '../welcome-page/Welcome';
+import BoardPage from '../board-page/BoardPage';
+
+import { selectBoard } from '../../redux/MainSlice';
 
 import './App.css';
 
 function App() {
+  const board = useSelector(selectBoard);
+
   return (
     <>
       <Header />
@@ -24,6 +30,7 @@ function App() {
           <Route path="/sign-up" element={<SignupPage />} />
           <Route path="/edit" element={<EditProfile />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/board" element={<BoardPage boardInf={board} />} />
         </Routes>
       </div>
       <Footer />
