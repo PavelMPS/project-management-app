@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import createBoardSlice from './CreateBoardSlice';
 
+import createBoardSlice from './CreateBoardSlice';
 import mainSlice from './MainSlice';
 import userSlice from './userSlice';
 
