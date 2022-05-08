@@ -20,7 +20,7 @@ function App() {
   const board = useSelector(selectBoard);
 
   return (
-    <>
+    <div className="body">
       <Header />
       <div className="main-container">
         <Routes>
@@ -34,7 +34,7 @@ function App() {
         </Routes>
       </div>
       <Footer />
-    </>
+    </div>
   );
 }
 
