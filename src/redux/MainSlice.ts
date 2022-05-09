@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios, { AxiosResponse } from 'axios';
 
-import { fetchStatus } from '../constants/Constants';
+import { fetchStatus, path } from '../constants/Constants';
 import { RootState } from './Store';
 
 const initialState: mainState = {
@@ -11,11 +11,13 @@ const initialState: mainState = {
   openBoard: {} as IBoard,
 };
 
-export const fetchBoards = createAsyncThunk('main/fetchBoards', async (): Promise<IBoard> => {
-  const requestString = `https://immense-coast-63189.herokuapp.com/boards`;
-  const token =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkNzYzMTU3ZS1mZDVlLTRkZDAtOTE2Yy02NTM0ZGM3N2EwNDkiLCJsb2dpbiI6InVzZXIwMDExIiwiaWF0IjoxNjUxOTMzMTg1fQ.SRGwKRF-OjmHBkGc35GsIIJvY4udRCol03RS9HmO6yY';
-  const response: AxiosResponse<IBoard> = await axios.get(requestString, {
+export const fetchBoards = createAsyncThunk('main/fetchBoards', async (): Promise<IBoard[]> => {
+  const requestString = `${path.url}${path.bords}`;
+  let token = '';
+  if (localStorage.getItem('token')) {
+    token = localStorage.getItem('token') || '';
+  }
+  const response: AxiosResponse<IBoard[]> = await axios.get(requestString, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -26,9 +28,11 @@ export const fetchBoards = createAsyncThunk('main/fetchBoards', async (): Promis
 export const deleteBoardFetch = createAsyncThunk(
   'main/deleteBoardFetch',
   async (boardId: string) => {
-    const requestString = `https://immense-coast-63189.herokuapp.com/boards/${boardId}`;
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJkNzYzMTU3ZS1mZDVlLTRkZDAtOTE2Yy02NTM0ZGM3N2EwNDkiLCJsb2dpbiI6InVzZXIwMDExIiwiaWF0IjoxNjUxOTMzMTg1fQ.SRGwKRF-OjmHBkGc35GsIIJvY4udRCol03RS9HmO6yY';
+    const requestString = `${path.url}${path.bords}/${boardId}`;
+    let token = '';
+    if (localStorage.getItem('token')) {
+      token = localStorage.getItem('token') || '';
+    }
     const response = await axios.delete(requestString, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -41,19 +45,6 @@ const mainSlice = createSlice({
   name: 'main',
   initialState,
   reducers: {
-    deleteBoard(
-      state: mainState,
-      action: {
-        payload: string;
-        type: string;
-      }
-    ) {
-      const board = state.boards.find((board: IBoard) => board.id === action.payload);
-      const boardIndex = state.boards.indexOf(board);
-      if (boardIndex !== -1) {
-        state.boards.splice(boardIndex, 1);
-      }
-    },
     openBoard(
       state: mainState,
       action: {
@@ -62,7 +53,21 @@ const mainSlice = createSlice({
       }
     ) {
       state.openBoard = action.payload;
-      console.log(state.openBoard);
+    },
+    deleteBoard(
+      state: mainState,
+      action: {
+        payload: string;
+        type: string;
+      }
+    ) {
+      const board: IBoard = state.boards.find(
+        (board: IBoard) => board.id === action.payload
+      ) as IBoard;
+      const boardIndex = state.boards.indexOf(board);
+      if (boardIndex !== -1) {
+        state.boards.splice(boardIndex, 1);
+      }
     },
   },
   extraReducers(builder) {
@@ -77,7 +82,7 @@ const mainSlice = createSlice({
         (
           state: mainState,
           action: PayloadAction<
-            IBoard,
+            IBoard[],
             string,
             {
               arg: void;
@@ -114,6 +119,6 @@ export default mainSlice.reducer;
 export const { deleteBoard, openBoard } = mainSlice.actions;
 
 export const selectBoards = (state: RootState): IBoard[] => state.main.boards;
-export const selectBoard = (state: RootState): IBoard => state.main.openBoard;
 export const selectBoardsFetchStatus = (state: RootState): string => state.main.status;
 export const selectBoardsError = (state: RootState): string | null => state.main.error;
+export const selectBoard = (state: RootState): IBoard => state.main.openBoard;

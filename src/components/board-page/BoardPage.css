@@ -2,3 +2,22 @@
   width: 100%;
   padding: 0px 50px;
 }
+.board-close {
+  width: 100px;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+  background-color: rgb(163, 214, 255);
+}
+
+.board-close:active {
+  transform: scale(1.2);
+  background-color: rgb(121, 195, 255);
+}
+
+.columns-container {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 25px;
+  flex-wrap: wrap;
+}
