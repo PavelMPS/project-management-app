@@ -15,7 +15,7 @@ import './App.css';
 
 function App() {
   return (
-    <>
+    <div className="body">
       <Header />
       <div className="main-container">
         <Routes>
@@ -29,7 +29,7 @@ function App() {
         </Routes>
       </div>
       <Footer />
-    </>
+    </div>
   );
 }
 

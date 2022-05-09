@@ -1,15 +1,11 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
 type CreateBoardState = {
   title: string;
   isLoading: boolean;
   error: string;
 };
-
-const path = 'https://immense-coast-63189.herokuapp.com/boards';
-const token =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3YTk5MWMxMi04NDlhLTRhNDUtYTk3ZC0wYTFiNmEyOWY4YmUiLCJsb2dpbiI6InVzZXIwMDkiLCJpYXQiOjE2NTE5NDk5Njl9.IEHFoFZ3O9SpdgjDAROiSmcGax8GVnVGkQzsbqJoL8A';
 
 const initialState: CreateBoardState = {
   title: '',
@@ -19,21 +15,22 @@ const initialState: CreateBoardState = {
 
 export const createBoard = createAsyncThunk(
   'board/createBoard',
-  async (boardTitle: string, thunkAPI) => {
-    await axios
-      .post(path, {
+  async (title: string): Promise<IBoard> => {
+    const path = `https://immense-coast-63189.herokuapp.com/boards`;
+    const token =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3YTk5MWMxMi04NDlhLTRhNDUtYTk3ZC0wYTFiNmEyOWY4YmUiLCJsb2dpbiI6InVzZXIwMDkiLCJpYXQiOjE2NTE5NDk5Njl9.IEHFoFZ3O9SpdgjDAROiSmcGax8GVnVGkQzsbqJoL8A';
+    const response: AxiosResponse<IBoard> = await axios.post(
+      path,
+      {
+        title: title,
+      },
+      {
         headers: {
-          'Content-Type': 'application/JSON',
           Authorization: `Bearer ${token}`,
         },
-        body: {
-          title: boardTitle,
-        },
-      })
-      .then((res) => console.log(res))
-      .catch((err) => {
-        console.log(err);
-      });
+      }
+    );
+    return response.data;
   }
 );
 
@@ -59,3 +56,4 @@ export const createBoardSlice = createSlice({
 
 export default createBoardSlice.reducer;
 export const store = (state: CreateBoardState): CreateBoardState => state;
+export const boardCreateErr = (state: CreateBoardState): string => state.error;

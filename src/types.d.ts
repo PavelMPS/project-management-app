@@ -2,20 +2,22 @@ type mainState = {
   boards: IBoard[];
   status: string;
   error: string | null;
+  openBoard: IBoard;
 };
 
-type boardState = {
-  board: IBoard;
+type columnState = {
   columns: IColumn[];
-  tasks: ITask[];
   statusColumn: string;
+  error: string | null;
+  column: IColumn;
+};
+
+type taskState = {
+  tasks: ITask[];
   statusTasks: string;
   error: string | null;
+  task: ITask;
 };
-
-interface ITasksObj {
-  string: ITask[];
-}
 
 interface IBoard {
   id: string;
@@ -23,7 +25,7 @@ interface IBoard {
 }
 
 interface IColumn {
-  id: string;
+  id?: string;
   title: string;
   order: number;
 }

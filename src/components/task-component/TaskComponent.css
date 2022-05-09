@@ -22,3 +22,20 @@
 .task-bin:active {
   transform: scale(1.2);
 }
+
+.task-bin {
+  width: 40px;
+  height: 40px;
+  background-image: url(../../assets/bin.png);
+  background-size: cover;
+}
+.task-update {
+  width: 40px;
+  height: 40px;
+  background-image: url(../../assets/update.png);
+  background-size: cover;
+}
+.task-bin:active,
+.task-update:active {
+  transform: scale(1.2);
+}

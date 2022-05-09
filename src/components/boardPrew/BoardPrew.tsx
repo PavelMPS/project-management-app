@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 
 import './BoardPrew.css';
 
-import { deleteBoard, deleteBoardFetch } from '../../redux/MainSlice';
-import { openBoard } from '../../redux/BoardSlice';
+import { deleteBoard, deleteBoardFetch, openBoard } from '../../redux/MainSlice';
 import { AppDispatch } from '../../redux/Store';
 
 export const BoardPrew = (props: { boardInf: IBoard }): JSX.Element => {
