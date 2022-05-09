@@ -15,6 +15,7 @@ import {
 import { closeBoardTask } from '../../redux/TaskSlice';
 import { selectBoard } from '../../redux/MainSlice';
 import { AppDispatch } from '../../redux/Store';
+import { fetchUsers } from '../../redux/UsersSlice';
 import { Column } from '../column-component/ColumnComponent';
 
 const BoardPage = (): JSX.Element => {
@@ -29,6 +30,7 @@ const BoardPage = (): JSX.Element => {
   useEffect((): void => {
     if (status === 'idle') {
       dispatch(fetchColumns(board.id));
+      dispatch(fetchUsers());
     }
   }, [board.id, columns, dispatch, status]);
 
@@ -59,7 +61,6 @@ const BoardPage = (): JSX.Element => {
         <div
           className="board-close"
           onClick={() => {
-            console.log('New column created');
             setModalOpen(true);
           }}
         >

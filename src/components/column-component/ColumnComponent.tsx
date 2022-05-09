@@ -4,17 +4,13 @@ import { useEffect, useState } from 'react';
 import './ColumnComponent.css';
 
 import { selectBoard } from '../../redux/MainSlice';
-import {
-  deleteColumnFetch,
-  updateColumnFetch,
-  fetchColumns,
-  fetchColumn,
-} from '../../redux/ColumnSlice';
+import { deleteColumnFetch, fetchColumns } from '../../redux/ColumnSlice';
 import { selectTasks, selectStatusTasks, fetchTasks } from '../../redux/TaskSlice';
 import { AppDispatch } from '../../redux/Store';
 import { Task } from '../task-component/TaskComponent';
 import { ModalWindow } from '../modal-component/Modal';
 import { ColumnForm } from '../column-form/ColumnForm';
+import { TaskForm } from '../task-form/TaskForm';
 
 export const Column = (props: { columnInf: IColumn }): JSX.Element => {
   const status = useSelector(selectStatusTasks);
@@ -24,7 +20,8 @@ export const Column = (props: { columnInf: IColumn }): JSX.Element => {
   const dispatch = useDispatch<AppDispatch>();
 
   const [tasks, setTasks] = useState<ITask[] | null>(null);
-  const [isModalOpen, setModalOpen] = useState<boolean>(false);
+  const [isColumnModalOpen, setColumnModalOpen] = useState<boolean>(false);
+  const [isTaskModalOpen, setTaskModalOpen] = useState<boolean>(false);
 
   useEffect((): void => {
     if (status === 'idle' && props.columnInf.id) {
@@ -37,7 +34,8 @@ export const Column = (props: { columnInf: IColumn }): JSX.Element => {
   }, [allTasks, board.id, props.columnInf.id, status]);
 
   const handleModalClose = (): void => {
-    setModalOpen(false);
+    setColumnModalOpen(false);
+    setTaskModalOpen(false);
   };
 
   return (
@@ -48,7 +46,13 @@ export const Column = (props: { columnInf: IColumn }): JSX.Element => {
           <div
             className="column-update"
             onClick={async () => {
-              setModalOpen(true);
+              setColumnModalOpen(true);
+            }}
+          ></div>
+          <div
+            className="task-create"
+            onClick={async () => {
+              setTaskModalOpen(true);
             }}
           ></div>
           <div
@@ -71,9 +75,14 @@ export const Column = (props: { columnInf: IColumn }): JSX.Element => {
             })}
         </div>
       </div>
-      {isModalOpen && (
+      {isColumnModalOpen && (
         <ModalWindow onClick={handleModalClose}>
           {<ColumnForm boardId={board.id} columnInf={props.columnInf} type="update" />}
+        </ModalWindow>
+      )}
+      {isTaskModalOpen && props.columnInf.id && (
+        <ModalWindow onClick={handleModalClose}>
+          {<TaskForm boardId={board.id} columnId={props.columnInf.id} type="create" />}
         </ModalWindow>
       )}
     </>

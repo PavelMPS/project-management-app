@@ -25,6 +25,13 @@
   background-image: url(../../assets/update.png);
   background-size: cover;
 }
+.task-create {
+  width: 40px;
+  height: 40px;
+  background-image: url(../../assets/add.png);
+  background-size: cover;
+}
+.task-create:active,
 .column-bin:active,
 .column-update:active {
   transform: scale(1.2);

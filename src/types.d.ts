@@ -19,6 +19,12 @@ type taskState = {
   task: ITask;
 };
 
+type usersState = {
+  users: IUser[];
+  statusUsers: string;
+  error: string | null;
+};
+
 interface IBoard {
   id: string;
   title: string;
@@ -31,11 +37,17 @@ interface IColumn {
 }
 
 interface ITask {
-  id: string;
+  id?: string;
   title: string;
   order: number;
   description: string;
   userId: string;
   boardId: string;
   columnId: string;
+}
+
+interface IUser {
+  id: string;
+  name: string;
+  login: string;
 }

@@ -27,14 +27,12 @@ export function ColumnForm(props: {
   const dispatch = useDispatch<AppDispatch>();
 
   const handleSubmite = async (data: IColumn) => {
-    if (props.columnInf && props.columnInf.id) {
-      if (props.type === 'create') {
-        await dispatch(createColumnFetch({ boardId: props.boardId, column: data }));
-      } else {
-        await dispatch(
-          updateColumnFetch({ boardId: props.boardId, columnId: props.columnInf.id, column: data })
-        );
-      }
+    if (props.type === 'create') {
+      await dispatch(createColumnFetch({ boardId: props.boardId, column: data }));
+    } else {
+      await dispatch(
+        updateColumnFetch({ boardId: props.boardId, columnId: props.columnInf!.id!, column: data })
+      );
     }
 
     dispatch(fetchColumns(props.boardId));

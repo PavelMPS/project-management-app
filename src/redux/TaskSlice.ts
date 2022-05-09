@@ -12,7 +12,7 @@ const initialState: taskState = {
 };
 
 export const fetchTasks = createAsyncThunk(
-  'main/fetchTasks',
+  'tasks/fetchTasks',
   async (id: { boardId: string; columnId: string }): Promise<ITask[]> => {
     const requestString = `${path.url}${path.bords}/${id.boardId}${path.columns}/${id.columnId}${path.tasks}`;
     let token = '';
@@ -29,7 +29,7 @@ export const fetchTasks = createAsyncThunk(
 );
 
 export const deleteTaskFetch = createAsyncThunk(
-  'main/deleteTaskFetch',
+  'tasks/deleteTaskFetch',
   async (id: { boardId: string; columnId: string; taskId: string }): Promise<void> => {
     const requestString = `${path.url}${path.bords}/${id.boardId}${path.columns}/${id.columnId}${path.tasks}/${id.taskId}`;
     let token = '';
@@ -45,7 +45,7 @@ export const deleteTaskFetch = createAsyncThunk(
 );
 
 export const fetchTask = createAsyncThunk(
-  'main/fetchTask',
+  'tasks/fetchTask',
   async (id: { boardId: string; columnId: string; taskId: string }): Promise<ITask> => {
     const requestString = `${path.url}${path.bords}/${id.boardId}${path.columns}/${id.columnId}${path.tasks}/${id.taskId}`;
     let token = '';
@@ -61,10 +61,36 @@ export const fetchTask = createAsyncThunk(
   }
 );
 
+export const createTaskFetch = createAsyncThunk(
+  'tasks/createTaskFetch',
+  async (taskInf: ITask): Promise<ITask> => {
+    const requestString = `${path.url}${path.bords}/${taskInf.boardId}${path.columns}/${taskInf.columnId}${path.tasks}`;
+    let token = '';
+    if (localStorage.getItem('token')) {
+      token = localStorage.getItem('token') || '';
+    }
+    const response: AxiosResponse<ITask> = await axios.post(
+      requestString,
+      {
+        title: taskInf.title,
+        order: +taskInf.order,
+        description: taskInf.description,
+        userId: taskInf.userId,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  }
+);
+
 export const updateTaskFetch = createAsyncThunk(
-  'main/updateTaskFetch',
-  async (id: { boardId: string; columnId: string; taskId: string }): Promise<ITask> => {
-    const requestString = `${path.url}${path.bords}/${id.boardId}${path.columns}/${id.columnId}${path.tasks}/${id.taskId}`;
+  'tasks/updateTaskFetch',
+  async (taskInf: ITask): Promise<ITask> => {
+    const requestString = `${path.url}${path.bords}/${taskInf.boardId}${path.columns}/${taskInf.columnId}${path.tasks}/${taskInf.id}`;
     let token = '';
     if (localStorage.getItem('token')) {
       token = localStorage.getItem('token') || '';
@@ -72,12 +98,12 @@ export const updateTaskFetch = createAsyncThunk(
     const response: AxiosResponse<ITask> = await axios.put(
       requestString,
       {
-        title: 'Task: pet the cat',
-        order: 9,
-        description: 'Domestic cat needs to be stroked gently',
-        userId: '1a330885-3f22-4b17-8ee5-93a2a1546055',
-        boardId: 'c43928c3-5d78-4db0-8417-2af54e22f322',
-        columnId: 'dd7966b5-0eaf-49d5-86da-e2acab85691e',
+        title: taskInf.title,
+        order: +taskInf.order,
+        description: taskInf.description,
+        userId: taskInf.userId,
+        boardId: taskInf.boardId,
+        columnId: taskInf.columnId,
       },
       {
         headers: {
@@ -130,6 +156,7 @@ const boardSlice = createSlice({
         state.statusTasks = fetchStatus.failed;
         state.error = action.error.message!;
       })
+
       .addCase(fetchTask.pending, (state: taskState) => {
         state.statusTasks = fetchStatus.loading;
         state.task = {} as ITask;
@@ -152,13 +179,25 @@ const boardSlice = createSlice({
         ) => {
           state.statusTasks = fetchStatus.succeeded;
           state.task = action.payload;
-          console.log(action.payload);
         }
       )
       .addCase(fetchTask.rejected, (state: taskState, action) => {
         state.statusTasks = fetchStatus.failed;
         state.error = action.error.message!;
       })
+
+      .addCase(createTaskFetch.pending, (state: taskState) => {
+        state.statusTasks = fetchStatus.loading;
+        state.error = null;
+      })
+      .addCase(createTaskFetch.fulfilled, (state: taskState) => {
+        state.statusTasks = fetchStatus.succeeded;
+      })
+      .addCase(createTaskFetch.rejected, (state: taskState, action) => {
+        state.statusTasks = fetchStatus.failed;
+        state.error = action.error.message!;
+      })
+
       .addCase(updateTaskFetch.pending, (state: taskState) => {
         state.statusTasks = fetchStatus.loading;
         state.error = null;

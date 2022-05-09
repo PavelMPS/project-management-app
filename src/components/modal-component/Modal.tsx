@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import ReactDom from 'react-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
 import './Modal.css';
 
@@ -15,6 +16,7 @@ export const ModalWindow: (props: {
       document.body.removeChild(root);
     };
   });
+
   return ReactDom.createPortal(
     <>
       <div

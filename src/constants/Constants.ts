@@ -10,6 +10,7 @@ export const path = {
   bords: '/boards',
   columns: '/columns',
   tasks: '/tasks',
+  users: '/users',
 };
 
 export const token =

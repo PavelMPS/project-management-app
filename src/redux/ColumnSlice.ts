@@ -12,7 +12,7 @@ const initialState: columnState = {
 };
 
 export const fetchColumns = createAsyncThunk(
-  'main/fetchColumns',
+  'column/fetchColumns',
   async (boardId: string): Promise<IColumn[]> => {
     const requestString = `${path.url}${path.bords}/${boardId}${path.columns}`;
     let token = '';
@@ -29,7 +29,7 @@ export const fetchColumns = createAsyncThunk(
 );
 
 export const deleteColumnFetch = createAsyncThunk(
-  'main/deleteColumnFetch',
+  'column/deleteColumnFetch',
   async (id: { boardId: string; columnId: string }): Promise<void> => {
     const requestString = `${path.url}${path.bords}/${id.boardId}${path.columns}/${id.columnId}`;
     let token = '';
@@ -45,7 +45,7 @@ export const deleteColumnFetch = createAsyncThunk(
 );
 
 export const fetchColumn = createAsyncThunk(
-  'main/fetchColumn',
+  'column/fetchColumn',
   async (id: { boardId: string; columnId: string }): Promise<IColumn> => {
     const requestString = `${path.url}${path.bords}/${id.boardId}${path.columns}/${id.columnId}`;
     let token = '';
@@ -62,7 +62,7 @@ export const fetchColumn = createAsyncThunk(
 );
 
 export const updateColumnFetch = createAsyncThunk(
-  'main/updateColumnFetch',
+  'column/updateColumnFetch',
   async (inf: { boardId: string; columnId: string; column: IColumn }): Promise<IColumn> => {
     const requestString = `${path.url}${path.bords}/${inf.boardId}${path.columns}/${inf.columnId}`;
     let token = '';
@@ -173,7 +173,6 @@ const boardSlice = createSlice({
         ) => {
           state.statusColumn = fetchStatus.succeeded;
           state.column = action.payload;
-          console.log(action.payload);
         }
       )
       .addCase(fetchColumn.rejected, (state: columnState, action) => {
@@ -183,7 +182,6 @@ const boardSlice = createSlice({
 
       .addCase(createColumnFetch.pending, (state: columnState) => {
         state.statusColumn = fetchStatus.loading;
-        state.column = {} as IColumn;
         state.error = null;
       })
       .addCase(createColumnFetch.fulfilled, (state: columnState) => {
