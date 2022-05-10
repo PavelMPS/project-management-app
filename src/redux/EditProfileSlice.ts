@@ -20,10 +20,8 @@ const initialState: ProfileState = {
   login: '',
   password: '',
 };
-const token =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3YTk5MWMxMi04NDlhLTRhNDUtYTk3ZC0wYTFiNmEyOWY4YmUiLCJsb2dpbiI6InVzZXIwMDkiLCJpYXQiOjE2NTE5NDk5Njl9.IEHFoFZ3O9SpdgjDAROiSmcGax8GVnVGkQzsbqJoL8A';
 const path = `https://immense-coast-63189.herokuapp.com/users`;
-export function getIdFromToken(): string {
+export function getIdFromToken(token: string): string {
   const decoded: DecodeParams = jwt_decode(token);
   return decoded.userId;
 }
@@ -31,6 +29,10 @@ export function getIdFromToken(): string {
 export const editProfile = createAsyncThunk(
   'profile/editProfile',
   async (arg: { userID: string; name: string; login: string; password: string }) => {
+    let token = '';
+    if (localStorage.getItem('token')) {
+      token = localStorage.getItem('token') || '';
+    }
     const response: AxiosResponse<ProfileState> = await axios.put(
       `${path}/${arg.userID}`,
       {

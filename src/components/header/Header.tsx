@@ -7,6 +7,7 @@ import ModalFormBoardCreate from '../modal-form-board-create/ModalFormBoardCreat
 import { getIdFromToken } from '../../redux/EditProfileSlice';
 
 import './header.css';
+import { deleteUser } from '../../redux/DeleteUserSlice';
 
 const Header = (): JSX.Element => {
   const navigate = useNavigate();
@@ -20,6 +21,12 @@ const Header = (): JSX.Element => {
   const [createBoardClicked, setCreateBoardToggle] = useState(false);
   function togglePopup(): void {
     setCreateBoardToggle(!createBoardClicked);
+  }
+  function deleteUserHandler() {
+    //TODO confirmation window Are you shure delete user?
+    //TODO also delete user's tasks
+    dispatch(deleteUser());
+    return navigate('/');
   }
   return (
     <header>
@@ -36,12 +43,7 @@ const Header = (): JSX.Element => {
               dispatch(logout());
             }}
           ></button>
-          <button
-            className="button user-delete-btn"
-            onClick={() => {
-              getIdFromToken();
-            }}
-          ></button>
+          <button className="button user-delete-btn" onClick={deleteUserHandler}></button>
           <button className="button create-board-btn" onClick={togglePopup}></button>
           <button className="button en-btn"></button>
           <button className="button ru-btn"></button>

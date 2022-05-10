@@ -8,7 +8,6 @@ import { AppDispatch } from '../../redux/Store';
 import './editProfile.css';
 
 const EditProfile = (): JSX.Element => {
-  const [isSuccess, setSuccess] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
@@ -19,7 +18,11 @@ const EditProfile = (): JSX.Element => {
   const navigate: NavigateFunction = useNavigate();
 
   const onSubmit: SubmitHandler<ProfileState> = (data: ProfileState): void => {
-    const id = getIdFromToken();
+    let token = '';
+    if (localStorage.getItem('token')) {
+      token = localStorage.getItem('token') || '';
+    }
+    const id = getIdFromToken(token);
     dispatch(
       editProfile({ userID: id, name: data.name, login: data.login, password: data.password })
     );
@@ -76,7 +79,6 @@ const EditProfile = (): JSX.Element => {
             </button>
           </div>
         </form>
-        <p className="success-message">{isSuccess && 'SUCCESS'}</p>
       </div>
     </>
   );
