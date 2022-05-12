@@ -5,6 +5,7 @@ import './BoardPrew.css';
 
 import { deleteBoard, deleteBoardFetch, openBoard } from '../../redux/MainSlice';
 import { AppDispatch } from '../../redux/Store';
+import { getBoardById } from '../../redux/GetBoardSlice';
 
 export const BoardPrew = (props: { boardInf: IBoard }): JSX.Element => {
   const dispatch = useDispatch<AppDispatch>();
@@ -24,7 +25,13 @@ export const BoardPrew = (props: { boardInf: IBoard }): JSX.Element => {
           ></div>
         </div>
         <Link className="edit-link" to={'/board'}>
-          <div className="board-open-btn" onClick={() => dispatch(openBoard(props.boardInf))}>
+          <div
+            className="board-open-btn"
+            onClick={() => {
+              dispatch(openBoard(props.boardInf));
+              dispatch(getBoardById(props.boardInf.id));
+            }}
+          >
             OPEN
           </div>
         </Link>

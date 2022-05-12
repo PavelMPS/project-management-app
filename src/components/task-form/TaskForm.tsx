@@ -8,6 +8,7 @@ import { fetchColumns } from '../../redux/ColumnSlice';
 import { AppDispatch } from '../../redux/Store';
 
 import './TaskForm.css';
+import { getBoardById } from '../../redux/GetBoardSlice';
 
 export function TaskForm(props: {
   boardId: string;
@@ -54,11 +55,12 @@ export function TaskForm(props: {
         columnId: props.columnId,
         boardId: props.boardId,
       };
-      await dispatch(updateTaskFetch(task));
+      // await dispatch(updateTaskFetch(task));
     }
 
     await dispatch(fetchColumns(props.boardId));
     await dispatch(fetchTasks({ boardId: props.boardId, columnId: props.columnId }));
+    dispatch(getBoardById(props.boardId));
     reset();
     clearErrors();
   };
@@ -89,7 +91,7 @@ export function TaskForm(props: {
       setDescription(props.taskInf.description);
       setUserId(props.taskInf.userId);
     }
-  }, [props.taskInf]);
+  }, [props.taskInf, dispatch]);
 
   return (
     <>
