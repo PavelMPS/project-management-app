@@ -25,10 +25,34 @@ export function TaskForm(props: {
   } = useForm<ITask>();
 
   const [isValid, setIsValid] = useState<boolean>(false);
-  const [title, setTitle] = useState<string>('');
-  const [description, setDescription] = useState<string>('');
-  const [order, setOrder] = useState<number>(0);
-  const [userId, setUserId] = useState<string>();
+  const [title, setTitle] = useState<string>(() => {
+    if (props.taskInf) {
+      return props.taskInf.title;
+    } else {
+      return '';
+    }
+  });
+  const [description, setDescription] = useState<string>(() => {
+    if (props.taskInf) {
+      return props.taskInf.description;
+    } else {
+      return '';
+    }
+  });
+  const [order, setOrder] = useState<number>(() => {
+    if (props.taskInf) {
+      return props.taskInf.order;
+    } else {
+      return 1;
+    }
+  });
+  const [userId, setUserId] = useState<string>(() => {
+    if (props.taskInf) {
+      return props.taskInf.userId;
+    } else {
+      return '';
+    }
+  });
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -55,7 +79,7 @@ export function TaskForm(props: {
         columnId: props.columnId,
         boardId: props.boardId,
       };
-      // await dispatch(updateTaskFetch(task));
+      await dispatch(updateTaskFetch(task));
     }
 
     await dispatch(fetchColumns(props.boardId));
@@ -82,16 +106,6 @@ export function TaskForm(props: {
       }, 100);
     });
   }
-
-  useEffect((): void => {
-    dispatch(fetchUsers());
-    if (props.taskInf) {
-      setTitle(props.taskInf.title);
-      setOrder(props.taskInf.order);
-      setDescription(props.taskInf.description);
-      setUserId(props.taskInf.userId);
-    }
-  }, [props.taskInf, dispatch]);
 
   return (
     <>
@@ -142,9 +156,8 @@ export function TaskForm(props: {
             <br />
             <input
               className="form-input"
-              value={order}
               type="number"
-              defaultValue={userId}
+              defaultValue={order}
               {...register('order', {
                 required: true,
                 onChange: (e) => {
@@ -161,7 +174,11 @@ export function TaskForm(props: {
           <label className="form-label">
             Select User
             <br />
-            <select className="form-input" {...register('userId', { required: true })}>
+            <select
+              className="form-input"
+              defaultValue={userId}
+              {...register('userId', { required: true })}
+            >
               {users.map((user: IUser) => (
                 <option key={user.id} value={user.id}>
                   {user.name}

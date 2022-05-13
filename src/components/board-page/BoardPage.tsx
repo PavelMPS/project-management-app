@@ -6,24 +6,17 @@ import './BoardPage.css';
 
 import { ModalWindow } from '../modal-component/Modal';
 import { ColumnForm } from '../column-form/ColumnForm';
-import {
-  selectColumns,
-  selectStatusColumn,
-  fetchColumns,
-  closeBoardColumn,
-  updateColumnFetch,
-} from '../../redux/ColumnSlice';
+import { selectStatusColumn, closeBoardColumn, updateColumnFetch } from '../../redux/ColumnSlice';
 import { closeBoardTask } from '../../redux/TaskSlice';
 import { selectBoard } from '../../redux/MainSlice';
 import { AppDispatch } from '../../redux/Store';
 import { fetchUsers } from '../../redux/UsersSlice';
 import { Column } from '../column-component/ColumnComponent';
-import { ColumnState, getBoardById, selectedIdBoard } from '../../redux/GetBoardSlice';
+import { ColumnState, getBoardById } from '../../redux/GetBoardSlice';
 import { useAppSelector } from '../../hooks/redux';
 
 const BoardPage = (): JSX.Element => {
   const board = useSelector(selectBoard);
-  // const columns = useSelector(selectColumns);
   const status = useSelector(selectStatusColumn);
   const { idBoard } = useAppSelector((store) => store.idBoard);
 
@@ -36,11 +29,9 @@ const BoardPage = (): JSX.Element => {
 
   useEffect((): void => {
     if (status === 'idle') {
-      // dispatch(fetchColumns(board.id));
       dispatch(fetchUsers());
-      // dispatch(getBoardById(board.id));
     }
-  }, [board.id, dispatch, status]);
+  }, [status]);
 
   const handleModalClose = (): void => {
     setModalOpen(false);
@@ -79,7 +70,6 @@ const BoardPage = (): JSX.Element => {
       })
     );
     await dispatch(getBoardById(board.id));
-    // dispatch(fetchColumns(board.id));
   }
 
   function dragOverHandler(e: React.DragEvent<HTMLDivElement>) {

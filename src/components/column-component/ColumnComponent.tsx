@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import './ColumnComponent.css';
 
 import { selectBoard } from '../../redux/MainSlice';
-import { deleteColumnFetch, fetchColumns } from '../../redux/ColumnSlice';
-import { selectTasks, selectStatusTasks, fetchTasks, updateTaskFetch } from '../../redux/TaskSlice';
+import { deleteColumnFetch } from '../../redux/ColumnSlice';
+import { updateTaskFetch } from '../../redux/TaskSlice';
 import { AppDispatch } from '../../redux/Store';
 import { Task } from '../task-component/TaskComponent';
 import { ModalWindow } from '../modal-component/Modal';
@@ -14,13 +14,10 @@ import { TaskForm } from '../task-form/TaskForm';
 import { ColumnState, getBoardById, TaskState } from '../../redux/GetBoardSlice';
 
 export const Column = (props: { columnInf: ColumnState }): JSX.Element => {
-  // const status = useSelector(selectStatusTasks);
-  // const allTasks = useSelector(selectTasks);
   const board = useSelector(selectBoard);
 
   const dispatch = useDispatch<AppDispatch>();
 
-  // const [tasks, setTasks] = useState<ITask[] | null>(null);
   const [isColumnModalOpen, setColumnModalOpen] = useState<boolean>(false);
   const [isTaskModalOpen, setTaskModalOpen] = useState<boolean>(false);
   const [taskDragState, setTaskDragState] = useState<ITask>({
@@ -31,16 +28,6 @@ export const Column = (props: { columnInf: ColumnState }): JSX.Element => {
     boardId: '',
     columnId: '',
   });
-
-  // useEffect((): void => {
-  //   if (status === 'idle' && props.columnInf.id) {
-  //     dispatch(fetchTasks({ boardId: board.id, columnId: props.columnInf.id }));
-  //   }
-  //   // const newTasks = allTasks.filter((task: ITask) => {
-  //   //   return task.columnId === props.columnInf.id;
-  //   // });
-  //   // setTasks(newTasks);
-  // }, [allTasks, board.id, props.columnInf.id, status]);
 
   const handleModalClose = (): void => {
     setColumnModalOpen(false);
@@ -118,7 +105,6 @@ export const Column = (props: { columnInf: ColumnState }): JSX.Element => {
                 );
               }
               dispatch(getBoardById(board.id));
-              // dispatch(fetchColumns(board.id));
               //TODO добавить confirmation modal
             }}
           ></div>
