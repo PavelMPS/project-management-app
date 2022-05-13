@@ -7,12 +7,14 @@ import userSlice from './userSlice';
 import taskSlice from './TaskSlice';
 import usersSlice from './UsersSlice';
 import deleteUser from './DeleteUserSlice';
+import GetBoardSlice from './GetBoardSlice';
 
 export const store = configureStore({
   reducer: {
     main: mainSlice,
     user: userSlice,
     board: createBoardSlice,
+    idBoard: GetBoardSlice,
     column: boardSlice,
     tasks: taskSlice,
     users: usersSlice,

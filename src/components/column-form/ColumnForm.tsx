@@ -3,6 +3,7 @@ import { FieldError, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 
 import { createColumnFetch, fetchColumns, updateColumnFetch } from '../../redux/ColumnSlice';
+import { getBoardById } from '../../redux/GetBoardSlice';
 import { AppDispatch } from '../../redux/Store';
 
 import './ColumnForm.css';
@@ -35,7 +36,8 @@ export function ColumnForm(props: {
       );
     }
 
-    dispatch(fetchColumns(props.boardId));
+    // dispatch(fetchColumns(props.boardId));
+    dispatch(getBoardById(props.boardId));
     reset();
     clearErrors();
   };

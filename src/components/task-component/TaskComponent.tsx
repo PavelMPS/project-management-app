@@ -9,11 +9,14 @@ import { AppDispatch } from '../../redux/Store';
 
 import { ModalWindow } from '../modal-component/Modal';
 import { TaskForm } from '../task-form/TaskForm';
+import { getBoardById, TaskState } from '../../redux/GetBoardSlice';
+import { useAppSelector } from '../../hooks/redux';
 
-export const Task = (props: { taskInf: ITask }): JSX.Element => {
+export const Task = (props: { taskInf: TaskState; columnId: string }): JSX.Element => {
   const dispatch = useDispatch<AppDispatch>();
 
   const users: IUser[] = useSelector(selectUsers);
+  const { idBoard } = useAppSelector((state) => state.idBoard);
 
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const [user, setUser] = useState<string>('');
@@ -47,14 +50,13 @@ export const Task = (props: { taskInf: ITask }): JSX.Element => {
             onClick={async () => {
               await dispatch(
                 deleteTaskFetch({
-                  boardId: props.taskInf.boardId,
-                  columnId: props.taskInf.columnId,
+                  boardId: idBoard.id,
+                  columnId: props.columnId,
                   taskId: props.taskInf.id!,
                 })
               );
-              dispatch(
-                fetchTasks({ boardId: props.taskInf.boardId, columnId: props.taskInf.columnId })
-              );
+              // dispatch(fetchTasks({ boardId: idBoard.id, columnId: props.columnId }));
+              dispatch(getBoardById(idBoard.id));
               //TODO добавить confirmation modal
             }}
           ></div>
@@ -66,8 +68,8 @@ export const Task = (props: { taskInf: ITask }): JSX.Element => {
         <ModalWindow onClick={handleModalClose}>
           {
             <TaskForm
-              boardId={props.taskInf.boardId}
-              columnId={props.taskInf.columnId}
+              boardId={idBoard.id}
+              columnId={props.columnId}
               taskInf={props.taskInf}
               type="update"
             />

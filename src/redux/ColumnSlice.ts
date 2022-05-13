@@ -24,6 +24,7 @@ export const fetchColumns = createAsyncThunk(
         Authorization: `Bearer ${token}`,
       },
     });
+    // console.log(response.data.sort((a, b) => (a.order > b.order ? 1 : -1)));
     return response.data;
   }
 );
