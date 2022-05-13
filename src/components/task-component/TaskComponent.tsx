@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react';
 
 import './TaskComponent.css';
 
-import { deleteTaskFetch, fetchTasks } from '../../redux/TaskSlice';
-import { selectUsers, fetchUsers } from '../../redux/UsersSlice';
+import { deleteTaskFetch } from '../../redux/TaskSlice';
+import { selectUsers } from '../../redux/UsersSlice';
 import { AppDispatch } from '../../redux/Store';
 
 import { ModalWindow } from '../modal-component/Modal';
@@ -31,7 +31,7 @@ export const Task = (props: { taskInf: TaskState; columnId: string }): JSX.Eleme
     if (userIndex !== -1) {
       setUser(users[userIndex].name);
     }
-  }, []);
+  }, [props.taskInf.userId, users]);
 
   return (
     <>
@@ -55,7 +55,6 @@ export const Task = (props: { taskInf: TaskState; columnId: string }): JSX.Eleme
                   taskId: props.taskInf.id!,
                 })
               );
-              // dispatch(fetchTasks({ boardId: idBoard.id, columnId: props.columnId }));
               dispatch(getBoardById(idBoard.id));
               //TODO добавить confirmation modal
             }}
