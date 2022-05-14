@@ -9,11 +9,11 @@ import Main from '../MainPage/MainPage';
 import NotFound from '../NotFoundPage/NotFound';
 import SignupPage from '../SignupPage/SignupPage';
 import BoardPage from '../BoardPage/BoardPage';
-
-import './app.css';
 import WelcomePage from '../WelcomePage/WelcomePage';
 
-function App(): JSX.Element {
+import './app.css';
+
+const App = (): JSX.Element => {
   return (
     <div className="body">
       <Header />
@@ -31,6 +31,6 @@ function App(): JSX.Element {
       <Footer />
     </div>
   );
-}
+};
 
 export default App;

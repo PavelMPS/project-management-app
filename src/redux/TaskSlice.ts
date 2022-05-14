@@ -1,5 +1,6 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction, AsyncThunk } from '@reduxjs/toolkit';
 import axios, { AxiosResponse } from 'axios';
+import { EmptyObject } from 'react-hook-form';
 
 import { fetchStatus, path } from '../constants/constants';
 import { RootState } from './Store';
@@ -11,7 +12,14 @@ const initialState: taskState = {
   task: {} as ITask,
 };
 
-export const fetchTasks = createAsyncThunk(
+export const fetchTasks: AsyncThunk<
+  ITask[],
+  {
+    boardId: string;
+    columnId: string;
+  },
+  EmptyObject
+> = createAsyncThunk(
   'tasks/fetchTasks',
   async (id: { boardId: string; columnId: string }): Promise<ITask[]> => {
     const requestString = `${path.url}${path.bords}/${id.boardId}${path.columns}/${id.columnId}${path.tasks}`;
@@ -28,7 +36,15 @@ export const fetchTasks = createAsyncThunk(
   }
 );
 
-export const deleteTaskFetch = createAsyncThunk(
+export const deleteTaskFetch: AsyncThunk<
+  void,
+  {
+    boardId: string;
+    columnId: string;
+    taskId: string;
+  },
+  EmptyObject
+> = createAsyncThunk(
   'tasks/deleteTaskFetch',
   async (id: { boardId: string; columnId: string; taskId: string }): Promise<void> => {
     const requestString = `${path.url}${path.bords}/${id.boardId}${path.columns}/${id.columnId}${path.tasks}/${id.taskId}`;
@@ -44,7 +60,15 @@ export const deleteTaskFetch = createAsyncThunk(
   }
 );
 
-export const fetchTask = createAsyncThunk(
+export const fetchTask: AsyncThunk<
+  ITask,
+  {
+    boardId: string;
+    columnId: string;
+    taskId: string;
+  },
+  EmptyObject
+> = createAsyncThunk(
   'tasks/fetchTask',
   async (id: { boardId: string; columnId: string; taskId: string }): Promise<ITask> => {
     const requestString = `${path.url}${path.bords}/${id.boardId}${path.columns}/${id.columnId}${path.tasks}/${id.taskId}`;
@@ -61,7 +85,7 @@ export const fetchTask = createAsyncThunk(
   }
 );
 
-export const createTaskFetch = createAsyncThunk(
+export const createTaskFetch: AsyncThunk<ITask, ITask, EmptyObject> = createAsyncThunk(
   'tasks/createTaskFetch',
   async (taskInf: ITask): Promise<ITask> => {
     const requestString = `${path.url}${path.bords}/${taskInf.boardId}${path.columns}/${taskInf.columnId}${path.tasks}`;
@@ -87,7 +111,7 @@ export const createTaskFetch = createAsyncThunk(
   }
 );
 
-export const updateTaskFetch = createAsyncThunk(
+export const updateTaskFetch: AsyncThunk<ITask, ITask, EmptyObject> = createAsyncThunk(
   'tasks/updateTaskFetch',
   async (taskInf: ITask): Promise<ITask> => {
     const requestString = `${path.url}${path.bords}/${taskInf.boardId}${path.columns}/${taskInf.columnId}${path.tasks}/${taskInf.id}`;

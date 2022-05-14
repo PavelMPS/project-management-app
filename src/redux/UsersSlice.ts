@@ -1,5 +1,6 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction, AsyncThunk, Slice } from '@reduxjs/toolkit';
 import axios, { AxiosResponse } from 'axios';
+import { EmptyObject } from 'react-hook-form';
 
 import { fetchStatus, path } from '../constants/constants';
 import { RootState } from './Store';
@@ -10,21 +11,24 @@ const initialState: usersState = {
   error: null,
 };
 
-export const fetchUsers = createAsyncThunk('users/fetchUsers', async (): Promise<IUser[]> => {
-  const requestString = `${path.url}${path.users}`;
-  let token = '';
-  if (localStorage.getItem('token')) {
-    token = localStorage.getItem('token') || '';
+export const fetchUsers: AsyncThunk<IUser[], void, EmptyObject> = createAsyncThunk(
+  'users/fetchUsers',
+  async (): Promise<IUser[]> => {
+    const requestString = `${path.url}${path.users}`;
+    let token = '';
+    if (localStorage.getItem('token')) {
+      token = localStorage.getItem('token') || '';
+    }
+    const response: AxiosResponse<IUser[]> = await axios.get(requestString, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
   }
-  const response: AxiosResponse<IUser[]> = await axios.get(requestString, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  return response.data;
-});
+);
 
-const boardSlice = createSlice({
+const boardSlice: Slice<usersState, EmptyObject, 'users'> = createSlice({
   name: 'users',
   initialState,
   reducers: {},

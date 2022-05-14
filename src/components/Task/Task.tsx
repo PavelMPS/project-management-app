@@ -24,7 +24,7 @@ export const Task = (props: { taskInf: TaskState; columnId: string }): JSX.Eleme
     setModalOpen(false);
   };
 
-  useEffect(() => {
+  useEffect((): void => {
     const user: IUser = users.find((user: IUser) => user.id === props.taskInf.userId) as IUser;
     const userIndex = users.indexOf(user);
     if (userIndex !== -1) {

@@ -10,12 +10,12 @@ import { AppDispatch } from '../../redux/Store';
 
 import './taskForm.css';
 
-export function TaskForm(props: {
+export const TaskForm = (props: {
   boardId: string;
   columnId: string;
   taskInf?: ITask;
   type: string;
-}): JSX.Element {
+}): JSX.Element => {
   const {
     register,
     handleSubmit,
@@ -89,11 +89,11 @@ export function TaskForm(props: {
     clearErrors();
   };
 
-  const handleError = () => {
+  const handleError = (): void => {
     setIsValid(false);
   };
 
-  function changeSubmitBTN() {
+  const changeSubmitBTN = (): void => {
     setIsValid(true);
     setTimeout(() => {
       const values = Object.values(errors);
@@ -105,7 +105,7 @@ export function TaskForm(props: {
         }
       }, 100);
     });
-  }
+  };
 
   return (
     <>
@@ -195,4 +195,4 @@ export function TaskForm(props: {
       </form>
     </>
   );
-}
+};

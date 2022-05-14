@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { BoardPrew } from '../BoardPreview/BoardPreview';
+import BoardPreview from '../BoardPreview/BoardPreview';
 
 import './mainPage.css';
 
@@ -33,7 +33,7 @@ const Main = (): JSX.Element => {
         <div className="boards-prew-container">
           {boards.length > 0 &&
             boards.map((board: IBoard) => {
-              return <BoardPrew key={board.id} boardInf={board} />;
+              return <BoardPreview key={board.id} boardInf={board} />;
             })}
         </div>
       </div>

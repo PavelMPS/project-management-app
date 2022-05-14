@@ -7,14 +7,14 @@ import { updateTaskFetch } from '../../redux/TaskSlice';
 import { AppDispatch } from '../../redux/Store';
 import { Task } from '../Task/Task';
 import { ModalWindow } from '../ModalWindow/ModalWindow';
-import { ColumnForm } from './ColumnForm';
+import ColumnForm from './ColumnForm';
 import { TaskForm } from '../Task/TaskForm';
 import { ColumnState, getBoardById, TaskState } from '../../redux/GetBoardSlice';
 
 import './column.css';
 
-export const Column = (props: { columnInf: ColumnState }): JSX.Element => {
-  const board = useSelector(selectBoard);
+const Column = (props: { columnInf: ColumnState }): JSX.Element => {
+  const board: IBoard = useSelector(selectBoard);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -34,7 +34,7 @@ export const Column = (props: { columnInf: ColumnState }): JSX.Element => {
     setTaskModalOpen(false);
   };
 
-  function dragStartHandler(e: React.DragEvent, task: TaskState): void {
+  const dragStartHandler = (e: React.DragEvent, task: TaskState): void => {
     setTaskDragState({
       id: task.id,
       title: task.title,
@@ -44,23 +44,26 @@ export const Column = (props: { columnInf: ColumnState }): JSX.Element => {
       boardId: board.id,
       columnId: props.columnInf.id,
     });
-  }
+  };
 
-  function dragEndHandler(e: React.DragEvent<HTMLDivElement>): void {
+  const dragEndHandler = (e: React.DragEvent<HTMLDivElement>): void => {
     e.preventDefault();
     const elem = e.target as HTMLElement;
     // elem.style.background = 'white';
-  }
+  };
 
-  function dragOverHandler(e: React.DragEvent<HTMLDivElement>): void {
+  const dragOverHandler = (e: React.DragEvent<HTMLDivElement>): void => {
     e.preventDefault();
     const elem = e.target as HTMLElement;
     //TODO change style dragging item
-  }
+  };
 
-  async function dropHandler(e: React.DragEvent<HTMLDivElement>, task: TaskState): Promise<void> {
+  const dropHandler = async (
+    e: React.DragEvent<HTMLDivElement>,
+    task: TaskState
+  ): Promise<void> => {
     e.preventDefault();
-    const taskInf = {
+    const taskInf1 = {
       id: task.id,
       title: task.title,
       order: taskDragState.order,
@@ -73,9 +76,9 @@ export const Column = (props: { columnInf: ColumnState }): JSX.Element => {
       ...taskDragState,
       order: task.order,
     };
-    await dispatch(updateTaskFetch(taskInf));
+    await dispatch(updateTaskFetch(taskInf1));
     await dispatch(updateTaskFetch(taskInf2));
-  }
+  };
 
   return (
     <>
@@ -139,3 +142,5 @@ export const Column = (props: { columnInf: ColumnState }): JSX.Element => {
     </>
   );
 };
+
+export default Column;

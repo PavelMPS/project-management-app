@@ -8,11 +8,7 @@ import { AppDispatch } from '../../redux/Store';
 
 import './columnForm.css';
 
-export function ColumnForm(props: {
-  boardId: string;
-  columnInf?: IColumn;
-  type: string;
-}): JSX.Element {
+const ColumnForm = (props: { boardId: string; columnInf?: IColumn; type: string }): JSX.Element => {
   const {
     register,
     handleSubmit,
@@ -35,18 +31,16 @@ export function ColumnForm(props: {
         updateColumnFetch({ boardId: props.boardId, columnId: props.columnInf!.id!, column: data })
       );
     }
-
-    // dispatch(fetchColumns(props.boardId));
     dispatch(getBoardById(props.boardId));
     reset();
     clearErrors();
   };
 
-  const handleError = () => {
+  const handleError = (): void => {
     setIsValid(false);
   };
 
-  function changeSubmitBTN() {
+  const changeSubmitBTN = (): void => {
     setIsValid(true);
     setTimeout(() => {
       const values = Object.values(errors);
@@ -58,7 +52,7 @@ export function ColumnForm(props: {
         }
       }, 100);
     });
-  }
+  };
 
   useEffect((): void => {
     if (props.columnInf) {
@@ -116,4 +110,6 @@ export function ColumnForm(props: {
       </form>
     </>
   );
-}
+};
+
+export default ColumnForm;

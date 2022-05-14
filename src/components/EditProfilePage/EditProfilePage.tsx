@@ -2,7 +2,7 @@ import React, { FormEvent, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
-import { editProfile, getIdFromToken, ProfileState } from '../../redux/EditProfileSlice';
+import { editProfile, getIdFromToken } from '../../redux/EditProfileSlice';
 import { AppDispatch } from '../../redux/Store';
 
 import './editProfilePage.css';
@@ -13,16 +13,20 @@ const EditProfile = (): JSX.Element => {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<ProfileState>();
+  } = useForm<IProfileState>();
   const dispatch = useDispatch<AppDispatch>();
   const navigate: NavigateFunction = useNavigate();
 
-  const onSubmit: SubmitHandler<ProfileState> = (data: ProfileState): void => {
+  const backToHome = (): void => {
+    return navigate('/main');
+  };
+
+  const onSubmit: SubmitHandler<IProfileState> = (data: IProfileState): void => {
     let token = '';
     if (localStorage.getItem('token')) {
       token = localStorage.getItem('token') || '';
     }
-    const id = getIdFromToken(token);
+    const id: string = getIdFromToken(token);
     dispatch(
       editProfile({ userID: id, name: data.name, login: data.login, password: data.password })
     );
@@ -30,9 +34,6 @@ const EditProfile = (): JSX.Element => {
     backToHome();
   };
 
-  function backToHome(): void {
-    return navigate('/main');
-  }
   return (
     <>
       <div className="edit-container">

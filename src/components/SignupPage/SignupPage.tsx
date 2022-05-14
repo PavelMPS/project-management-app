@@ -22,7 +22,7 @@ const SignupPage = (): JSX.Element => {
     formState: { errors },
   } = useForm<IUserCredentials>();
 
-  const onSubmit: SubmitHandler<IUserCredentials> = (data) => {
+  const onSubmit: SubmitHandler<IUserCredentials> = (data): void => {
     dispatch(setCredentials(data));
     if (name && login && password) {
       dispatch(setUser({ name, login, password }));

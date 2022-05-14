@@ -11,7 +11,7 @@ export interface ILoginData {
   password: string;
 }
 
-const LoginPage = () => {
+const LoginPage = (): JSX.Element => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { authLogin, authPass, token, isAuth } = useAppSelector((store) => store.user);
@@ -22,17 +22,17 @@ const LoginPage = () => {
     formState: { errors },
   } = useForm<ILoginData>();
 
-  const onSubmit: SubmitHandler<ILoginData> = (data) => {
+  const onSubmit: SubmitHandler<ILoginData> = (data): void => {
     dispatch(setAuthCredentials(data));
   };
 
-  useEffect(() => {
+  useEffect((): void => {
     if (authLogin && authPass) {
       dispatch(getUser(authLogin, authPass));
     }
   }, [authPass]);
 
-  useEffect(() => {
+  useEffect((): void => {
     if (token && isAuth) {
       return navigate('/main');
     }

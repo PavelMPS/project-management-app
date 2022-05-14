@@ -10,11 +10,11 @@ import './modalFormBoardCreate.css';
 const ModalFormBoardCreate = (): JSX.Element => {
   const [title, setTitle] = useState('');
   const dispatch = useDispatch<AppDispatch>();
-  async function createBoardHandler(e: FormEvent) {
+  const createBoardHandler = async (e: FormEvent): Promise<void> => {
     e.preventDefault();
     await dispatch(createBoard(title));
     await dispatch(fetchBoards());
-  }
+  };
 
   return (
     <div className="popup-content">

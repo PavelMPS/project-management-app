@@ -1,15 +1,15 @@
+import React, { useEffect, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import React, { useEffect, useState } from 'react';
 
 import { ModalWindow } from '../ModalWindow/ModalWindow';
-import { ColumnForm } from '../Column/ColumnForm';
+import ColumnForm from '../Column/ColumnForm';
 import { selectStatusColumn, closeBoardColumn, updateColumnFetch } from '../../redux/ColumnSlice';
 import { closeBoardTask } from '../../redux/TaskSlice';
 import { selectBoard } from '../../redux/MainSlice';
 import { AppDispatch } from '../../redux/Store';
 import { fetchUsers } from '../../redux/UsersSlice';
-import { Column } from '../Column/Column';
+import Column from '../Column/Column';
 import { ColumnState, getBoardById } from '../../redux/GetBoardSlice';
 import { useAppSelector } from '../../redux/hooks/redux';
 
@@ -37,17 +37,20 @@ const BoardPage = (): JSX.Element => {
     setModalOpen(false);
   };
 
-  function dragStartHandler(e: React.DragEvent, columnId: ColumnState) {
+  const dragStartHandler = (e: React.DragEvent, columnId: ColumnState): void => {
     // e.preventDefault();
     setFirstOrder(columnId.order);
     setFirstColumnId(columnId.id);
     setFirstTitle(columnId.title);
-  }
+  };
 
-  async function dropHandler(e: React.DragEvent<HTMLDivElement>, columnId: ColumnState) {
+  const dropHandler = async (
+    e: React.DragEvent<HTMLDivElement>,
+    columnId: ColumnState
+  ): Promise<void> => {
     e.preventDefault();
-    const secondOrder = columnId.order;
-    const secondColumnId = columnId.id;
+    const secondOrder: number = columnId.order;
+    const secondColumnId: string = columnId.id;
     await dispatch(
       updateColumnFetch({
         boardId: board.id,
@@ -70,31 +73,29 @@ const BoardPage = (): JSX.Element => {
       })
     );
     await dispatch(getBoardById(board.id));
-  }
+  };
 
-  function dragOverHandler(e: React.DragEvent<HTMLDivElement>) {
+  const dragOverHandler = (e: React.DragEvent<HTMLDivElement>): void => {
     e.preventDefault();
     const elem = e.target as HTMLElement;
     //TODO change style dragging item
-  }
+  };
 
-  function dragEndHandler(e: React.DragEvent<HTMLDivElement>) {
+  const dragEndHandler = (e: React.DragEvent<HTMLDivElement>): void => {
     e.preventDefault();
     const elem = e.target as HTMLElement;
     // elem.style.background = 'white';
-  }
+  };
+  const boardCloseHadler = (): void => {
+    dispatch(closeBoardColumn());
+    dispatch(closeBoardTask());
+  };
   return (
     <>
       <div className="board-container">
         <h1>Board {board.title}</h1>
         <Link to="/main">
-          <div
-            className="board-close"
-            onClick={() => {
-              dispatch(closeBoardColumn());
-              dispatch(closeBoardTask());
-            }}
-          >
+          <div className="board-close" onClick={boardCloseHadler}>
             CLOSE
           </div>
         </Link>

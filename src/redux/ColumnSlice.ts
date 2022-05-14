@@ -1,5 +1,6 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction, AsyncThunk, Slice } from '@reduxjs/toolkit';
 import axios, { AxiosResponse } from 'axios';
+import { EmptyObject } from 'react-hook-form';
 
 import { fetchStatus, path } from '../constants/constants';
 import { RootState } from './Store';
@@ -11,32 +12,34 @@ const initialState: columnState = {
   column: {} as IColumn,
 };
 
-export const fetchColumns = createAsyncThunk(
+export const getTokenFromLocalStorage = (): string => localStorage.getItem('token') || '';
+
+export const fetchColumns: AsyncThunk<IColumn[], string, EmptyObject> = createAsyncThunk(
   'column/fetchColumns',
   async (boardId: string): Promise<IColumn[]> => {
     const requestString = `${path.url}${path.bords}/${boardId}${path.columns}`;
-    let token = '';
-    if (localStorage.getItem('token')) {
-      token = localStorage.getItem('token') || '';
-    }
+    const token = getTokenFromLocalStorage();
     const response: AxiosResponse<IColumn[]> = await axios.get(requestString, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    // console.log(response.data.sort((a, b) => (a.order > b.order ? 1 : -1)));
     return response.data;
   }
 );
 
-export const deleteColumnFetch = createAsyncThunk(
+export const deleteColumnFetch: AsyncThunk<
+  void,
+  {
+    boardId: string;
+    columnId: string;
+  },
+  EmptyObject
+> = createAsyncThunk(
   'column/deleteColumnFetch',
   async (id: { boardId: string; columnId: string }): Promise<void> => {
     const requestString = `${path.url}${path.bords}/${id.boardId}${path.columns}/${id.columnId}`;
-    let token = '';
-    if (localStorage.getItem('token')) {
-      token = localStorage.getItem('token') || '';
-    }
+    const token = getTokenFromLocalStorage();
     await axios.delete(requestString, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -45,14 +48,18 @@ export const deleteColumnFetch = createAsyncThunk(
   }
 );
 
-export const fetchColumn = createAsyncThunk(
+export const fetchColumn: AsyncThunk<
+  IColumn,
+  {
+    boardId: string;
+    columnId: string;
+  },
+  EmptyObject
+> = createAsyncThunk(
   'column/fetchColumn',
   async (id: { boardId: string; columnId: string }): Promise<IColumn> => {
     const requestString = `${path.url}${path.bords}/${id.boardId}${path.columns}/${id.columnId}`;
-    let token = '';
-    if (localStorage.getItem('token')) {
-      token = localStorage.getItem('token') || '';
-    }
+    const token = getTokenFromLocalStorage();
     const response: AxiosResponse<IColumn> = await axios.get(requestString, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -62,14 +69,19 @@ export const fetchColumn = createAsyncThunk(
   }
 );
 
-export const updateColumnFetch = createAsyncThunk(
+export const updateColumnFetch: AsyncThunk<
+  IColumn,
+  {
+    boardId: string;
+    columnId: string;
+    column: IColumn;
+  },
+  EmptyObject
+> = createAsyncThunk(
   'column/updateColumnFetch',
   async (inf: { boardId: string; columnId: string; column: IColumn }): Promise<IColumn> => {
     const requestString = `${path.url}${path.bords}/${inf.boardId}${path.columns}/${inf.columnId}`;
-    let token = '';
-    if (localStorage.getItem('token')) {
-      token = localStorage.getItem('token') || '';
-    }
+    const token = getTokenFromLocalStorage();
     const response: AxiosResponse<IColumn> = await axios.put(
       requestString,
       {
@@ -86,15 +98,18 @@ export const updateColumnFetch = createAsyncThunk(
   }
 );
 
-export const createColumnFetch = createAsyncThunk(
+export const createColumnFetch: AsyncThunk<
+  IColumn,
+  {
+    boardId: string;
+    column: IColumn;
+  },
+  EmptyObject
+> = createAsyncThunk(
   'column/createColumnFetch',
   async (inf: { boardId: string; column: IColumn }): Promise<IColumn> => {
     const requestString = `${path.url}${path.bords}/${inf.boardId}${path.columns}`;
-    let token = '';
-    if (localStorage.getItem('token')) {
-      token = (await localStorage.getItem('token')) || '';
-    }
-
+    const token = getTokenFromLocalStorage();
     const response: AxiosResponse<IColumn> = await axios.post(
       requestString,
       {
@@ -111,7 +126,13 @@ export const createColumnFetch = createAsyncThunk(
   }
 );
 
-const boardSlice = createSlice({
+const boardSlice: Slice<
+  columnState,
+  {
+    closeBoardColumn(state: columnState): void;
+  },
+  'column'
+> = createSlice({
   name: 'column',
   initialState,
   reducers: {

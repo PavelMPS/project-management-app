@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const WelcomePage = () => {
+const WelcomePage = (): JSX.Element => {
   return (
     <>
       <h1>Welcome</h1>

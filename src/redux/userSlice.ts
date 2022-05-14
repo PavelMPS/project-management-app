@@ -3,18 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ILoginData } from '../components/LoginPage/LoginPage';
 import { IUserCredentials } from '../components/SignupPage/SignupPage';
 
-interface userSlice {
-  name: string;
-  login: string;
-  password: string;
-  error: string;
-  token: string;
-  isAuth: boolean;
-  authLogin: string;
-  authPass: string;
-}
-
-const initialState: userSlice = {
+const initialState: IUserSlice = {
   name: '',
   login: '',
   password: '',

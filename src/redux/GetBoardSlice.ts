@@ -1,5 +1,6 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { AsyncThunk, createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { EmptyObject } from 'react-hook-form';
 import { fetchStatus, path } from '../constants/constants';
 
 type FilesState = {
@@ -42,7 +43,7 @@ const initialState: MainState = {
   error: null,
 };
 
-export const getBoardById = createAsyncThunk(
+export const getBoardById: AsyncThunk<BoardState, string, EmptyObject> = createAsyncThunk(
   'idBoard/getIdBoard',
   async (boardId: string): Promise<BoardState> => {
     const requestString = `${path.url}${path.bords}/${boardId}`;
@@ -55,7 +56,6 @@ export const getBoardById = createAsyncThunk(
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log('Hello');
     response.data.columns
       .sort((a: ColumnState, b: ColumnState) => (a.order > b.order ? 1 : -1))
       .map((column: ColumnState) => {
