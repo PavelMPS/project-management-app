@@ -12,6 +12,7 @@ import { fetchUsers } from '../../redux/UsersSlice';
 import Column from '../Column/Column';
 import { ColumnState, getBoardById } from '../../redux/GetBoardSlice';
 import { useAppSelector } from '../../redux/hooks/redux';
+import { buttonName, pageName } from '../../constants/constants';
 
 import './boardPage.css';
 
@@ -93,10 +94,12 @@ const BoardPage = (): JSX.Element => {
   return (
     <>
       <div className="board-container">
-        <h1>Board {board.title}</h1>
+        <h1>
+          {pageName.board} {board.title}
+        </h1>
         <Link to="/main">
           <div className="board-close" onClick={boardCloseHadler}>
-            CLOSE
+            {buttonName.close}
           </div>
         </Link>
         <div className="columns-container">
@@ -122,7 +125,7 @@ const BoardPage = (): JSX.Element => {
             setModalOpen(true);
           }}
         >
-          ADD COLUMN
+          {buttonName.addColumn}
         </div>
       </div>
       {!board.id && <Navigate to={'/main'} />}

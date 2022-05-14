@@ -31,10 +31,7 @@ export const deleteBoardFetch: AsyncThunk<void, string, EmptyObject> = createAsy
   'main/deleteBoardFetch',
   async (boardId: string) => {
     const requestString = `${path.url}${path.bords}/${boardId}`;
-    let token = '';
-    if (localStorage.getItem('token')) {
-      token = localStorage.getItem('token') || '';
-    }
+    const token = getTokenFromLocalStorage();
     const response = await axios.delete(requestString, {
       headers: {
         Authorization: `Bearer ${token}`,

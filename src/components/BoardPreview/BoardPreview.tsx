@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { deleteBoard, deleteBoardFetch, openBoard } from '../../redux/MainSlice';
 import { AppDispatch } from '../../redux/Store';
 import { getBoardById } from '../../redux/GetBoardSlice';
+import { buttonName } from '../../constants/constants';
 
 import './boardPreview.css';
 
@@ -28,7 +29,7 @@ const BoardPreview = (props: { boardInf: IBoard }): JSX.Element => {
         </div>
         <Link className="edit-link" to={'/board'}>
           <div className="board-open-btn" onClick={openBoardHandler}>
-            OPEN
+            {buttonName.open}
           </div>
         </Link>
       </div>

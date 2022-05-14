@@ -7,6 +7,7 @@ import ModalFormBoardCreate from '../MainPage/ModalFormBoardCreate';
 import { deleteUser } from '../../redux/DeleteUserSlice';
 
 import './header.css';
+import { appName, buttonName } from '../../constants/constants';
 
 const Header = (): JSX.Element => {
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ const Header = (): JSX.Element => {
 
   return (
     <header>
-      <h1 className="header-title">Project managment application</h1>
+      <h1 className="header-title">{appName}</h1>
       {isAuth && (
         <div className="menu-container">
           <Link className="edit-link" to={'/edit'}>
@@ -54,7 +55,7 @@ const Header = (): JSX.Element => {
               <div className="popup-body">
                 <ModalFormBoardCreate />
                 <button className="close-modal-btn" onClick={togglePopup}>
-                  CLOSE
+                  {buttonName.close}
                 </button>
               </div>
             </div>

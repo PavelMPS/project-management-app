@@ -1,16 +1,17 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { buttonName, pageName } from '../../constants/constants';
 
 const WelcomePage = (): JSX.Element => {
   return (
     <>
-      <h1>Welcome</h1>
+      <h1>{pageName.welcome}</h1>
       <div className="signup-container">
         <NavLink to="/login">
-          <button>Log In</button>
+          <button>{buttonName.logIn}</button>
         </NavLink>
         <NavLink to="sign-up">
-          <button>Sign up</button>
+          <button>{buttonName.signUp}</button>
         </NavLink>
       </div>
     </>

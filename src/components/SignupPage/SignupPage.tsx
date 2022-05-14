@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux';
 import { setUser } from '../../redux/ApiReducer';
 import { setCredentials } from '../../redux/UserSlice';
+import { buttonName, loginSettings, pageName } from '../../constants/constants';
 
 export interface IUserCredentials {
   name: string;
@@ -31,18 +32,18 @@ const SignupPage = (): JSX.Element => {
 
   return (
     <div className="sign-up-page">
-      <h1>Sign-up page</h1>
+      <h1>{pageName.signUp}</h1>
       <form className="form-container" onSubmit={handleSubmit(onSubmit)}>
         <input type="text" placeholder="Введите имя" {...register('name')} />
         <input type="text" placeholder="Введите никнейм" {...register('login')} />
         <input type="password" placeholder="Введите пароль" {...register('password')} />
         <div className="sendButton">
-          <input type="submit" value="Регистрация" />
+          <input type="submit" value="Registration" />
         </div>
       </form>
-      Есть аккаунт?
+      {loginSettings.haveAccaunt}
       <NavLink to="/login">
-        <button>Войти</button>
+        <button>{buttonName.enter}</button>
       </NavLink>
     </div>
   );

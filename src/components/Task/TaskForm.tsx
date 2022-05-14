@@ -7,6 +7,7 @@ import { getBoardById } from '../../redux/GetBoardSlice';
 import { selectUsers } from '../../redux/UsersSlice';
 import { fetchColumns } from '../../redux/ColumnSlice';
 import { AppDispatch } from '../../redux/Store';
+import { buttonName, taskFormSettings } from '../../constants/constants';
 
 import './taskForm.css';
 
@@ -112,7 +113,7 @@ export const TaskForm = (props: {
       <form className="form" onSubmit={handleSubmit(handleSubmite, handleError)}>
         <div className="form-element-wrapper">
           <label className="form-label">
-            Column Title
+            {taskFormSettings.title}
             <br />
             <input
               className="form-input"
@@ -127,12 +128,12 @@ export const TaskForm = (props: {
               })}
             />
           </label>
-          {errors.title && <span className="error">ErrorErrorError</span>}
+          {errors.title && <span className="error">{taskFormSettings.error}</span>}
         </div>
 
         <div className="form-element-wrapper">
           <label className="form-label">
-            Column Description
+            {taskFormSettings.description}
             <br />
             <input
               className="form-input"
@@ -147,12 +148,12 @@ export const TaskForm = (props: {
               })}
             />
           </label>
-          {errors.title && <span className="error">ErrorErrorError</span>}
+          {errors.title && <span className="error">{taskFormSettings.error}</span>}
         </div>
 
         <div className="form-element-wrapper">
           <label className="form-label">
-            Column Order
+            {taskFormSettings.order}
             <br />
             <input
               className="form-input"
@@ -167,12 +168,12 @@ export const TaskForm = (props: {
               })}
             />
           </label>
-          {errors.order && <span className="error">ErrorErrorError</span>}
+          {errors.order && <span className="error">{taskFormSettings.error}</span>}
         </div>
 
         <div className="form-element-wrapper">
           <label className="form-label">
-            Select User
+            {taskFormSettings.selectUser}
             <br />
             <select
               className="form-input"
@@ -186,11 +187,11 @@ export const TaskForm = (props: {
               ))}
             </select>
           </label>
-          {errors.userId && <span className="error">ErrorErrorError</span>}
+          {errors.userId && <span className="error">{taskFormSettings.error}</span>}
         </div>
 
         <button className="form-btn" type="submit" disabled={!isValid}>
-          SUBMITE
+          {buttonName.submit}
         </button>
       </form>
     </>

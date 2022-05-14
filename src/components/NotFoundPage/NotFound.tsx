@@ -1,15 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import { notFoundSettings, pageName } from '../../constants/constants';
+
 import './notFound.css';
 
 const NotFound = (): JSX.Element => {
   return (
     <div className="not-found-page">
       <div className="not-found-page-title">
-        <h2>This page does not exist. ...or does it? Try the homepage.</h2>
+        <h2>{pageName.notFound}</h2>
         <p>
-          Try the <Link to="/">homepage.</Link>
+          {notFoundSettings.tryThe} <Link to="/">{notFoundSettings.homepage}</Link>
         </p>
       </div>
       <div className="animation-container">

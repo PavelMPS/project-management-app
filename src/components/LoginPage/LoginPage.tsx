@@ -5,6 +5,7 @@ import { NavLink, Route, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux';
 import { getUser } from '../../redux/ApiReducer';
 import { setAuthCredentials } from '../../redux/UserSlice';
+import { buttonName, loginSettings } from '../../constants/constants';
 
 export interface ILoginData {
   login: string;
@@ -45,12 +46,12 @@ const LoginPage = (): JSX.Element => {
           <input type="text" placeholder="Введите логин" {...register('login')} />
           <input type="password" placeholder="Введите пароль" {...register('password')} />
           <div className="sendButton">
-            <input type="submit" value="Войти" />
+            <input type="submit" value="Enter" />
           </div>
         </form>
-        Нет аккаунта?
+        {loginSettings.noAccaunt}
         <NavLink to="/sign-up">
-          <button>Зарегистрироваться</button>
+          <button>{buttonName.register}</button>
         </NavLink>
       </div>
     </>

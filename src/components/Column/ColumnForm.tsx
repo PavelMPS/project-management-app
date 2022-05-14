@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { FieldError, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 
+import { buttonName, columnFormProps } from '../../constants/constants';
 import { createColumnFetch, updateColumnFetch } from '../../redux/ColumnSlice';
 import { getBoardById } from '../../redux/GetBoardSlice';
 import { AppDispatch } from '../../redux/Store';
@@ -66,7 +67,7 @@ const ColumnForm = (props: { boardId: string; columnInf?: IColumn; type: string 
       <form className="form" onSubmit={handleSubmit(handleSubmite, handleError)}>
         <div className="form-element-wrapper">
           <label className="form-label">
-            Column Title
+            {columnFormProps.title}
             <br />
             <input
               className="form-input"
@@ -81,12 +82,12 @@ const ColumnForm = (props: { boardId: string; columnInf?: IColumn; type: string 
               })}
             />
           </label>
-          {errors.title && <span className="error">ErrorErrorError</span>}
+          {errors.title && <span className="error">{columnFormProps.error}</span>}
         </div>
 
         <div className="form-element-wrapper">
           <label className="form-label">
-            Column Order
+            {columnFormProps.order}
             <br />
             <input
               className="form-input"
@@ -101,11 +102,11 @@ const ColumnForm = (props: { boardId: string; columnInf?: IColumn; type: string 
               })}
             />
           </label>
-          {errors.order && <span className="error">ErrorErrorError</span>}
+          {errors.order && <span className="error">{columnFormProps.error}</span>}
         </div>
 
         <button className="form-btn" type="submit" disabled={!isValid}>
-          SUBMITE
+          {buttonName.submit}
         </button>
       </form>
     </>

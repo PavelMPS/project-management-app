@@ -65,6 +65,8 @@ interface IPath {
   columns: string;
   tasks: string;
   users: string;
+  signUp: string;
+  signIn: string;
 }
 
 interface IUserState {

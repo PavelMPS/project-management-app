@@ -3,6 +3,7 @@ import axios, { AxiosResponse } from 'axios';
 import { EmptyObject } from 'react-hook-form';
 
 import { fetchStatus, path } from '../constants/constants';
+import { getTokenFromLocalStorage } from './ColumnSlice';
 import { RootState } from './Store';
 
 const initialState: usersState = {
@@ -15,10 +16,7 @@ export const fetchUsers: AsyncThunk<IUser[], void, EmptyObject> = createAsyncThu
   'users/fetchUsers',
   async (): Promise<IUser[]> => {
     const requestString = `${path.url}${path.users}`;
-    let token = '';
-    if (localStorage.getItem('token')) {
-      token = localStorage.getItem('token') || '';
-    }
+    const token = getTokenFromLocalStorage();
     const response: AxiosResponse<IUser[]> = await axios.get(requestString, {
       headers: {
         Authorization: `Bearer ${token}`,

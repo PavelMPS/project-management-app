@@ -1,5 +1,6 @@
 import React, { FormEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { buttonName, createBoardSettings } from '../../constants/constants';
 
 import { createBoard } from '../../redux/CreateBoardSlice';
 import { fetchBoards } from '../../redux/MainSlice';
@@ -18,10 +19,10 @@ const ModalFormBoardCreate = (): JSX.Element => {
 
   return (
     <div className="popup-content">
-      <h2 className="modal-board-title">Create board</h2>
+      <h2 className="modal-board-title">{createBoardSettings.createBoard}</h2>
       <form className="modal-board-form">
         <label className="form-label board-label">
-          <p className="title-label">Board title:</p>
+          <p className="title-label">{createBoardSettings.title}</p>
           <input
             className="edit-input"
             onChange={(e) => setTitle(e.target.value)}
@@ -31,7 +32,7 @@ const ModalFormBoardCreate = (): JSX.Element => {
           />
         </label>
         <button className="board-create-btn" onClick={createBoardHandler}>
-          CREATE
+          {buttonName.create}
         </button>
       </form>
     </div>
