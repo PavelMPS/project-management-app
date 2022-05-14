@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { BoardPrew } from '../boardPrew/BoardPrew';
-import './Main.css';
+import { BoardPrew } from '../BoardPreview/BoardPreview';
+
+import './mainPage.css';
 
 import {
   selectBoards,

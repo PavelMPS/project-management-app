@@ -1,17 +1,17 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 
-import './ColumnComponent.css';
-
 import { selectBoard } from '../../redux/MainSlice';
 import { deleteColumnFetch } from '../../redux/ColumnSlice';
 import { updateTaskFetch } from '../../redux/TaskSlice';
 import { AppDispatch } from '../../redux/Store';
-import { Task } from '../task-component/TaskComponent';
-import { ModalWindow } from '../modal-component/Modal';
-import { ColumnForm } from '../column-form/ColumnForm';
-import { TaskForm } from '../task-form/TaskForm';
+import { Task } from '../Task/Task';
+import { ModalWindow } from '../ModalWindow/ModalWindow';
+import { ColumnForm } from './ColumnForm';
+import { TaskForm } from '../Task/TaskForm';
 import { ColumnState, getBoardById, TaskState } from '../../redux/GetBoardSlice';
+
+import './column.css';
 
 export const Column = (props: { columnInf: ColumnState }): JSX.Element => {
   const board = useSelector(selectBoard);
@@ -34,7 +34,7 @@ export const Column = (props: { columnInf: ColumnState }): JSX.Element => {
     setTaskModalOpen(false);
   };
 
-  function dragStartHandler(e: React.DragEvent, task: TaskState) {
+  function dragStartHandler(e: React.DragEvent, task: TaskState): void {
     setTaskDragState({
       id: task.id,
       title: task.title,
@@ -46,19 +46,19 @@ export const Column = (props: { columnInf: ColumnState }): JSX.Element => {
     });
   }
 
-  function dragEndHandler(e: React.DragEvent<HTMLDivElement>) {
+  function dragEndHandler(e: React.DragEvent<HTMLDivElement>): void {
     e.preventDefault();
     const elem = e.target as HTMLElement;
     // elem.style.background = 'white';
   }
 
-  function dragOverHandler(e: React.DragEvent<HTMLDivElement>) {
+  function dragOverHandler(e: React.DragEvent<HTMLDivElement>): void {
     e.preventDefault();
     const elem = e.target as HTMLElement;
     //TODO change style dragging item
   }
 
-  async function dropHandler(e: React.DragEvent<HTMLDivElement>, task: TaskState) {
+  async function dropHandler(e: React.DragEvent<HTMLDivElement>, task: TaskState): Promise<void> {
     e.preventDefault();
     const taskInf = {
       id: task.id,
@@ -73,8 +73,6 @@ export const Column = (props: { columnInf: ColumnState }): JSX.Element => {
       ...taskDragState,
       order: task.order,
     };
-    console.log('First', taskInf);
-    console.log('Second', taskInf2);
     await dispatch(updateTaskFetch(taskInf));
     await dispatch(updateTaskFetch(taskInf2));
   }

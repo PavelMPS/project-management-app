@@ -1,10 +1,10 @@
 import React from 'react';
-
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { NavLink } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { setUser } from '../../redux/apiReducer';
-import { setCredentials } from '../../redux/userSlice';
+
+import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux';
+import { setUser } from '../../redux/ApiReducer';
+import { setCredentials } from '../../redux/UserSlice';
 
 export interface IUserCredentials {
   name: string;
@@ -12,7 +12,7 @@ export interface IUserCredentials {
   password: string;
 }
 
-const SignupPage = () => {
+const SignupPage = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const { name, login, password } = useAppSelector((store) => store.user);
 

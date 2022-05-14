@@ -2,18 +2,18 @@ import { Link, Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 
-import './BoardPage.css';
-
-import { ModalWindow } from '../modal-component/Modal';
-import { ColumnForm } from '../column-form/ColumnForm';
+import { ModalWindow } from '../ModalWindow/ModalWindow';
+import { ColumnForm } from '../Column/ColumnForm';
 import { selectStatusColumn, closeBoardColumn, updateColumnFetch } from '../../redux/ColumnSlice';
 import { closeBoardTask } from '../../redux/TaskSlice';
 import { selectBoard } from '../../redux/MainSlice';
 import { AppDispatch } from '../../redux/Store';
 import { fetchUsers } from '../../redux/UsersSlice';
-import { Column } from '../column-component/ColumnComponent';
+import { Column } from '../Column/Column';
 import { ColumnState, getBoardById } from '../../redux/GetBoardSlice';
-import { useAppSelector } from '../../hooks/redux';
+import { useAppSelector } from '../../redux/hooks/redux';
+
+import './boardPage.css';
 
 const BoardPage = (): JSX.Element => {
   const board = useSelector(selectBoard);

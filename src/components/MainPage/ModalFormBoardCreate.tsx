@@ -1,5 +1,6 @@
 import React, { FormEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
+
 import { createBoard } from '../../redux/CreateBoardSlice';
 import { fetchBoards } from '../../redux/MainSlice';
 import { AppDispatch } from '../../redux/Store';

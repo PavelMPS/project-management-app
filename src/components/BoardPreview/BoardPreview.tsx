@@ -1,11 +1,11 @@
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import './BoardPrew.css';
-
 import { deleteBoard, deleteBoardFetch, openBoard } from '../../redux/MainSlice';
 import { AppDispatch } from '../../redux/Store';
 import { getBoardById } from '../../redux/GetBoardSlice';
+
+import './boardPreview.css';
 
 export const BoardPrew = (props: { boardInf: IBoard }): JSX.Element => {
   const dispatch = useDispatch<AppDispatch>();

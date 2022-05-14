@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
-
 import { Link, useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { logout } from '../../redux/userSlice';
-import ModalFormBoardCreate from '../modal-form-board-create/ModalFormBoardCreate';
-import { getIdFromToken } from '../../redux/EditProfileSlice';
+
+import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux';
+import { logout } from '../../redux/UserSlice';
+import ModalFormBoardCreate from '../MainPage/ModalFormBoardCreate';
+import { deleteUser } from '../../redux/DeleteUserSlice';
 
 import './header.css';
-import { deleteUser } from '../../redux/DeleteUserSlice';
 
 const Header = (): JSX.Element => {
   const navigate = useNavigate();

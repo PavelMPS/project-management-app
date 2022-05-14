@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ILoginData } from '../components/login-page/LoginPage';
-import { IUserCredentials } from '../components/signup-page/SignupPage';
+
+import { ILoginData } from '../components/LoginPage/LoginPage';
+import { IUserCredentials } from '../components/SignupPage/SignupPage';
 
 interface userSlice {
   name: string;

@@ -3,7 +3,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import createBoardSlice from './CreateBoardSlice';
 import mainSlice from './MainSlice';
 import boardSlice from './ColumnSlice';
-import userSlice from './userSlice';
+import userSlice from './UserSlice';
 import taskSlice from './TaskSlice';
 import usersSlice from './UsersSlice';
 import deleteUser from './DeleteUserSlice';

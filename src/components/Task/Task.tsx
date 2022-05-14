@@ -1,16 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 
-import './TaskComponent.css';
-
 import { deleteTaskFetch } from '../../redux/TaskSlice';
 import { selectUsers } from '../../redux/UsersSlice';
 import { AppDispatch } from '../../redux/Store';
-
-import { ModalWindow } from '../modal-component/Modal';
-import { TaskForm } from '../task-form/TaskForm';
+import { ModalWindow } from '../ModalWindow/ModalWindow';
+import { TaskForm } from './TaskForm';
 import { getBoardById, TaskState } from '../../redux/GetBoardSlice';
-import { useAppSelector } from '../../hooks/redux';
+import { useAppSelector } from '../../redux/hooks/redux';
+
+import './task.css';
 
 export const Task = (props: { taskInf: TaskState; columnId: string }): JSX.Element => {
   const dispatch = useDispatch<AppDispatch>();

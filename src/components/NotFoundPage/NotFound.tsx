@@ -1,10 +1,9 @@
 import React from 'react';
-
 import { Link } from 'react-router-dom';
 
-import './NotFound.css';
+import './notFound.css';
 
-const NotFound = () => {
+const NotFound = (): JSX.Element => {
   return (
     <div className="not-found-page">
       <div className="not-found-page-title">

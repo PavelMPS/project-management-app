@@ -1,14 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { FieldError, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { fetchTasks, updateTaskFetch, createTaskFetch } from '../../redux/TaskSlice';
-import { selectUsers, fetchUsers } from '../../redux/UsersSlice';
+import { getBoardById } from '../../redux/GetBoardSlice';
+import { selectUsers } from '../../redux/UsersSlice';
 import { fetchColumns } from '../../redux/ColumnSlice';
 import { AppDispatch } from '../../redux/Store';
 
-import './TaskForm.css';
-import { getBoardById } from '../../redux/GetBoardSlice';
+import './taskForm.css';
 
 export function TaskForm(props: {
   boardId: string;

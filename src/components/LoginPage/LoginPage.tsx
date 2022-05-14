@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { NavLink, Route, useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { getUser } from '../../redux/apiReducer';
-import { setAuthCredentials } from '../../redux/userSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux';
+import { getUser } from '../../redux/ApiReducer';
+import { setAuthCredentials } from '../../redux/UserSlice';
 
 export interface ILoginData {
   login: string;

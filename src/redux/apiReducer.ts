@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
 import { AppDispatch } from './Store';
-import { userSlice } from './userSlice';
+import { userSlice } from './UserSlice';
 
 export const setUser = createAsyncThunk(
   'user/setUser',

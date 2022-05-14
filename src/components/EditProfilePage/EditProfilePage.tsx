@@ -5,7 +5,7 @@ import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { editProfile, getIdFromToken, ProfileState } from '../../redux/EditProfileSlice';
 import { AppDispatch } from '../../redux/Store';
 
-import './editProfile.css';
+import './editProfilePage.css';
 
 const EditProfile = (): JSX.Element => {
   const {

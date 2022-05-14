@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import ReactDom from 'react-dom';
 
-import './Modal.css';
+import './modalWindow.css';
 
 export const ModalWindow: (props: {
   children: JSX.Element;

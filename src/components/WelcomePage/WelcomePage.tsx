@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const Welcome = () => {
+const WelcomePage = () => {
   return (
     <>
       <h1>Welcome</h1>
@@ -17,4 +17,4 @@ const Welcome = () => {
   );
 };
 
-export default Welcome;
+export default WelcomePage;

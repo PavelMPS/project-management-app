@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios, { AxiosResponse } from 'axios';
 
-import { fetchStatus, path } from '../constants/Constants';
+import { fetchStatus, path } from '../constants/constants';
 import { RootState } from './Store';
 
 const initialState: usersState = {

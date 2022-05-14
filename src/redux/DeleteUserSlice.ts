@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { fetchStatus, path } from '../constants/Constants';
+import { fetchStatus, path } from '../constants/constants';
 import { getIdFromToken } from './EditProfileSlice';
 
 type DeleteUserState = {

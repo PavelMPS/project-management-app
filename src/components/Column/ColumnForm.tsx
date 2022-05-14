@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 import { FieldError, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 
-import { createColumnFetch, fetchColumns, updateColumnFetch } from '../../redux/ColumnSlice';
+import { createColumnFetch, updateColumnFetch } from '../../redux/ColumnSlice';
 import { getBoardById } from '../../redux/GetBoardSlice';
 import { AppDispatch } from '../../redux/Store';
 
-import './ColumnForm.css';
+import './columnForm.css';
 
 export function ColumnForm(props: {
   boardId: string;
@@ -27,7 +27,7 @@ export function ColumnForm(props: {
 
   const dispatch = useDispatch<AppDispatch>();
 
-  const handleSubmite = async (data: IColumn) => {
+  const handleSubmite = async (data: IColumn): Promise<void> => {
     if (props.type === 'create') {
       await dispatch(createColumnFetch({ boardId: props.boardId, column: data }));
     } else {
