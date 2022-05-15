@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import jwt_decode from 'jwt-decode';
 import axios, { AxiosResponse } from 'axios';
-import { path } from '../constants/constants';
+import { path } from '../constants/Constants';
 import { getTokenFromLocalStorage } from './ColumnSlice';
 
 const initialState: IProfileState = {

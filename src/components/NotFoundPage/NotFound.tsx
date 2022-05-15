@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { notFoundSettings, pageName } from '../../constants/constants';
+import { notFoundSettings, pageName } from '../../constants/Constants';
 
 import './notFound.css';
 

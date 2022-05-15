@@ -1,7 +1,7 @@
 import { AsyncThunk, createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { EmptyObject } from 'react-hook-form';
-import { fetchStatus, path } from '../constants/constants';
+import { fetchStatus, path } from '../constants/Constants';
 import { getTokenFromLocalStorage } from './ColumnSlice';
 
 type FilesState = {
