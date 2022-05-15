@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import EditProfile from '../EditProfilePage/EditProfilePage';
 import Footer from '../Footer/Footer';
-import Header from '../header/Header';
+import Header from '../Header/Header';
 import LoginPage from '../LoginPage/LoginPage';
 import Main from '../MainPage/MainPage';
 import NotFound from '../NotFoundPage/NotFound';
@@ -11,7 +11,7 @@ import SignupPage from '../SignupPage/SignupPage';
 import BoardPage from '../BoardPage/BoardPage';
 import WelcomePage from '../WelcomePage/WelcomePage';
 
-import './App.css';
+import './app.css';
 
 const App = (): JSX.Element => {
   return (

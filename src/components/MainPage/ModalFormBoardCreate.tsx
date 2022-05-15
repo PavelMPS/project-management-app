@@ -1,6 +1,6 @@
 import React, { FormEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { buttonName, createBoardSettings } from '../../constants/Constants';
+import { buttonName, createBoardSettings } from '../../constants/constants';
 
 import { createBoard } from '../../redux/CreateBoardSlice';
 import { fetchBoards } from '../../redux/MainSlice';

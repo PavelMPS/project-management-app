@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { buttonName, pageName } from '../../constants/Constants';
+import { buttonName, pageName } from '../../constants/constants';
 
 const WelcomePage = (): JSX.Element => {
   return (

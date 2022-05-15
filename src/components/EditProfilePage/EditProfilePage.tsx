@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 
-import { buttonName, editProfileProps, pageName } from '../../constants/Constants';
+import { buttonName, editProfileProps, pageName } from '../../constants/constants';
 import { getTokenFromLocalStorage } from '../../redux/ColumnSlice';
 import { editProfile, getIdFromToken } from '../../redux/EditProfileSlice';
 import { AppDispatch } from '../../redux/Store';

@@ -3,8 +3,8 @@ import axios, { AxiosError } from 'axios';
 import { EmptyObject } from 'react-hook-form';
 
 import { AppDispatch } from './Store';
-import { userSlice } from './userSlice';
-import { path } from '../constants/Constants';
+import { userSlice } from './UserSlice';
+import { path } from '../constants/constants';
 
 export const setUser: AsyncThunk<void, IUserState, EmptyObject> = createAsyncThunk(
   'user/setUser',

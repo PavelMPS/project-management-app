@@ -3,9 +3,9 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { NavLink } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux';
-import { setUser } from '../../redux/apiReducer';
-import { setCredentials } from '../../redux/userSlice';
-import { buttonName, loginSettings, pageName } from '../../constants/Constants';
+import { setUser } from '../../redux/ApiReducer';
+import { setCredentials } from '../../redux/UserSlice';
+import { buttonName, loginSettings, pageName } from '../../constants/constants';
 
 export interface IUserCredentials {
   name: string;

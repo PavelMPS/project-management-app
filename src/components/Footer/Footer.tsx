@@ -1,5 +1,5 @@
 import React from 'react';
-import { authorsName, year } from '../../constants/Constants';
+import { authorsName, year } from '../../constants/constants';
 
 import './footer.css';
 

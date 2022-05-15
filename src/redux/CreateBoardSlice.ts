@@ -1,7 +1,7 @@
 import { AsyncThunk, createAsyncThunk, createSlice, PayloadAction, Slice } from '@reduxjs/toolkit';
 import axios, { AxiosResponse } from 'axios';
 import { EmptyObject } from 'react-hook-form';
-import { path } from '../constants/Constants';
+import { path } from '../constants/constants';
 import { getTokenFromLocalStorage } from './ColumnSlice';
 
 const initialState: ICreateBoardState = {

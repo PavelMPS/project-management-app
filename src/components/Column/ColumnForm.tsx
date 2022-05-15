@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { FieldError, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 
-import { buttonName, columnFormProps } from '../../constants/Constants';
+import { buttonName, columnFormProps } from '../../constants/constants';
 import { createColumnFetch, updateColumnFetch } from '../../redux/ColumnSlice';
 import { getBoardById } from '../../redux/GetBoardSlice';
 import { AppDispatch } from '../../redux/Store';
