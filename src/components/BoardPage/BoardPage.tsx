@@ -12,7 +12,7 @@ import { fetchUsers } from '../../redux/UsersSlice';
 import Column from '../Column/Column';
 import { ColumnState, getBoardById } from '../../redux/GetBoardSlice';
 import { useAppSelector } from '../../redux/hooks/redux';
-import { buttonName, pageName } from '../../constants/constants';
+import { buttonName, pageName } from '../../constants/Constants';
 
 import './boardPage.css';
 

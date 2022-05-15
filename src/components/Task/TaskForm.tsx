@@ -7,7 +7,7 @@ import { getBoardById } from '../../redux/GetBoardSlice';
 import { selectUsers } from '../../redux/UsersSlice';
 import { fetchColumns } from '../../redux/ColumnSlice';
 import { AppDispatch } from '../../redux/Store';
-import { buttonName, taskFormSettings } from '../../constants/constants';
+import { buttonName, taskFormSettings } from '../../constants/Constants';
 
 import './taskForm.css';
 

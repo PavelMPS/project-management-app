@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk, PayloadAction, AsyncThunk } from '@redux
 import axios, { AxiosResponse } from 'axios';
 import { EmptyObject } from 'react-hook-form';
 
-import { fetchStatus, path } from '../constants/constants';
+import { fetchStatus, path } from '../constants/Constants';
 import { getTokenFromLocalStorage } from './ColumnSlice';
 import { RootState } from './Store';
 

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { deleteBoard, deleteBoardFetch, openBoard } from '../../redux/MainSlice';
 import { AppDispatch } from '../../redux/Store';
 import { getBoardById } from '../../redux/GetBoardSlice';
-import { buttonName } from '../../constants/constants';
+import { buttonName } from '../../constants/Constants';
 
 import './boardPreview.css';
 
