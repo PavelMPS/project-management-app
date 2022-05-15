@@ -208,6 +208,18 @@ const boardSlice = createSlice({
       .addCase(updateTaskFetch.rejected, (state: taskState, action) => {
         state.statusTasks = fetchStatus.failed;
         state.error = action.error.message!;
+      })
+
+      .addCase(deleteTaskFetch.pending, (state: taskState) => {
+        state.statusTasks = fetchStatus.loading;
+        state.error = null;
+      })
+      .addCase(deleteTaskFetch.fulfilled, (state: taskState) => {
+        state.statusTasks = fetchStatus.succeeded;
+      })
+      .addCase(deleteTaskFetch.rejected, (state: taskState, action) => {
+        state.statusTasks = fetchStatus.failed;
+        state.error = action.error.message!;
       });
   },
 });

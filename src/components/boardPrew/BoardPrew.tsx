@@ -1,17 +1,27 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import './BoardPrew.css';
-
-import { deleteBoard, deleteBoardFetch, openBoard } from '../../redux/MainSlice';
+import { Loader } from '../Loader/Loader';
+import {
+  deleteBoard,
+  deleteBoardFetch,
+  openBoard,
+  selectBoardsFetchStatus,
+} from '../../redux/MainSlice';
 import { AppDispatch } from '../../redux/Store';
 import { getBoardById } from '../../redux/GetBoardSlice';
+import { fetchStatus } from '../../constants/Constants';
+
+import './BoardPrew.css';
 
 export const BoardPrew = (props: { boardInf: IBoard }): JSX.Element => {
   const dispatch = useDispatch<AppDispatch>();
 
+  const status: string = useSelector(selectBoardsFetchStatus);
+
   return (
     <>
+      {status === fetchStatus.loading && <Loader />}
       <div className="board-prew-container">
         <div className="board-prew-wrapper">
           <div className="board-prew-title">{props.boardInf.title}</div>
