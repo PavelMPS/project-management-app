@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import BoardPreview from '../BoardPreview/BoardPreview';
+import { Loader } from '../Loader/Loader';
+import { fetchStatus } from '../../constants/Constants';
 import {
   selectBoards,
   selectBoardsFetchStatus,
@@ -21,7 +23,7 @@ const Main = (): JSX.Element => {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect((): void => {
-    if (status === 'idle') {
+    if (status === fetchStatus.idle) {
       dispatch(fetchBoards());
     }
   }, [dispatch, boards, status]);
@@ -29,13 +31,18 @@ const Main = (): JSX.Element => {
   return (
     <>
       <div className="main-container">
-        <h1>{pageName.main}</h1>
-        <div className="boards-prew-container">
-          {boards.length > 0 &&
-            boards.map((board: IBoard) => {
-              return <BoardPreview key={board.id} boardInf={board} />;
-            })}
-        </div>
+        {!!boards.length && (
+          <>
+            <h1>{pageName.main}</h1>
+            <div className="boards-prew-container">
+              {boards.length > 0 &&
+                boards.map((board: IBoard) => {
+                  return <BoardPreview key={board.id} boardInf={board} />;
+                })}
+            </div>
+          </>
+        )}
+        {status === fetchStatus.loading && <Loader />}
       </div>
     </>
   );

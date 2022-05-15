@@ -5,20 +5,23 @@ import { useSelector, useDispatch } from 'react-redux';
 import ModalWindow from '../ModalWindow/ModalWindow';
 import ColumnForm from '../Column/ColumnForm';
 import { selectStatusColumn, closeBoardColumn, updateColumnFetch } from '../../redux/ColumnSlice';
-import { closeBoardTask } from '../../redux/TaskSlice';
+import { closeBoardTask, selectStatusTasks } from '../../redux/TaskSlice';
 import { selectBoard } from '../../redux/MainSlice';
 import { AppDispatch } from '../../redux/Store';
-import { fetchUsers } from '../../redux/UsersSlice';
+import { fetchUsers, selectUsersStatus } from '../../redux/UsersSlice';
 import Column from '../Column/Column';
 import { ColumnState, getBoardById } from '../../redux/GetBoardSlice';
 import { useAppSelector } from '../../redux/hooks/redux';
-import { buttonName, pageName } from '../../constants/Constants';
+import { buttonName, fetchStatus, pageName } from '../../constants/Constants';
+import { Loader } from '../Loader/Loader';
 
 import './boardPage.css';
 
 const BoardPage = (): JSX.Element => {
   const board = useSelector(selectBoard);
-  const status = useSelector(selectStatusColumn);
+  const statusColumn = useSelector(selectStatusColumn);
+  const statusTasks = useSelector(selectStatusTasks);
+  const statusUsers = useSelector(selectUsersStatus);
   const { idBoard } = useAppSelector((store) => store.idBoard);
 
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
@@ -29,10 +32,10 @@ const BoardPage = (): JSX.Element => {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect((): void => {
-    if (status === 'idle') {
+    if (statusUsers === fetchStatus.idle) {
       dispatch(fetchUsers());
     }
-  }, [status]);
+  }, [statusColumn]);
 
   const handleModalClose = (): void => {
     setModalOpen(false);
@@ -134,6 +137,7 @@ const BoardPage = (): JSX.Element => {
           {<ColumnForm boardId={board.id} type="create" />}
         </ModalWindow>
       )}
+      {(statusColumn === fetchStatus.loading || statusTasks === fetchStatus.loading) && <Loader />}
     </>
   );
 };
