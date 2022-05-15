@@ -2,39 +2,26 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import jwt_decode from 'jwt-decode';
 import axios, { AxiosResponse } from 'axios';
+import { path } from '../constants/Constants';
+import { getTokenFromLocalStorage } from './ColumnSlice';
 
-export type ProfileState = {
-  name: string;
-  login: string;
-  password: string;
-};
-
-type DecodeParams = {
-  iat: number;
-  login: string;
-  userId: string;
-};
-
-const initialState: ProfileState = {
+const initialState: IProfileState = {
   name: '',
   login: '',
   password: '',
 };
-const path = `https://immense-coast-63189.herokuapp.com/users`;
+
 export function getIdFromToken(token: string): string {
-  const decoded: DecodeParams = jwt_decode(token);
+  const decoded: IDecodeParams = jwt_decode(token);
   return decoded.userId;
 }
 
 export const editProfile = createAsyncThunk(
   'profile/editProfile',
   async (arg: { userID: string; name: string; login: string; password: string }) => {
-    let token = '';
-    if (localStorage.getItem('token')) {
-      token = localStorage.getItem('token') || '';
-    }
-    const response: AxiosResponse<ProfileState> = await axios.put(
-      `${path}/${arg.userID}`,
+    const token = getTokenFromLocalStorage();
+    const response: AxiosResponse<IProfileState> = await axios.put(
+      path.url + path.users,
       {
         name: arg.name,
         login: arg.login,
@@ -54,7 +41,7 @@ export const editProfileSlice = createSlice({
   name: 'editProfile',
   initialState,
   reducers: {
-    editProfile(state: ProfileState, action: PayloadAction<ProfileState>) {
+    editProfile(state: IProfileState, action: PayloadAction<IProfileState>) {
       return { ...state, ...action.payload };
     },
   },

@@ -1,0 +1,71 @@
+footer {
+  min-height: 100px;
+  background: rgb(210, 232, 250);
+  display: flex;
+}
+
+.footer-container {
+  margin: auto;
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.github-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 35%;
+}
+
+.github-container a {
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 500;
+  color: rgb(120, 25, 68);
+  transition: all 0.4s;
+}
+
+.github-container a:hover {
+  transition: all 0.4s;
+  color: rgb(167, 35, 94);
+  transform: scale(1.1);
+}
+
+.year {
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 500;
+  color: rgb(120, 25, 68);
+}
+
+.rsschool-logo {
+  width: 111px;
+  height: 41px;
+  background-image: url('/public/rsschool.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: all 0.6s;
+}
+.rsschool-logo:hover {
+  transition: all 0.6s;
+  transform: scale(1.1);
+}
+
+@media (max-width: 650px) {
+  .github-container a {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 460px) {
+  .github-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .github-container a {
+    font-size: 10px;
+  }
+}

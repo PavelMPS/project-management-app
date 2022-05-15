@@ -51,3 +51,61 @@ interface IUser {
   name: string;
   login: string;
 }
+
+interface IFetchStatus {
+  idle: string;
+  loading: string;
+  succeeded: string;
+  failed: string;
+}
+
+interface IPath {
+  url: string;
+  bords: string;
+  columns: string;
+  tasks: string;
+  users: string;
+  signUp: string;
+  signIn: string;
+}
+
+interface IUserState {
+  name: string;
+  login: string;
+  password: string;
+}
+
+interface ICreateBoardState {
+  title: string;
+  isLoading: boolean;
+  error: string;
+}
+
+interface IDeleteUserState {
+  status: string;
+  error: string | null;
+  isLoading: boolean;
+}
+
+interface IProfileState {
+  name: string;
+  login: string;
+  password: string;
+}
+
+interface IDecodeParams {
+  iat: number;
+  login: string;
+  userId: string;
+}
+
+interface IUserSlice {
+  name: string;
+  login: string;
+  password: string;
+  error: string;
+  token: string;
+  isAuth: boolean;
+  authLogin: string;
+  authPass: string;
+}

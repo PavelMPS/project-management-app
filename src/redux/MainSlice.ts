@@ -1,7 +1,9 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction, AsyncThunk } from '@reduxjs/toolkit';
 import axios, { AxiosResponse } from 'axios';
+import { EmptyObject } from 'react-hook-form';
 
 import { fetchStatus, path } from '../constants/Constants';
+import { getTokenFromLocalStorage } from './ColumnSlice';
 import { RootState } from './Store';
 
 const initialState: mainState = {
@@ -11,28 +13,25 @@ const initialState: mainState = {
   openBoard: {} as IBoard,
 };
 
-export const fetchBoards = createAsyncThunk('main/fetchBoards', async (): Promise<IBoard[]> => {
-  const requestString = `${path.url}${path.bords}`;
-  let token = '';
-  if (localStorage.getItem('token')) {
-    token = localStorage.getItem('token') || '';
+export const fetchBoards: AsyncThunk<IBoard[], void, EmptyObject> = createAsyncThunk(
+  'main/fetchBoards',
+  async (): Promise<IBoard[]> => {
+    const requestString = `${path.url}${path.bords}`;
+    const token = getTokenFromLocalStorage();
+    const response: AxiosResponse<IBoard[]> = await axios.get(requestString, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
   }
-  const response: AxiosResponse<IBoard[]> = await axios.get(requestString, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  return response.data;
-});
+);
 
-export const deleteBoardFetch = createAsyncThunk(
+export const deleteBoardFetch: AsyncThunk<void, string, EmptyObject> = createAsyncThunk(
   'main/deleteBoardFetch',
   async (boardId: string) => {
     const requestString = `${path.url}${path.bords}/${boardId}`;
-    let token = '';
-    if (localStorage.getItem('token')) {
-      token = localStorage.getItem('token') || '';
-    }
+    const token = getTokenFromLocalStorage();
     const response = await axios.delete(requestString, {
       headers: {
         Authorization: `Bearer ${token}`,

@@ -1,15 +1,16 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { AsyncThunk, createAsyncThunk } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
+import { EmptyObject } from 'react-hook-form';
+
 import { AppDispatch } from './Store';
 import { userSlice } from './userSlice';
+import { path } from '../constants/Constants';
 
-export const setUser = createAsyncThunk(
+export const setUser: AsyncThunk<void, IUserState, EmptyObject> = createAsyncThunk(
   'user/setUser',
-  async (arg: { name: string; login: string; password: string }) => {
-    const requestString = `https://immense-coast-63189.herokuapp.com/signup`;
-
+  async (arg: { name: string; login: string; password: string }): Promise<void> => {
     try {
-      await axios.post(requestString, {
+      await axios.post(path.url + path.signUp, {
         name: arg.name,
         login: arg.login,
         password: arg.password,
@@ -18,16 +19,18 @@ export const setUser = createAsyncThunk(
   }
 );
 
-export const getUser = (login: string, password: string) => async (dispatch: AppDispatch) => {
-  try {
-    const response = await axios.post(`https://immense-coast-63189.herokuapp.com/signin`, {
-      login: login,
-      password: password,
-    });
-    dispatch(userSlice.actions.setToken(response.data.token));
-    localStorage.setItem('token', response.data.token);
-  } catch (e) {
-    const err = e as AxiosError;
-    dispatch(userSlice.actions.setError(err.message));
-  }
-};
+export const getUser =
+  (login: string, password: string) =>
+  async (dispatch: AppDispatch): Promise<void> => {
+    try {
+      const response = await axios.post(path.url + path.signIn, {
+        login: login,
+        password: password,
+      });
+      dispatch(userSlice.actions.setToken(response.data.token));
+      localStorage.setItem('token', response.data.token);
+    } catch (e) {
+      const err = e as AxiosError;
+      dispatch(userSlice.actions.setError(err.message));
+    }
+  };

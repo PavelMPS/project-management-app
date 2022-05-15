@@ -1,25 +1,25 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import EditProfile from '../edit-profile-page/EditProfile';
-import Footer from '../footer-page/Footer';
+import EditProfile from '../EditProfilePage/EditProfilePage';
+import Footer from '../Footer/Footer';
 import Header from '../header/Header';
-import LoginPage from '../login-page/LoginPage';
-import Main from '../main-page/Main';
-import NotFound from '../not-found-page/NotFound';
-import SignupPage from '../signup-page/SignupPage';
-import Welcome from '../welcome-page/Welcome';
-import BoardPage from '../board-page/BoardPage';
+import LoginPage from '../LoginPage/LoginPage';
+import Main from '../MainPage/MainPage';
+import NotFound from '../NotFoundPage/NotFound';
+import SignupPage from '../SignupPage/SignupPage';
+import BoardPage from '../BoardPage/BoardPage';
+import WelcomePage from '../WelcomePage/WelcomePage';
 
 import './App.css';
 
-function App() {
+const App = (): JSX.Element => {
   return (
     <div className="body">
       <Header />
       <div className="main-container">
         <Routes>
-          <Route path="/" element={<Welcome />} />
+          <Route path="/" element={<WelcomePage />} />
           <Route path="/*" element={<NotFound />} />
           <Route path="/main" element={<Main />} />
           <Route path="/sign-up" element={<SignupPage />} />
@@ -31,6 +31,6 @@ function App() {
       <Footer />
     </div>
   );
-}
+};
 
 export default App;

@@ -1,6 +1,8 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { AsyncThunk, createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { EmptyObject } from 'react-hook-form';
 import { fetchStatus, path } from '../constants/Constants';
+import { getTokenFromLocalStorage } from './ColumnSlice';
 
 type FilesState = {
   filename: string;
@@ -42,20 +44,16 @@ const initialState: MainState = {
   error: null,
 };
 
-export const getBoardById = createAsyncThunk(
+export const getBoardById: AsyncThunk<BoardState, string, EmptyObject> = createAsyncThunk(
   'idBoard/getIdBoard',
   async (boardId: string): Promise<BoardState> => {
     const requestString = `${path.url}${path.bords}/${boardId}`;
-    let token = '';
-    if (localStorage.getItem('token')) {
-      token = localStorage.getItem('token') || '';
-    }
+    const token = getTokenFromLocalStorage();
     const response = await axios.get(requestString, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log('Hello');
     response.data.columns
       .sort((a: ColumnState, b: ColumnState) => (a.order > b.order ? 1 : -1))
       .map((column: ColumnState) => {
@@ -104,21 +102,6 @@ const getBoardSlice = createSlice({
         state.error = action.error.message!;
       });
   },
-  // extraReducers: {
-  //   [getBoardById.pending.type]: (state: MainState) => {
-  //     state.status = fetchStatus.loading;
-  //     state.error = null;
-  //     state.board = { id: '', title: '', columns: [] };
-  //   },
-  //   [getBoardById.fulfilled.type]: (state: MainState, action: PayloadAction<BoardState>) => {
-  //     state.board = action.payload;
-  //     state.status = fetchStatus.succeeded;
-  //   },
-  //   [getBoardById.rejected.type]: (state: MainState, action) => {
-  //     state.error = action.error.message;
-  //     state.status = fetchStatus.failed;
-  //   },
-  // },
 });
 
 export default getBoardSlice.reducer;

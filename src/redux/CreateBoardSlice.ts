@@ -1,26 +1,21 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { AsyncThunk, createAsyncThunk, createSlice, PayloadAction, Slice } from '@reduxjs/toolkit';
 import axios, { AxiosResponse } from 'axios';
+import { EmptyObject } from 'react-hook-form';
+import { path } from '../constants/Constants';
+import { getTokenFromLocalStorage } from './ColumnSlice';
 
-type CreateBoardState = {
-  title: string;
-  isLoading: boolean;
-  error: string;
-};
-
-const initialState: CreateBoardState = {
+const initialState: ICreateBoardState = {
   title: '',
   isLoading: false,
   error: '',
 };
 
-export const createBoard = createAsyncThunk(
+export const createBoard: AsyncThunk<IBoard, string, EmptyObject> = createAsyncThunk(
   'board/createBoard',
   async (title: string): Promise<IBoard> => {
-    const path = `https://immense-coast-63189.herokuapp.com/boards`;
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3YTk5MWMxMi04NDlhLTRhNDUtYTk3ZC0wYTFiNmEyOWY4YmUiLCJsb2dpbiI6InVzZXIwMDkiLCJpYXQiOjE2NTE5NDk5Njl9.IEHFoFZ3O9SpdgjDAROiSmcGax8GVnVGkQzsbqJoL8A';
+    const token = getTokenFromLocalStorage();
     const response: AxiosResponse<IBoard> = await axios.post(
-      path,
+      path.url + path.bords,
       {
         title: title,
       },
@@ -34,20 +29,20 @@ export const createBoard = createAsyncThunk(
   }
 );
 
-export const createBoardSlice = createSlice({
+export const createBoardSlice: Slice<ICreateBoardState, EmptyObject, 'createBoard'> = createSlice({
   name: 'createBoard',
   initialState,
   reducers: {},
   extraReducers: {
-    [createBoard.fulfilled.type]: (state: CreateBoardState, action: PayloadAction<string>) => {
+    [createBoard.fulfilled.type]: (state: ICreateBoardState, action: PayloadAction<string>) => {
       state.isLoading = false;
       state.title = action.payload;
       state.error = '';
     },
-    [createBoard.pending.type]: (state: CreateBoardState) => {
+    [createBoard.pending.type]: (state: ICreateBoardState) => {
       state.isLoading = true;
     },
-    [createBoard.rejected.type]: (state: CreateBoardState, action: PayloadAction<string>) => {
+    [createBoard.rejected.type]: (state: ICreateBoardState, action: PayloadAction<string>) => {
       state.isLoading = false;
       state.error = action.payload;
     },
@@ -55,5 +50,5 @@ export const createBoardSlice = createSlice({
 });
 
 export default createBoardSlice.reducer;
-export const store = (state: CreateBoardState): CreateBoardState => state;
-export const boardCreateErr = (state: CreateBoardState): string => state.error;
+export const store = (state: ICreateBoardState): ICreateBoardState => state;
+export const boardCreateErr = (state: ICreateBoardState): string => state.error;
