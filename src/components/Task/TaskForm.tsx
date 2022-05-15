@@ -11,7 +11,7 @@ import { buttonName, taskFormSettings } from '../../constants/constants';
 
 import './taskForm.css';
 
-export const TaskForm = (props: {
+const TaskForm = (props: {
   boardId: string;
   columnId: string;
   taskInf?: ITask;
@@ -197,3 +197,5 @@ export const TaskForm = (props: {
     </>
   );
 };
+
+export default TaskForm;

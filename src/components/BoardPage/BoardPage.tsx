@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { ModalWindow } from '../ModalWindow/ModalWindow';
+import ModalWindow from '../ModalWindow/ModalWindow';
 import ColumnForm from '../Column/ColumnForm';
 import { selectStatusColumn, closeBoardColumn, updateColumnFetch } from '../../redux/ColumnSlice';
 import { closeBoardTask } from '../../redux/TaskSlice';

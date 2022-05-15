@@ -5,10 +5,10 @@ import { selectBoard } from '../../redux/MainSlice';
 import { deleteColumnFetch } from '../../redux/ColumnSlice';
 import { updateTaskFetch } from '../../redux/TaskSlice';
 import { AppDispatch } from '../../redux/Store';
-import { Task } from '../Task/Task';
-import { ModalWindow } from '../ModalWindow/ModalWindow';
+import Task from '../Task/Task';
+import ModalWindow from '../ModalWindow/ModalWindow';
 import ColumnForm from './ColumnForm';
-import { TaskForm } from '../Task/TaskForm';
+import TaskForm from '../Task/TaskForm';
 import { ColumnState, getBoardById, TaskState } from '../../redux/GetBoardSlice';
 
 import './column.css';

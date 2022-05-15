@@ -4,14 +4,14 @@ import { useState, useEffect } from 'react';
 import { deleteTaskFetch } from '../../redux/TaskSlice';
 import { selectUsers } from '../../redux/UsersSlice';
 import { AppDispatch } from '../../redux/Store';
-import { ModalWindow } from '../ModalWindow/ModalWindow';
-import { TaskForm } from './TaskForm';
+import ModalWindow from '../ModalWindow/ModalWindow';
+import TaskForm from './TaskForm';
 import { getBoardById, TaskState } from '../../redux/GetBoardSlice';
 import { useAppSelector } from '../../redux/hooks/redux';
 
 import './task.css';
 
-export const Task = (props: { taskInf: TaskState; columnId: string }): JSX.Element => {
+const Task = (props: { taskInf: TaskState; columnId: string }): JSX.Element => {
   const dispatch = useDispatch<AppDispatch>();
 
   const users: IUser[] = useSelector(selectUsers);
@@ -77,3 +77,5 @@ export const Task = (props: { taskInf: TaskState; columnId: string }): JSX.Eleme
     </>
   );
 };
+
+export default Task;

@@ -3,7 +3,7 @@ import ReactDom from 'react-dom';
 
 import './modalWindow.css';
 
-export const ModalWindow: (props: {
+const ModalWindow: (props: {
   children: JSX.Element;
   onClick: () => void;
 }) => JSX.Element = (props: { children: JSX.Element; onClick: () => void }): JSX.Element => {
@@ -34,3 +34,5 @@ export const ModalWindow: (props: {
     root
   );
 };
+
+export default ModalWindow;
