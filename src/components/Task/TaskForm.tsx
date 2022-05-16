@@ -72,7 +72,13 @@ const TaskForm = (props: {
   const users: IUser[] = useSelector(selectUsers);
 
   const handleSubmite = async (data: ITask) => {
-    setTaskInf(data);
+    const taskInf: ITask = {
+      title: data.title,
+      order: order,
+      description: data.description,
+      userId: data.userId,
+    };
+    setTaskInf(taskInf);
     setIsConfirmationOpen(true);
     reset();
     clearErrors();
@@ -163,26 +169,6 @@ const TaskForm = (props: {
             />
           </label>
           {errors.title && <span className="error">{taskFormSettings.error}</span>}
-        </div>
-
-        <div className="form-element-wrapper">
-          <label className="form-label">
-            {taskFormSettings.order}
-            <br />
-            <input
-              className="form-input"
-              type="number"
-              defaultValue={order}
-              {...register('order', {
-                required: true,
-                onChange: (e) => {
-                  changeSubmitBTN();
-                  setOrder(e.target.value);
-                },
-              })}
-            />
-          </label>
-          {errors.order && <span className="error">{taskFormSettings.error}</span>}
         </div>
 
         <div className="form-element-wrapper">

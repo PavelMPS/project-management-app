@@ -43,7 +43,11 @@ const ColumnForm = (props: { boardId: string; columnInf?: IColumn; type: string 
   const dispatch = useDispatch<AppDispatch>();
 
   const handleSubmite = async (data: IColumn): Promise<void> => {
-    setColumnInf(data);
+    const columnInf: IColumn = {
+      title: data.title,
+      order: order,
+    };
+    setColumnInf(columnInf);
     setIsConfirmationOpen(true);
     reset();
     clearErrors();
@@ -103,26 +107,6 @@ const ColumnForm = (props: { boardId: string; columnInf?: IColumn; type: string 
             />
           </label>
           {errors.title && <span className="error">{columnFormProps.error}</span>}
-        </div>
-
-        <div className="form-element-wrapper">
-          <label className="form-label">
-            {columnFormProps.order}
-            <br />
-            <input
-              className="form-input"
-              value={order}
-              type="number"
-              {...register('order', {
-                required: true,
-                onChange: (e) => {
-                  changeSubmitBTN();
-                  setOrder(e.target.value);
-                },
-              })}
-            />
-          </label>
-          {errors.order && <span className="error">{columnFormProps.error}</span>}
         </div>
 
         <button className="form-btn" type="submit" disabled={!isValid}>
