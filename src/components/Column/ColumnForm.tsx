@@ -1,11 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { FieldError, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 
+import { useAppSelector } from '../../redux/hooks/redux';
 import { buttonName, columnFormProps } from '../../constants/Constants';
 import { createColumnFetch, updateColumnFetch } from '../../redux/ColumnSlice';
 import { getBoardById } from '../../redux/GetBoardSlice';
 import { AppDispatch } from '../../redux/Store';
+import Confirmation from '../Confirmation/Confirmation';
 
 import './columnForm.css';
 
@@ -18,23 +20,52 @@ const ColumnForm = (props: { boardId: string; columnInf?: IColumn; type: string 
     clearErrors,
   } = useForm<IColumn>();
 
+  const { idBoard } = useAppSelector((store) => store.idBoard);
+
   const [isValid, setIsValid] = useState<boolean>(false);
-  const [title, setTitle] = useState<string>('');
-  const [order, setOrder] = useState<number>(0);
+  const [title, setTitle] = useState<string>(() => {
+    if (props.columnInf) {
+      return props.columnInf.title;
+    } else {
+      return '';
+    }
+  });
+  const [order, setOrder] = useState<number>(() => {
+    if (props.columnInf) {
+      return props.columnInf.order;
+    } else {
+      return idBoard.columns.length + 1;
+    }
+  });
+  const [columnInf, setColumnInf] = useState<IColumn>({} as IColumn);
+  const [isConfirmationOpen, setIsConfirmationOpen] = useState<boolean>(false);
 
   const dispatch = useDispatch<AppDispatch>();
 
   const handleSubmite = async (data: IColumn): Promise<void> => {
+    const columnInf: IColumn = {
+      title: data.title,
+      order: order,
+    };
+    setColumnInf(columnInf);
+    setIsConfirmationOpen(true);
+    reset();
+    clearErrors();
+  };
+
+  const confirmationSubmit = async (): Promise<void> => {
     if (props.type === 'create') {
-      await dispatch(createColumnFetch({ boardId: props.boardId, column: data }));
+      await dispatch(createColumnFetch({ boardId: props.boardId, column: columnInf }));
     } else {
       await dispatch(
-        updateColumnFetch({ boardId: props.boardId, columnId: props.columnInf!.id!, column: data })
+        updateColumnFetch({
+          boardId: props.boardId,
+          columnId: props.columnInf!.id!,
+          column: columnInf,
+        })
       );
     }
     dispatch(getBoardById(props.boardId));
-    reset();
-    clearErrors();
   };
 
   const handleError = (): void => {
@@ -54,13 +85,6 @@ const ColumnForm = (props: { boardId: string; columnInf?: IColumn; type: string 
       }, 100);
     });
   };
-
-  useEffect((): void => {
-    if (props.columnInf) {
-      setTitle(props.columnInf.title);
-      setOrder(props.columnInf.order);
-    }
-  }, [props.columnInf]);
 
   return (
     <>
@@ -85,30 +109,16 @@ const ColumnForm = (props: { boardId: string; columnInf?: IColumn; type: string 
           {errors.title && <span className="error">{columnFormProps.error}</span>}
         </div>
 
-        <div className="form-element-wrapper">
-          <label className="form-label">
-            {columnFormProps.order}
-            <br />
-            <input
-              className="form-input"
-              value={order}
-              type="number"
-              {...register('order', {
-                required: true,
-                onChange: (e) => {
-                  changeSubmitBTN();
-                  setOrder(e.target.value);
-                },
-              })}
-            />
-          </label>
-          {errors.order && <span className="error">{columnFormProps.error}</span>}
-        </div>
-
         <button className="form-btn" type="submit" disabled={!isValid}>
           {buttonName.submit}
         </button>
       </form>
+      {isConfirmationOpen && (
+        <Confirmation
+          onCancel={() => setIsConfirmationOpen(false)}
+          onSubmit={() => confirmationSubmit()}
+        />
+      )}
     </>
   );
 };

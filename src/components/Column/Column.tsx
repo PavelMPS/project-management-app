@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 
+import Confirmation from '../Confirmation/Confirmation';
 import { selectBoard } from '../../redux/MainSlice';
 import { deleteColumnFetch } from '../../redux/ColumnSlice';
 import { updateTaskFetch } from '../../redux/TaskSlice';
@@ -10,6 +11,7 @@ import ModalWindow from '../ModalWindow/ModalWindow';
 import ColumnForm from './ColumnForm';
 import TaskForm from '../Task/TaskForm';
 import { ColumnState, getBoardById, TaskState } from '../../redux/GetBoardSlice';
+import { formType } from '../../constants/Constants';
 
 import './column.css';
 
@@ -18,6 +20,7 @@ const Column = (props: { columnInf: ColumnState }): JSX.Element => {
 
   const dispatch = useDispatch<AppDispatch>();
 
+  const [isConfirmationOpen, setIsConfirmationOpen] = useState<boolean>(false);
   const [isColumnModalOpen, setColumnModalOpen] = useState<boolean>(false);
   const [isTaskModalOpen, setTaskModalOpen] = useState<boolean>(false);
   const [taskDragState, setTaskDragState] = useState<ITask>({
@@ -80,6 +83,13 @@ const Column = (props: { columnInf: ColumnState }): JSX.Element => {
     await dispatch(updateTaskFetch(taskInf2));
   };
 
+  const confirmationSubmit = async (): Promise<void> => {
+    if (props.columnInf.id) {
+      await dispatch(deleteColumnFetch({ boardId: board.id, columnId: props.columnInf.id }));
+    }
+    dispatch(getBoardById(board.id));
+  };
+
   return (
     <>
       <div className="column-container">
@@ -97,18 +107,7 @@ const Column = (props: { columnInf: ColumnState }): JSX.Element => {
               setTaskModalOpen(true);
             }}
           ></div>
-          <div
-            className="column-bin"
-            onClick={async () => {
-              if (props.columnInf.id) {
-                await dispatch(
-                  deleteColumnFetch({ boardId: board.id, columnId: props.columnInf.id })
-                );
-              }
-              dispatch(getBoardById(board.id));
-              //TODO добавить confirmation modal
-            }}
-          ></div>
+          <div className="column-bin" onClick={() => setIsConfirmationOpen(true)}></div>
         </div>
         <div className="tasks-container">
           {props.columnInf.tasks &&
@@ -131,13 +130,19 @@ const Column = (props: { columnInf: ColumnState }): JSX.Element => {
       </div>
       {isColumnModalOpen && (
         <ModalWindow onClick={handleModalClose}>
-          {<ColumnForm boardId={board.id} columnInf={props.columnInf} type="update" />}
+          {<ColumnForm boardId={board.id} columnInf={props.columnInf} type={formType.update} />}
         </ModalWindow>
       )}
       {isTaskModalOpen && props.columnInf.id && (
         <ModalWindow onClick={handleModalClose}>
-          {<TaskForm boardId={board.id} columnId={props.columnInf.id} type="create" />}
+          {<TaskForm boardId={board.id} columnId={props.columnInf.id} type={formType.create} />}
         </ModalWindow>
+      )}
+      {isConfirmationOpen && (
+        <Confirmation
+          onCancel={() => setIsConfirmationOpen(false)}
+          onSubmit={() => confirmationSubmit()}
+        />
       )}
     </>
   );
