@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 
+import Confirmation from '../Confirmation/Confirmation';
 import { deleteTaskFetch } from '../../redux/TaskSlice';
 import { selectUsers } from '../../redux/UsersSlice';
 import { AppDispatch } from '../../redux/Store';
@@ -19,9 +20,21 @@ const Task = (props: { taskInf: TaskState; columnId: string }): JSX.Element => {
 
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const [user, setUser] = useState<string>('');
+  const [isConfirmationOpen, setIsConfirmationOpen] = useState<boolean>(false);
 
   const handleModalClose = (): void => {
     setModalOpen(false);
+  };
+
+  const confirmationSubmit = async (): Promise<void> => {
+    await dispatch(
+      deleteTaskFetch({
+        boardId: idBoard.id,
+        columnId: props.columnId,
+        taskId: props.taskInf.id!,
+      })
+    );
+    dispatch(getBoardById(idBoard.id));
   };
 
   useEffect((): void => {
@@ -44,20 +57,7 @@ const Task = (props: { taskInf: TaskState; columnId: string }): JSX.Element => {
               setModalOpen(true);
             }}
           ></div>
-          <div
-            className="task-bin"
-            onClick={async () => {
-              await dispatch(
-                deleteTaskFetch({
-                  boardId: idBoard.id,
-                  columnId: props.columnId,
-                  taskId: props.taskInf.id!,
-                })
-              );
-              dispatch(getBoardById(idBoard.id));
-              //TODO добавить confirmation modal
-            }}
-          ></div>
+          <div className="task-bin" onClick={() => setIsConfirmationOpen(true)}></div>
         </div>
         <div>{props.taskInf.description}</div>
         <div>{user}</div>
@@ -73,6 +73,12 @@ const Task = (props: { taskInf: TaskState; columnId: string }): JSX.Element => {
             />
           }
         </ModalWindow>
+      )}
+      {isConfirmationOpen && (
+        <Confirmation
+          onCancel={() => setIsConfirmationOpen(false)}
+          onSubmit={() => confirmationSubmit()}
+        />
       )}
     </>
   );

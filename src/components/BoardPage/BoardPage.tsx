@@ -12,7 +12,7 @@ import { fetchUsers, selectUsersStatus } from '../../redux/UsersSlice';
 import Column from '../Column/Column';
 import { ColumnState, getBoardById } from '../../redux/GetBoardSlice';
 import { useAppSelector } from '../../redux/hooks/redux';
-import { buttonName, fetchStatus, pageName } from '../../constants/Constants';
+import { buttonName, fetchStatus, pageName, formType } from '../../constants/Constants';
 import { Loader } from '../Loader/Loader';
 
 import './boardPage.css';
@@ -134,7 +134,7 @@ const BoardPage = (): JSX.Element => {
       {!board.id && <Navigate to={'/main'} />}
       {isModalOpen && (
         <ModalWindow onClick={handleModalClose}>
-          {<ColumnForm boardId={board.id} type="create" />}
+          {<ColumnForm boardId={board.id} type={formType.create} />}
         </ModalWindow>
       )}
       {(statusColumn === fetchStatus.loading || statusTasks === fetchStatus.loading) && <Loader />}
