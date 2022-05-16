@@ -245,4 +245,5 @@ export default boardSlice.reducer;
 export const { closeBoardColumn } = boardSlice.actions;
 
 export const selectColumns = (state: RootState): IColumn[] => state.column.columns;
+export const selectColumnsError = (state: RootState): string | null => state.column.error;
 export const selectStatusColumn = (state: RootState): string => state.column.statusColumn;

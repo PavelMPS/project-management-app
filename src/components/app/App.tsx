@@ -10,6 +10,7 @@ import NotFound from '../NotFoundPage/NotFound';
 import SignupPage from '../SignupPage/SignupPage';
 import BoardPage from '../BoardPage/BoardPage';
 import WelcomePage from '../WelcomePage/WelcomePage';
+import Toast from '../Toast/Toast';
 
 import './App.css';
 
@@ -28,6 +29,7 @@ const App = (): JSX.Element => {
           <Route path="/board" element={<BoardPage />} />
         </Routes>
       </div>
+      <Toast />
       <Footer />
     </div>
   );

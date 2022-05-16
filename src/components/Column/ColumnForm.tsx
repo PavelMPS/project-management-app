@@ -3,7 +3,7 @@ import { FieldError, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 
 import { useAppSelector } from '../../redux/hooks/redux';
-import { buttonName, columnFormProps } from '../../constants/Constants';
+import { buttonName, columnFormProps, formType } from '../../constants/Constants';
 import { createColumnFetch, updateColumnFetch } from '../../redux/ColumnSlice';
 import { getBoardById } from '../../redux/GetBoardSlice';
 import { AppDispatch } from '../../redux/Store';
@@ -54,7 +54,7 @@ const ColumnForm = (props: { boardId: string; columnInf?: IColumn; type: string 
   };
 
   const confirmationSubmit = async (): Promise<void> => {
-    if (props.type === 'create') {
+    if (props.type === formType.create) {
       await dispatch(createColumnFetch({ boardId: props.boardId, column: columnInf }));
     } else {
       await dispatch(
