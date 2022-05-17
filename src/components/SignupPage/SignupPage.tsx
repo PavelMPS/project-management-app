@@ -25,6 +25,12 @@ const SignupPage = (): JSX.Element => {
     }
   }, [isAuth]);
 
+  useEffect((): void => {
+    if (name && login && password) {
+      dispatch(setUser({ name, login, password }));
+    }
+  }, [name, login, password]);
+
   const {
     register,
     handleSubmit,
@@ -33,9 +39,9 @@ const SignupPage = (): JSX.Element => {
 
   const onSubmit: SubmitHandler<IUserCredentials> = (data): void => {
     dispatch(setCredentials(data));
-    if (name && login && password) {
+    /*  if (name && login && password) {
       dispatch(setUser({ name, login, password }));
-    }
+    } */
   };
 
   return (
