@@ -97,14 +97,15 @@ const BoardPage = (): JSX.Element => {
   return (
     <>
       <div className="board-container">
-        <h1>
-          {pageName.board} {board.title}
-        </h1>
-        <Link to="/main">
-          <div className="board-close" onClick={boardCloseHadler}>
-            {buttonName.close}
-          </div>
-        </Link>
+        <div className="board-title-container">
+          <h1>{board.title}</h1>
+          <Link to="/main">
+            <div className="board-close" onClick={boardCloseHadler}>
+              {buttonName.close}
+            </div>
+          </Link>
+        </div>
+
         <div className="columns-container">
           {idBoard.columns.map((column: ColumnState) => {
             return (
@@ -121,14 +122,15 @@ const BoardPage = (): JSX.Element => {
               </div>
             );
           })}
-        </div>
-        <div
-          className="board-close"
-          onClick={() => {
-            setModalOpen(true);
-          }}
-        >
-          {buttonName.addColumn}
+          <div
+            className="board-add-column"
+            onClick={() => {
+              setModalOpen(true);
+            }}
+          >
+            <div className="board-add-column-icon"></div>
+            <div>{buttonName.addColumn}</div>
+          </div>
         </div>
       </div>
       {!board.id && <Navigate to={'/main'} />}

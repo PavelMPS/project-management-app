@@ -26,6 +26,7 @@ export const buttonName = {
   create: 'CREATE',
   enter: 'Enter',
   addColumn: 'ADD COLUMN',
+  addTask: 'ADD TASK',
 };
 
 export const appName = 'Project managment application';
