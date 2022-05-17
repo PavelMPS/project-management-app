@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux';
 import { setUser } from '../../redux/apiReducer';
@@ -15,7 +16,14 @@ export interface IUserCredentials {
 
 const SignupPage = (): JSX.Element => {
   const dispatch = useAppDispatch();
-  const { name, login, password } = useAppSelector((store) => store.user);
+  const { name, login, password, token, isAuth } = useAppSelector((store) => store.user);
+  const navigate = useNavigate();
+
+  useEffect((): void => {
+    if (token && isAuth) {
+      return navigate('/main');
+    }
+  }, [isAuth]);
 
   const {
     register,

@@ -4,40 +4,46 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux';
 
 import { buttonName, pageName } from '../../constants/Constants';
-import { setToken } from '../../redux/userSlice';
+import { getTokenFromLocalStorage } from '../../redux/ColumnSlice';
+import { getIdFromToken } from '../../redux/EditProfileSlice';
+import { getUserAuth } from '../../redux/apiReducer';
 
 const WelcomePage = (): JSX.Element => {
-  const navigate = useNavigate();
-  const { token, isAuth } = useAppSelector((store) => store.user);
+  const { isAuth } = useAppSelector((store) => store.user);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    userAuth();
-    if (token && isAuth) {
-      return navigate('/main');
-    } else {
-      return navigate('/');
-    }
-  }, [isAuth]);
-
-  const userAuth = () => {
-    const token = localStorage.getItem('token');
+    const token = getTokenFromLocalStorage();
     if (token) {
-      dispatch(setToken(token));
+      const userId = getIdFromToken(token);
+      dispatch(getUserAuth(userId, token));
+    } else {
+      if (!isAuth) {
+        return navigate('/');
+      }
     }
-  };
+  }, []);
 
   return (
     <>
       <h1>{pageName.welcome}</h1>
-      <div className="signup-container">
-        <NavLink to="/login">
-          <button>{buttonName.logIn}</button>
-        </NavLink>
-        <NavLink to="sign-up">
-          <button>{buttonName.signUp}</button>
-        </NavLink>
-      </div>
+      {!isAuth ? (
+        <div className="signup-container">
+          <NavLink to="/login">
+            <button>{buttonName.logIn}</button>
+          </NavLink>
+          <NavLink to="/sign-up">
+            <button>{buttonName.signUp}</button>
+          </NavLink>
+        </div>
+      ) : (
+        <div className="signup-container">
+          <NavLink to="/main">
+            <button>{buttonName.goToMainPage}</button>
+          </NavLink>
+        </div>
+      )}
     </>
   );
 };
