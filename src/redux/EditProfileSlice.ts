@@ -2,13 +2,15 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import jwt_decode from 'jwt-decode';
 import axios, { AxiosResponse } from 'axios';
-import { path } from '../constants/Constants';
+import { fetchStatus, path } from '../constants/Constants';
 import { getTokenFromLocalStorage } from './ColumnSlice';
 
 const initialState: IProfileState = {
   name: '',
   login: '',
   password: '',
+  status: fetchStatus.idle,
+  error: null,
 };
 
 export function getIdFromToken(token: string): string {
@@ -44,5 +46,16 @@ export const editProfileSlice = createSlice({
     editProfile(state: IProfileState, action: PayloadAction<IProfileState>) {
       return { ...state, ...action.payload };
     },
+  },
+  extraReducers(builder) {
+    builder
+      .addCase(editProfile.pending, (state: IProfileState) => {
+        state.status = fetchStatus.loading;
+        state.error = null;
+      })
+      .addCase(editProfile.rejected, (state: IProfileState, action) => {
+        state.status = fetchStatus.failed;
+        state.error = action.error.message!;
+      });
   },
 });

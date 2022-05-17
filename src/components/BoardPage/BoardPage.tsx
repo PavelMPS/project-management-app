@@ -14,6 +14,7 @@ import { ColumnState, getBoardById } from '../../redux/GetBoardSlice';
 import { useAppSelector } from '../../redux/hooks/redux';
 import { buttonName, fetchStatus, pageName } from '../../constants/Constants';
 import { Loader } from '../Loader/Loader';
+import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
 
 import './boardPage.css';
 
@@ -25,75 +26,33 @@ const BoardPage = (): JSX.Element => {
   const { idBoard } = useAppSelector((store) => store.idBoard);
 
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
-  const [firstOrder, setFirstOrder] = useState<number | null>(null);
-  const [firstColumnId, setFirstColumnId] = useState<string>('');
-  const [firstTitle, setFirstTitle] = useState<string>('');
-
+  const [columns, updateColumns] = useState(idBoard.columns);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect((): void => {
+    updateColumns(idBoard.columns);
     if (statusUsers === fetchStatus.idle) {
       dispatch(fetchUsers());
     }
-  }, [statusColumn]);
+  }, [statusColumn, idBoard.columns, dispatch, statusUsers]);
 
   const handleModalClose = (): void => {
     setModalOpen(false);
   };
 
-  const dragStartHandler = (e: React.DragEvent, columnId: ColumnState): void => {
-    // e.preventDefault();
-    setFirstOrder(columnId.order);
-    setFirstColumnId(columnId.id);
-    setFirstTitle(columnId.title);
-  };
-
-  const dropHandler = async (
-    e: React.DragEvent<HTMLDivElement>,
-    columnId: ColumnState
-  ): Promise<void> => {
-    e.preventDefault();
-    const secondOrder: number = columnId.order;
-    const secondColumnId: string = columnId.id;
-    await dispatch(
-      updateColumnFetch({
-        boardId: board.id,
-        columnId: firstColumnId,
-        column: { title: firstTitle, order: idBoard.columns.length + 1 },
-      })
-    );
-    await dispatch(
-      updateColumnFetch({
-        boardId: board.id,
-        columnId: secondColumnId,
-        column: { title: columnId.title, order: firstOrder! },
-      })
-    );
-    await dispatch(
-      updateColumnFetch({
-        boardId: board.id,
-        columnId: firstColumnId,
-        column: { title: firstTitle, order: secondOrder },
-      })
-    );
-    await dispatch(getBoardById(board.id));
-  };
-
-  const dragOverHandler = (e: React.DragEvent<HTMLDivElement>): void => {
-    e.preventDefault();
-    const elem = e.target as HTMLElement;
-    //TODO change style dragging item
-  };
-
-  const dragEndHandler = (e: React.DragEvent<HTMLDivElement>): void => {
-    e.preventDefault();
-    const elem = e.target as HTMLElement;
-    // elem.style.background = 'white';
-  };
   const boardCloseHadler = (): void => {
     dispatch(closeBoardColumn());
     dispatch(closeBoardTask());
   };
+
+  function handleOnDragEnd(result: DropResult): void {
+    const items = Array.from(columns);
+    const [reordedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination!.index, 0, reordedItem);
+
+    updateColumns(items);
+  }
+
   return (
     <>
       <div className="board-container">
@@ -105,23 +64,35 @@ const BoardPage = (): JSX.Element => {
             {buttonName.close}
           </div>
         </Link>
-        <div className="columns-container">
-          {idBoard.columns.map((column: ColumnState) => {
-            return (
+        <DragDropContext onDragEnd={handleOnDragEnd}>
+          <Droppable droppableId="columns" direction="horizontal">
+            {(provided) => (
               <div
-                key={column.id}
-                draggable={true}
-                onDragStart={(e) => dragStartHandler(e, column)}
-                onDragEnd={(e) => dragEndHandler(e)}
-                onDragLeave={(e) => dragEndHandler(e)}
-                onDragOver={(e) => dragOverHandler(e)}
-                onDrop={(e) => dropHandler(e, column)}
+                className="columns-container"
+                {...provided.droppableProps}
+                ref={provided.innerRef}
               >
-                <Column columnInf={column} />
+                {columns.map((column: ColumnState, index) => {
+                  return (
+                    <Draggable key={column.id} draggableId={column.id} index={index}>
+                      {(provided) => (
+                        <div
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          ref={provided.innerRef}
+                        >
+                          <Column columnInf={column} />
+                        </div>
+                      )}
+                    </Draggable>
+                  );
+                })}
+                {provided.placeholder}
               </div>
-            );
-          })}
-        </div>
+            )}
+          </Droppable>
+        </DragDropContext>
+
         <div
           className="board-close"
           onClick={() => {

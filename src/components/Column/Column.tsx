@@ -12,6 +12,7 @@ import TaskForm from '../Task/TaskForm';
 import { ColumnState, getBoardById, TaskState } from '../../redux/GetBoardSlice';
 
 import './column.css';
+import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
 
 const Column = (props: { columnInf: ColumnState }): JSX.Element => {
   const board: IBoard = useSelector(selectBoard);
@@ -20,64 +21,68 @@ const Column = (props: { columnInf: ColumnState }): JSX.Element => {
 
   const [isColumnModalOpen, setColumnModalOpen] = useState<boolean>(false);
   const [isTaskModalOpen, setTaskModalOpen] = useState<boolean>(false);
-  const [taskDragState, setTaskDragState] = useState<ITask>({
-    title: '',
-    order: 0,
-    description: '',
-    userId: '',
-    boardId: '',
-    columnId: '',
-  });
+  // const [taskDragState, setTaskDragState] = useState<ITask>({
+  //   title: '',
+  //   order: 0,
+  //   description: '',
+  //   userId: '',
+  //   boardId: '',
+  //   columnId: '',
+  // });
 
   const handleModalClose = (): void => {
     setColumnModalOpen(false);
     setTaskModalOpen(false);
   };
 
-  const dragStartHandler = (e: React.DragEvent, task: TaskState): void => {
-    setTaskDragState({
-      id: task.id,
-      title: task.title,
-      order: task.order,
-      description: task.description,
-      userId: task.userId,
-      boardId: board.id,
-      columnId: props.columnInf.id,
-    });
-  };
+  // const dragStartHandler = (e: React.DragEvent, task: TaskState): void => {
+  //   setTaskDragState({
+  //     id: task.id,
+  //     title: task.title,
+  //     order: task.order,
+  //     description: task.description,
+  //     userId: task.userId,
+  //     boardId: board.id,
+  //     columnId: props.columnInf.id,
+  //   });
+  // };
 
-  const dragEndHandler = (e: React.DragEvent<HTMLDivElement>): void => {
-    e.preventDefault();
-    const elem = e.target as HTMLElement;
-    // elem.style.background = 'white';
-  };
+  // const dragEndHandler = (e: React.DragEvent<HTMLDivElement>): void => {
+  //   e.preventDefault();
+  //   const elem = e.target as HTMLElement;
+  //   // elem.style.background = 'white';
+  // };
 
-  const dragOverHandler = (e: React.DragEvent<HTMLDivElement>): void => {
-    e.preventDefault();
-    const elem = e.target as HTMLElement;
-    //TODO change style dragging item
-  };
+  // const dragOverHandler = (e: React.DragEvent<HTMLDivElement>): void => {
+  //   e.preventDefault();
+  //   const elem = e.target as HTMLElement;
+  //   //TODO change style dragging item
+  // };
 
-  const dropHandler = async (
-    e: React.DragEvent<HTMLDivElement>,
-    task: TaskState
-  ): Promise<void> => {
-    e.preventDefault();
-    const taskInf1 = {
-      id: task.id,
-      title: task.title,
-      order: taskDragState.order,
-      description: task.description,
-      userId: task.userId,
-      boardId: board.id,
-      columnId: props.columnInf.id,
-    };
-    const taskInf2 = {
-      ...taskDragState,
-      order: task.order,
-    };
-    await dispatch(updateTaskFetch(taskInf1));
-    await dispatch(updateTaskFetch(taskInf2));
+  // const dropHandler = async (
+  //   e: React.DragEvent<HTMLDivElement>,
+  //   task: TaskState
+  // ): Promise<void> => {
+  //   e.preventDefault();
+  //   const taskInf1 = {
+  //     id: task.id,
+  //     title: task.title,
+  //     order: taskDragState.order,
+  //     description: task.description,
+  //     userId: task.userId,
+  //     boardId: board.id,
+  //     columnId: props.columnInf.id,
+  //   };
+  //   const taskInf2 = {
+  //     ...taskDragState,
+  //     order: task.order,
+  //   };
+  //   await dispatch(updateTaskFetch(taskInf1));
+  //   await dispatch(updateTaskFetch(taskInf2));
+  // };
+
+  const onDragEndHadler = (result: DropResult) => {
+    console.log(result);
   };
 
   return (
@@ -110,24 +115,37 @@ const Column = (props: { columnInf: ColumnState }): JSX.Element => {
             }}
           ></div>
         </div>
-        <div className="tasks-container">
-          {props.columnInf.tasks &&
-            props.columnInf.tasks.map((task: TaskState) => {
-              return (
-                <div
-                  key={task.id}
-                  draggable={true}
-                  onDragStart={(e) => dragStartHandler(e, task)}
-                  onDragEnd={(e) => dragEndHandler(e)}
-                  onDragLeave={(e) => dragEndHandler(e)}
-                  onDragOver={(e) => dragOverHandler(e)}
-                  onDrop={(e) => dropHandler(e, task)}
-                >
-                  <Task taskInf={task} columnId={props.columnInf.id} />
-                </div>
-              );
-            })}
-        </div>
+        <DragDropContext onDragEnd={onDragEndHadler}>
+          <Droppable droppableId="tasks" direction="vertical">
+            {(provided) => (
+              <div className="tasks-container" {...provided.droppableProps} ref={provided.innerRef}>
+                {props.columnInf.tasks &&
+                  props.columnInf.tasks.map((task: TaskState, index) => {
+                    return (
+                      <Draggable key={task.id} draggableId={task.id} index={index}>
+                        {(provided) => (
+                          <div
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            ref={provided.innerRef}
+                            // draggable={true}
+                            // onDragStart={(e) => dragStartHandler(e, task)}
+                            // onDragEnd={(e) => dragEndHandler(e)}
+                            // onDragLeave={(e) => dragEndHandler(e)}
+                            // onDragOver={(e) => dragOverHandler(e)}
+                            // onDrop={(e) => dropHandler(e, task)}
+                          >
+                            <Task taskInf={task} columnId={props.columnInf.id} />
+                          </div>
+                        )}
+                      </Draggable>
+                    );
+                  })}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
       </div>
       {isColumnModalOpen && (
         <ModalWindow onClick={handleModalClose}>
