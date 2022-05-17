@@ -3,8 +3,8 @@ import { useState } from 'react';
 
 import Confirmation from '../Confirmation/Confirmation';
 import { selectBoard } from '../../redux/MainSlice';
-import { deleteColumnFetch, updateColumnFetch } from '../../redux/ColumnSlice';
-import { updateTaskFetch } from '../../redux/TaskSlice';
+import { deleteColumnFetch } from '../../redux/ColumnSlice';
+import { updateTaskFetch, deleteTaskFetch } from '../../redux/TaskSlice';
 import { AppDispatch } from '../../redux/Store';
 import Task from '../Task/Task';
 import ModalWindow from '../ModalWindow/ModalWindow';
@@ -85,6 +85,11 @@ const Column = (props: { columnInf: ColumnState }): JSX.Element => {
 
   const confirmationSubmit = async (): Promise<void> => {
     if (props.columnInf.id) {
+      props.columnInf.tasks.forEach((task: ITask) => {
+        dispatch(
+          deleteTaskFetch({ boardId: board.id, columnId: props.columnInf.id, taskId: task.id! })
+        );
+      });
       await dispatch(deleteColumnFetch({ boardId: board.id, columnId: props.columnInf.id }));
     }
     dispatch(getBoardById(board.id));
