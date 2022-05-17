@@ -12,6 +12,9 @@ import {
 } from '../../redux/MainSlice';
 import { AppDispatch } from '../../redux/Store';
 import { pageName } from '../../constants/Constants';
+import { getTokenFromLocalStorage } from '../../redux/ColumnSlice';
+import { getIdFromToken } from '../../redux/EditProfileSlice';
+import { getUserAuth } from '../../redux/apiReducer';
 
 import './mainPage.css';
 
@@ -19,7 +22,6 @@ const Main = (): JSX.Element => {
   const boards: IBoard[] = useSelector(selectBoards);
   const status: string = useSelector(selectBoardsFetchStatus);
   const error: string | null = useSelector(selectBoardsError);
-
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect((): void => {
@@ -27,6 +29,14 @@ const Main = (): JSX.Element => {
       dispatch(fetchBoards());
     }
   }, [dispatch, boards, status]);
+
+  useEffect(() => {
+    const token = getTokenFromLocalStorage();
+    if (token) {
+      const userId = getIdFromToken(token);
+      dispatch(getUserAuth(userId, token));
+    }
+  }, []);
 
   return (
     <>

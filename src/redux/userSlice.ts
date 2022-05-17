@@ -7,7 +7,7 @@ const initialState: IUserSlice = {
   name: '',
   login: '',
   password: '',
-  error: '',
+  errors: [],
   token: '',
   isAuth: false,
   authLogin: '',
@@ -24,7 +24,7 @@ export const userSlice = createSlice({
       state.password = action.payload.password;
     },
     setError: (state, action: PayloadAction<string>) => {
-      state.error = action.payload;
+      state.errors = [...state.errors, action.payload];
     },
     setToken: (state, action: PayloadAction<string>) => {
       state.token = action.payload;
@@ -43,7 +43,7 @@ export const userSlice = createSlice({
       state.authLogin = '';
       state.authPass = '';
       state.isAuth = false;
-      localStorage.removeItem('token');
+      localStorage.clear();
       state.token = '';
     },
   },

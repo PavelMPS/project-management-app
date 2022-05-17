@@ -75,6 +75,10 @@ interface IUserState {
   password: string;
 }
 
+interface IUserAuthState {
+  id: string;
+}
+
 interface ICreateBoardState {
   title: string;
   isLoading: boolean;
@@ -103,7 +107,7 @@ interface IUserSlice {
   name: string;
   login: string;
   password: string;
-  error: string;
+  errors: string[];
   token: string;
   isAuth: boolean;
   authLogin: string;
