@@ -75,6 +75,10 @@ interface IUserState {
   password: string;
 }
 
+interface IUserAuthState {
+  id: string;
+}
+
 interface ICreateBoardState {
   title: string;
   isLoading: boolean;
@@ -91,6 +95,8 @@ interface IProfileState {
   name: string;
   login: string;
   password: string;
+  status: string;
+  error: string | null;
 }
 
 interface IDecodeParams {
@@ -103,7 +109,7 @@ interface IUserSlice {
   name: string;
   login: string;
   password: string;
-  error: string;
+  errors: string[];
   token: string;
   isAuth: boolean;
   authLogin: string;
