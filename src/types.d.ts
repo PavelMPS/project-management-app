@@ -95,6 +95,8 @@ interface IProfileState {
   name: string;
   login: string;
   password: string;
+  status: string;
+  error: string | null;
 }
 
 interface IDecodeParams {

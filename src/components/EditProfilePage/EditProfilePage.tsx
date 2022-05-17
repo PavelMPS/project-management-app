@@ -28,7 +28,7 @@ const EditProfile = (): JSX.Element => {
     const token = getTokenFromLocalStorage();
     const id: string = getIdFromToken(token);
     dispatch(
-      editProfile({ userID: id, name: data.name, login: data.login, password: data.password })
+      editProfile({ userId: id, name: data.name, login: data.login, password: data.password })
     );
     reset();
     backToHome();

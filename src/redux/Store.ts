@@ -8,6 +8,7 @@ import taskSlice from './TaskSlice';
 import usersSlice from './UsersSlice';
 import deleteUser from './DeleteUserSlice';
 import GetBoardSlice from './GetBoardSlice';
+import EditProfileSlice from './EditProfileSlice';
 
 export const store = configureStore({
   reducer: {
@@ -19,6 +20,7 @@ export const store = configureStore({
     tasks: taskSlice,
     users: usersSlice,
     delUser: deleteUser,
+    edit: EditProfileSlice,
   },
 });
 
