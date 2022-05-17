@@ -30,25 +30,31 @@
   align-items: center;
 }
 
-.column-bin {
+.column-bin,
+.column-update,
+.task-create,
+.update-title-btn,
+.close-title-btn {
   width: 30px;
   height: 30px;
-  background-image: url(../../assets/bin.png);
   background-size: cover;
   cursor: pointer;
+}
+
+.update-title-btn {
+  background-image: url(../../assets/save.png);
+}
+.close-title-btn {
+  background-image: url(../../assets/close.png);
+}
+.column-bin {
+  background-image: url(../../assets/bin.png);
 }
 .column-update {
-  width: 30px;
-  height: 30px;
   background-image: url(../../assets/update.png);
-  background-size: cover;
-  cursor: pointer;
 }
 .task-create {
-  width: 30px;
-  height: 30px;
   background-image: url(../../assets/add.png);
-  background-size: cover;
 }
 .task-create-btn {
   display: flex;
@@ -87,4 +93,21 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.update-title-input {
+  height: 90%;
+  width: 180px;
+  padding: 2px;
+  font-size: 20px;
+  font-weight: 400;
+  background-color: rgb(255, 255, 255);
+  background-clip: padding-box;
+  border: none;
+  box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.15);
+  transition: box-shadow 0.15s ease-in-out;
+}
+.update-title-input:focus {
+  outline: none;
+  border: 2px solid rgb(89, 180, 255);
 }
