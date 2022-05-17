@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
+import { nanoid } from 'nanoid';
 
 import { selectColumnsError } from '../../redux/ColumnSlice';
 import { selectDeleteUserError } from '../../redux/DeleteUserSlice';
@@ -12,7 +13,7 @@ import { selectUsersError } from '../../redux/UsersSlice';
 import './toast.css';
 
 const Toast = (): JSX.Element => {
-  const [list, setList] = useState<string[]>([]);
+  const [list, setList] = useState<IError[]>([]);
 
   //apiReducer
   //EditProfileSlice
@@ -24,33 +25,32 @@ const Toast = (): JSX.Element => {
   const mainError: string | null = useSelector(selectBoardsError);
   const taskError: string | null = useSelector(selectTasksError);
   const usersError: string | null = useSelector(selectUsersError);
-
-  const createUserError: string = useSelector(boardCreateError); //string
+  const createUserError: string = useSelector(boardCreateError);
 
   useEffect(() => {
-    const errors: string[] = [];
+    const errors: IError[] = list;
     if (columnError) {
-      errors.push(columnError);
+      errors.push({ id: nanoid(), text: columnError });
     }
     if (deleteUserError) {
-      errors.push(deleteUserError);
+      errors.push({ id: nanoid(), text: deleteUserError });
     }
     if (getIdBoardError) {
-      errors.push(getIdBoardError);
+      errors.push({ id: nanoid(), text: getIdBoardError });
     }
     if (mainError) {
-      errors.push(mainError);
+      errors.push({ id: nanoid(), text: mainError });
     }
     if (taskError) {
-      errors.push(taskError);
+      errors.push({ id: nanoid(), text: taskError });
     }
     if (usersError) {
-      errors.push(usersError);
+      errors.push({ id: nanoid(), text: usersError });
     }
     if (createUserError.length) {
-      errors.push(createUserError);
+      errors.push({ id: nanoid(), text: createUserError });
     }
-    setList(errors);
+    setList([...errors]);
   }, [
     columnError,
     createUserError,
@@ -82,10 +82,10 @@ const Toast = (): JSX.Element => {
     <>
       <div className={`toast-container`}>
         {list.map((toast, i) => (
-          <div key={i} className={`toast`}>
+          <div key={toast.id} className={`toast`}>
             <button onClick={() => deleteToast(i)}></button>
             <div className="toast-image"></div>
-            <div className="toast-message">{toast}</div>
+            <div className="toast-message">{toast.text}</div>
           </div>
         ))}
       </div>

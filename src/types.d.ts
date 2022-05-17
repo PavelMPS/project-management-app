@@ -109,3 +109,8 @@ interface IUserSlice {
   authLogin: string;
   authPass: string;
 }
+
+interface IError {
+  id: string;
+  text: string;
+}

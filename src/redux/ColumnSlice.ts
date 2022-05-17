@@ -139,7 +139,7 @@ const boardSlice: Slice<
     closeBoardColumn(state: columnState) {
       state.columns = [] as IColumn[];
       state.statusColumn = fetchStatus.idle;
-      state.error = null;
+      // state.error = null;
     },
   },
   extraReducers(builder) {
