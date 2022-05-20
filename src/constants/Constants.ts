@@ -92,3 +92,10 @@ export const formType = {
   create: 'create',
   update: 'update',
 };
+
+export const cardInfo = {
+  name: 'Name',
+  surname: 'Surname',
+  age: 'Age',
+  about: 'About',
+};

@@ -1,4 +1,5 @@
 import React from 'react';
+import { cardInfo } from '../../constants/Constants';
 
 import './profileCard.css';
 
@@ -17,10 +18,18 @@ const ProfileCard = (props: IPofile): JSX.Element => {
         <img src={require(`../../assets/photo/${props.imgSrc}`)} alt="member-photo" />
       </div>
       <div className="information">
-        <p>Name : {props.name}</p>
-        <p>Surname : {props.surname}</p>
-        <p>Age : {props.age} </p>
-        <p>About : {props.about}</p>
+        <p>
+          {cardInfo.name} : {props.name}
+        </p>
+        <p>
+          {cardInfo.surname} : {props.surname}
+        </p>
+        <p>
+          {cardInfo.age}: {props.age}{' '}
+        </p>
+        <p>
+          {cardInfo.about} : {props.about}
+        </p>
       </div>
     </div>
   );
