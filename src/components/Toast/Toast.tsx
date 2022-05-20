@@ -9,16 +9,16 @@ import { selectGetBoardsError } from '../../redux/GetBoardSlice';
 import { selectBoardsError } from '../../redux/MainSlice';
 import { selectTasksError } from '../../redux/TaskSlice';
 import { selectUsersError } from '../../redux/UsersSlice';
+import { selectUserError } from '../../redux/userSlice';
+import { selectEditProfileError } from '../../redux/EditProfileSlice';
 
 import './toast.css';
 
 const Toast = (): JSX.Element => {
   const [list, setList] = useState<IError[]>([]);
 
-  //apiReducer
-  //EditProfileSlice
-  //userSlice
-
+  const editProfileError: string | null = useSelector(selectEditProfileError);
+  const userError: string | null = useSelector(selectUserError);
   const columnError: string | null = useSelector(selectColumnsError);
   const deleteUserError: string | null = useSelector(selectDeleteUserError);
   const getIdBoardError: string | null = useSelector(selectGetBoardsError);
@@ -29,6 +29,12 @@ const Toast = (): JSX.Element => {
 
   useEffect(() => {
     const errors: IError[] = list;
+    if (editProfileError) {
+      errors.push({ id: nanoid(), text: editProfileError });
+    }
+    if (userError) {
+      errors.push({ id: nanoid(), text: userError });
+    }
     if (columnError) {
       errors.push({ id: nanoid(), text: columnError });
     }
@@ -55,9 +61,11 @@ const Toast = (): JSX.Element => {
     columnError,
     createUserError,
     deleteUserError,
+    editProfileError,
     getIdBoardError,
     mainError,
     taskError,
+    userError,
     usersError,
   ]);
 

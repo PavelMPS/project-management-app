@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { NavLink, Route, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux';
 import { getUser } from '../../redux/apiReducer';
 import { setAuthCredentials } from '../../redux/userSlice';
@@ -15,7 +15,7 @@ export interface ILoginData {
 const LoginPage = (): JSX.Element => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { authLogin, authPass, token, isAuth } = useAppSelector((store) => store.user);
+  const { authLogin, authPass, isAuth } = useAppSelector((store) => store.user);
 
   const {
     register,
@@ -34,7 +34,7 @@ const LoginPage = (): JSX.Element => {
   }, [authPass]);
 
   useEffect((): void => {
-    if (token && isAuth) {
+    if (isAuth) {
       return navigate('/main');
     }
   }, [isAuth]);

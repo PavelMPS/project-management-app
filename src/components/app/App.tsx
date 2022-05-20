@@ -1,5 +1,5 @@
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 
 import EditProfile from '../EditProfilePage/EditProfilePage';
 import Footer from '../Footer/Footer';
@@ -11,10 +11,38 @@ import SignupPage from '../SignupPage/SignupPage';
 import BoardPage from '../BoardPage/BoardPage';
 import WelcomePage from '../WelcomePage/WelcomePage';
 import Toast from '../Toast/Toast';
+import { RequireAuth } from '../../hoc/RequireAuth';
+
+import { getTokenFromLocalStorage } from '../../redux/ColumnSlice';
+import { getUserAuth } from '../../redux/apiReducer';
+import { getIdFromToken } from '../../redux/EditProfileSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux';
 
 import './App.css';
 
 const App = (): JSX.Element => {
+  const { isAuth } = useAppSelector((store) => store.user);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = getTokenFromLocalStorage();
+    if (token) {
+      const userId = getIdFromToken(token);
+      dispatch(getUserAuth(userId, token));
+    } else {
+      if (!isAuth) {
+        return navigate('/');
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!isAuth) {
+      return navigate('/');
+    }
+  }, [isAuth]);
+
   return (
     <div className="body">
       <Header />
@@ -23,9 +51,23 @@ const App = (): JSX.Element => {
           <Route path="/" element={<WelcomePage />} />
           <Route path="/*" element={<NotFound />} />
           <Route path="/main" element={<Main />} />
-          <Route path="/sign-up" element={<SignupPage />} />
           <Route path="/edit" element={<EditProfile />} />
-          <Route path="/login" element={<LoginPage />} />
+          <Route
+            path="/sign-up"
+            element={
+              <RequireAuth>
+                <SignupPage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <RequireAuth>
+                <LoginPage />
+              </RequireAuth>
+            }
+          />
           <Route path="/board" element={<BoardPage />} />
         </Routes>
       </div>
