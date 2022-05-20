@@ -3,6 +3,7 @@ import axios, { AxiosResponse } from 'axios';
 import { EmptyObject } from 'react-hook-form';
 import { path } from '../constants/Constants';
 import { getTokenFromLocalStorage } from './ColumnSlice';
+import { RootState } from './Store';
 
 const initialState: ICreateBoardState = {
   title: '',
@@ -42,12 +43,14 @@ export const createBoardSlice: Slice<ICreateBoardState, EmptyObject, 'createBoar
     [createBoard.pending.type]: (state: ICreateBoardState) => {
       state.isLoading = true;
     },
-    [createBoard.rejected.type]: (state: ICreateBoardState, action: PayloadAction<string>) => {
+    [createBoard.rejected.type]: (state: ICreateBoardState, action) => {
       state.isLoading = false;
-      state.error = action.payload;
+      state.error = action.error.message;
     },
   },
 });
+
+export const boardCreateError = (state: RootState): string => state.board.error;
 
 export default createBoardSlice.reducer;
 export const store = (state: ICreateBoardState): ICreateBoardState => state;

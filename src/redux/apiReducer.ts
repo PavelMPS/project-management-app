@@ -26,6 +26,7 @@ export const getUser =
   (login: string, password: string) =>
   async (dispatch: AppDispatch): Promise<void> => {
     try {
+      dispatch(userSlice.actions.setError(null));
       const response = await axios.post(path.url + path.signIn, {
         login: login,
         password: password,
@@ -42,6 +43,7 @@ export const getUserAuth =
   (id: string, token: string) =>
   async (dispatch: AppDispatch): Promise<void> => {
     try {
+      dispatch(userSlice.actions.setError(null));
       const response = await axios.get(path.url + path.users + `/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,

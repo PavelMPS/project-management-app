@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import Confirmation from '../Confirmation/Confirmation';
 import { selectBoard } from '../../redux/MainSlice';
-import { deleteColumnFetch, updateColumnFetch } from '../../redux/ColumnSlice';
+import { deleteColumnFetch, updateColumnFetch, selectColumnsError } from '../../redux/ColumnSlice';
 import { updateTaskFetch, deleteTaskFetch } from '../../redux/TaskSlice';
 import { AppDispatch } from '../../redux/Store';
 import Task from '../Task/Task';
@@ -17,6 +17,7 @@ import './column.css';
 
 const Column = (props: { columnInf: ColumnState }): JSX.Element => {
   const board: IBoard = useSelector(selectBoard);
+  const columnError: string | null = useSelector(selectColumnsError);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -94,7 +95,9 @@ const Column = (props: { columnInf: ColumnState }): JSX.Element => {
       });
       await dispatch(deleteColumnFetch({ boardId: board.id, columnId: props.columnInf.id }));
     }
-    dispatch(getBoardById(board.id));
+    if (!columnError) {
+      dispatch(getBoardById(board.id));
+    }
   };
 
   const updateTitle = async (): Promise<void> => {
@@ -108,7 +111,9 @@ const Column = (props: { columnInf: ColumnState }): JSX.Element => {
       );
     }
     setIsTitleUpdate(false);
-    dispatch(getBoardById(board.id));
+    if (!columnError) {
+      dispatch(getBoardById(board.id));
+    }
   };
 
   return (

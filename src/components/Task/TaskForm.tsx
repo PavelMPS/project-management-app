@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { FieldError, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { updateTaskFetch, createTaskFetch } from '../../redux/TaskSlice';
+import { updateTaskFetch, createTaskFetch, selectTasksError } from '../../redux/TaskSlice';
 import { getBoardById, ColumnState } from '../../redux/GetBoardSlice';
 import { selectUsers } from '../../redux/UsersSlice';
 import { AppDispatch } from '../../redux/Store';
@@ -70,6 +70,7 @@ const TaskForm = (props: {
   const dispatch = useDispatch<AppDispatch>();
 
   const users: IUser[] = useSelector(selectUsers);
+  const taskError: string | null = useSelector(selectTasksError);
 
   const handleSubmite = async (data: ITask) => {
     const taskInf: ITask = {
@@ -107,7 +108,9 @@ const TaskForm = (props: {
       };
       await dispatch(updateTaskFetch(task));
     }
-    dispatch(getBoardById(props.boardId));
+    if (!taskError) {
+      dispatch(getBoardById(props.boardId));
+    }
   };
 
   const handleError = (): void => {

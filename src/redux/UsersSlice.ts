@@ -67,3 +67,4 @@ export default boardSlice.reducer;
 
 export const selectUsers = (state: RootState): IUser[] => state.users.users;
 export const selectUsersStatus = (state: RootState): string => state.users.statusUsers;
+export const selectUsersError = (state: RootState): string | null => state.users.error;
