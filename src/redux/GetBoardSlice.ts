@@ -3,6 +3,7 @@ import axios from 'axios';
 import { EmptyObject } from 'react-hook-form';
 import { fetchStatus, path } from '../constants/Constants';
 import { getTokenFromLocalStorage } from './ColumnSlice';
+import { RootState } from './Store';
 
 type FilesState = {
   filename: string;
@@ -108,3 +109,4 @@ export default getBoardSlice.reducer;
 export const { getBoard } = getBoardSlice.actions;
 
 export const selectedIdBoard = (state: MainState): MainState => state;
+export const selectedBoard = (state: RootState): BoardState => state.idBoard.idBoard;

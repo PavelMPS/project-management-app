@@ -1,26 +1,31 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
+import Confirmation from '../Confirmation/Confirmation';
 import { selectBoard } from '../../redux/MainSlice';
 import { deleteColumnFetch } from '../../redux/ColumnSlice';
-import { updateTaskFetch } from '../../redux/TaskSlice';
 import { AppDispatch } from '../../redux/Store';
 import Task from '../Task/Task';
 import ModalWindow from '../ModalWindow/ModalWindow';
 import ColumnForm from './ColumnForm';
 import TaskForm from '../Task/TaskForm';
 import { ColumnState, getBoardById, TaskState } from '../../redux/GetBoardSlice';
+import { formType } from '../../constants/Constants';
 
 import './column.css';
-import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
+import { Draggable } from 'react-beautiful-dnd';
 
 const Column = (props: { columnInf: ColumnState }): JSX.Element => {
   const board: IBoard = useSelector(selectBoard);
-
   const dispatch = useDispatch<AppDispatch>();
 
+  const [isConfirmationOpen, setIsConfirmationOpen] = useState<boolean>(false);
   const [isColumnModalOpen, setColumnModalOpen] = useState<boolean>(false);
   const [isTaskModalOpen, setTaskModalOpen] = useState<boolean>(false);
+  useEffect(() => {
+    console.log(props.columnInf.tasks);
+  }, []);
+  // const [tasks, updateTasks] = useState(props.columnInf.tasks);
   // const [taskDragState, setTaskDragState] = useState<ITask>({
   //   title: '',
   //   order: 0,
@@ -81,8 +86,11 @@ const Column = (props: { columnInf: ColumnState }): JSX.Element => {
   //   await dispatch(updateTaskFetch(taskInf2));
   // };
 
-  const onDragEndHadler = (result: DropResult) => {
-    console.log(result);
+  const confirmationSubmit = async (): Promise<void> => {
+    if (props.columnInf.id) {
+      await dispatch(deleteColumnFetch({ boardId: board.id, columnId: props.columnInf.id }));
+    }
+    dispatch(getBoardById(board.id));
   };
 
   return (
@@ -102,60 +110,42 @@ const Column = (props: { columnInf: ColumnState }): JSX.Element => {
               setTaskModalOpen(true);
             }}
           ></div>
-          <div
-            className="column-bin"
-            onClick={async () => {
-              if (props.columnInf.id) {
-                await dispatch(
-                  deleteColumnFetch({ boardId: board.id, columnId: props.columnInf.id })
-                );
-              }
-              dispatch(getBoardById(board.id));
-              //TODO добавить confirmation modal
-            }}
-          ></div>
+          <div className="column-bin" onClick={() => setIsConfirmationOpen(true)}></div>
         </div>
-        <DragDropContext onDragEnd={onDragEndHadler}>
-          <Droppable droppableId="tasks" direction="vertical">
-            {(provided) => (
-              <div className="tasks-container" {...provided.droppableProps} ref={provided.innerRef}>
-                {props.columnInf.tasks &&
-                  props.columnInf.tasks.map((task: TaskState, index) => {
-                    return (
-                      <Draggable key={task.id} draggableId={task.id} index={index}>
-                        {(provided) => (
-                          <div
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                            ref={provided.innerRef}
-                            // draggable={true}
-                            // onDragStart={(e) => dragStartHandler(e, task)}
-                            // onDragEnd={(e) => dragEndHandler(e)}
-                            // onDragLeave={(e) => dragEndHandler(e)}
-                            // onDragOver={(e) => dragOverHandler(e)}
-                            // onDrop={(e) => dropHandler(e, task)}
-                          >
-                            <Task taskInf={task} columnId={props.columnInf.id} />
-                          </div>
-                        )}
-                      </Draggable>
-                    );
-                  })}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
+        <div className="tasks-container">
+          {props.columnInf.tasks &&
+            props.columnInf.tasks.map((task: TaskState, index: number) => {
+              return (
+                <Draggable key={task.id} draggableId={task.id} index={index}>
+                  {(provided) => (
+                    <div
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      ref={provided.innerRef}
+                    >
+                      <Task taskInf={task} columnId={props.columnInf.id} />
+                    </div>
+                  )}
+                </Draggable>
+              );
+            })}
+        </div>
       </div>
       {isColumnModalOpen && (
         <ModalWindow onClick={handleModalClose}>
-          {<ColumnForm boardId={board.id} columnInf={props.columnInf} type="update" />}
+          {<ColumnForm boardId={board.id} columnInf={props.columnInf} type={formType.update} />}
         </ModalWindow>
       )}
       {isTaskModalOpen && props.columnInf.id && (
         <ModalWindow onClick={handleModalClose}>
-          {<TaskForm boardId={board.id} columnId={props.columnInf.id} type="create" />}
+          {<TaskForm boardId={board.id} columnId={props.columnInf.id} type={formType.create} />}
         </ModalWindow>
+      )}
+      {isConfirmationOpen && (
+        <Confirmation
+          onCancel={() => setIsConfirmationOpen(false)}
+          onSubmit={() => confirmationSubmit()}
+        />
       )}
     </>
   );

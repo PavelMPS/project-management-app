@@ -26,6 +26,7 @@ export const buttonName = {
   create: 'CREATE',
   enter: 'Enter',
   addColumn: 'ADD COLUMN',
+  goToMainPage: 'Go to main page',
 };
 
 export const appName = 'Project managment application';
@@ -82,3 +83,11 @@ export const taskFormSettings = {
 
 export const year = '2022';
 export const loading = 'Loading...';
+export const confirmation = 'Are you sure?';
+export const submitBTNText = 'Yes';
+export const cancelBTNText = 'Cancel';
+
+export const formType = {
+  create: 'create',
+  update: 'update',
+};

@@ -40,8 +40,8 @@ export const updateColumnDrag: AsyncThunk<
   }
 );
 
-const dragAndDropSlice = createSlice({
-  name: 'dragAndDrop',
+const dragAndDropColumnsSlice = createSlice({
+  name: 'dragAndDropColumn',
   initialState,
   reducers: {},
   extraReducers(builder) {
@@ -57,4 +57,4 @@ const dragAndDropSlice = createSlice({
   },
 });
 
-export default dragAndDropSlice.reducer;
+export default dragAndDropColumnsSlice.reducer;
