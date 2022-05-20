@@ -101,3 +101,10 @@ export const serverErrorText = {
   500: 'Oops something went wrong and the server does not know what... Try it differently!',
   default: 'Oops, something went wrong... Try it differently!',
 };
+
+export const cardInfo = {
+  name: 'Name',
+  surname: 'Surname',
+  age: 'Age',
+  about: 'About',
+};

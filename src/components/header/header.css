@@ -1,8 +1,15 @@
 header {
   background: rgb(210, 232, 250);
   height: 100px;
-  /* position: fixed;
-  width: 100%; */
+  position: sticky;
+  width: 100%; 
+  top: 0;
+  z-index: 999;
+}
+
+.header-active{
+  background-color: rgb(95, 131, 160);
+  transition:all 1s;    
 }
 
 .header-title {
