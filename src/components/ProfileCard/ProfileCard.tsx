@@ -25,7 +25,7 @@ const ProfileCard = (props: IPofile): JSX.Element => {
           {cardInfo.surname} : {props.surname}
         </p>
         <p>
-          {cardInfo.age}: {props.age}{' '}
+          {cardInfo.age}: {props.age}
         </p>
         <p>
           {cardInfo.about} : {props.about}
