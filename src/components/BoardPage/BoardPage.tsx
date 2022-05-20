@@ -12,6 +12,8 @@ import {
 } from '../../redux/ColumnSlice';
 import {
   closeBoardTask,
+  createTaskFetch,
+  deleteTaskFetch,
   fetchTask,
   selectStatusTasks,
   updateTaskFetch,
@@ -80,12 +82,34 @@ const BoardPage = (): JSX.Element => {
       const columnDestination = idBoard.columns.find(
         (column) => column.id === destination.droppableId
       );
+      const taskDrag = columnSource!.tasks[source.index];
+      const taskinfDrag = {
+        id: taskDrag.id,
+        title: taskDrag.title,
+        order: destination.index + 1,
+        description: taskDrag.description,
+        userId: taskDrag.userId,
+        boardId: board.id,
+        columnId: columnDestination?.id,
+      };
+      //delete drag task
+      console.log('board: ', board.id);
+      console.log('column: ', source.droppableId);
+      console.log('task: ', result.draggableId);
+      await dispatch(
+        deleteTaskFetch({
+          boardId: board.id,
+          columnId: source.droppableId,
+          taskId: result.draggableId,
+        })
+      );
+      //create task in other column
+      await dispatch(createTaskFetch(taskinfDrag));
     }
     if (source.droppableId === destination.droppableId) {
       //Здесь нужно менять массив с тасками
       console.log('inside');
       const column = idBoard.columns.find((column) => column.id === destination.droppableId);
-      console.log(column);
 
       const taskDrag = column!.tasks[source.index];
       const taskDrop = column!.tasks[destination.index];
@@ -107,40 +131,23 @@ const BoardPage = (): JSX.Element => {
         boardId: board.id,
         columnId: column!.id,
       };
-      console.log('here', taskInfDrag, taskInfDrop);
       await dispatch(updateTaskFetch(taskInfDrag));
       await dispatch(updateTaskFetch(taskInfDrop));
-      await dispatch(getBoardById(board.id));
-
-      // const taskInf1 = {
-      //   id: ,
-      //   title: task.title,
-      //   order: taskDragState.order,
-      //   description: task.description,
-      //   userId: task.userId,
-      //   boardId: board.id,
-      //   columnId: props.columnInf.id,
-      // };
-      // const items = Array.from();
-      // const [reorderedItem] = items.splice(source.index, 1);
-      // items.splice(destination.index, 0, reorderedItem);
-      // dispatch(updateTasks(items));
-      // dispatch(updateTaskFetch(taskInf1));
-      // dispatch(updateTaskFetch(taskInf2));
     }
+    await dispatch(getBoardById(board.id));
   };
 
   return (
     <>
       <div className="board-container">
-        <h1>
-          {pageName.board} {board.title}
-        </h1>
-        <Link to="/main">
-          <div className="board-close" onClick={boardCloseHadler}>
-            {buttonName.close}
-          </div>
-        </Link>
+        <div className="board-title-container">
+          <h1>{board.title}</h1>
+          <Link to="/main">
+            <div className="board-close" onClick={boardCloseHadler}>
+              {buttonName.close}
+            </div>
+          </Link>
+        </div>
         <DragDropContext onDragEnd={onDragEnd}>
           <div className="columns-container">
             {idBoard.columns.map((column: ColumnState) => {
@@ -155,17 +162,17 @@ const BoardPage = (): JSX.Element => {
                 </Droppable>
               );
             })}
+            <div
+              className="board-add-column"
+              onClick={() => {
+                setModalOpen(true);
+              }}
+            >
+              <div className="board-add-column-icon"></div>
+              <div>{buttonName.addColumn}</div>
+            </div>
           </div>
         </DragDropContext>
-
-        <div
-          className="board-close"
-          onClick={() => {
-            setModalOpen(true);
-          }}
-        >
-          {buttonName.addColumn}
-        </div>
       </div>
       {!board.id && <Navigate to={'/main'} />}
       {isModalOpen && (

@@ -49,18 +49,19 @@ const Task = (props: { taskInf: TaskState; columnId: string }): JSX.Element => {
     <>
       <div className="task-container">
         <div className="task-wrapper">
-          <div>{props.taskInf.order}</div>
           <div className="task-title">{props.taskInf.title}</div>
-          <div
-            className="task-update"
-            onClick={async () => {
-              setModalOpen(true);
-            }}
-          ></div>
-          <div className="task-bin" onClick={() => setIsConfirmationOpen(true)}></div>
+          <div className="task-wrapper">
+            <div
+              className="task-update"
+              onClick={async () => {
+                setModalOpen(true);
+              }}
+            ></div>
+            <div className="task-bin" onClick={() => setIsConfirmationOpen(true)}></div>
+          </div>
         </div>
-        <div>{props.taskInf.description}</div>
-        <div>{user}</div>
+        <div className="task-description">{props.taskInf.description}</div>
+        <div className="task-responsible-user">{user}</div>
       </div>
       {isModalOpen && (
         <ModalWindow onClick={handleModalClose}>

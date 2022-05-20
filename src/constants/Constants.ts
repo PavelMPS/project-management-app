@@ -26,6 +26,7 @@ export const buttonName = {
   create: 'CREATE',
   enter: 'Enter',
   addColumn: 'ADD COLUMN',
+  addTask: 'ADD TASK',
   goToMainPage: 'Go to main page',
 };
 

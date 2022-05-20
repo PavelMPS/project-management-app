@@ -1,41 +1,60 @@
 .task-container {
-  min-width: 300px;
+  min-width: 100%;
   padding: 5px;
+  margin-bottom: 15px;
   text-align: center;
-  background-color: rgb(210, 232, 250);
+  background-color: #ffffff;
+  box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.15);
+  text-align: left;
+}
+.task-container:hover .task-bin {
+  opacity: 1;
+  transition: 0.3s;
+}
+.task-container:hover .task-update {
+  opacity: 1;
+  transition: 0.3s;
 }
 
 .task-wrapper {
-  height: 50px;
+  min-height: 40px;
   display: flex;
   justify-content: space-between;
-  column-gap: 25px;
-  line-height: 50px;
+  column-gap: 15px;
+  align-items: center;
 }
 
 .task-bin {
-  width: 40px;
-  height: 40px;
+  width: 25px;
+  height: 25px;
   background-image: url(../../assets/bin.png);
   background-size: cover;
-}
-.task-bin:active {
-  transform: scale(1.2);
-}
-
-.task-bin {
-  width: 40px;
-  height: 40px;
-  background-image: url(../../assets/bin.png);
-  background-size: cover;
+  opacity: 0;
+  transition: 0.3s;
+  cursor: pointer;
 }
 .task-update {
-  width: 40px;
-  height: 40px;
+  width: 25px;
+  height: 25px;
   background-image: url(../../assets/update.png);
   background-size: cover;
+  opacity: 0;
+  transition: 0.3s;
+  cursor: pointer;
 }
 .task-bin:active,
 .task-update:active {
   transform: scale(1.2);
+}
+
+.task-title {
+  font-size: 24px;
+  font-weight: 500;
+  white-space: normal;
+}
+.task-description {
+  white-space: normal;
+}
+.task-responsible-user {
+  text-align: right;
 }
