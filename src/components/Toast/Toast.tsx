@@ -11,8 +11,27 @@ import { selectTasksError } from '../../redux/TaskSlice';
 import { selectUsersError } from '../../redux/UsersSlice';
 import { selectUserError } from '../../redux/userSlice';
 import { selectEditProfileError } from '../../redux/EditProfileSlice';
+import { serverErrorText } from '../../constants/Constants';
 
 import './toast.css';
+
+const getErrorText = (error: string) => {
+  const status = error.slice(-3);
+  switch (status) {
+    case '400':
+      return serverErrorText[400];
+    case '401':
+      return serverErrorText[401];
+    case '403':
+      return serverErrorText[403];
+    case '404':
+      return serverErrorText[404];
+    case '500':
+      return serverErrorText[500];
+    default:
+      return serverErrorText.default;
+  }
+};
 
 const Toast = (): JSX.Element => {
   const [list, setList] = useState<IError[]>([]);
@@ -30,31 +49,31 @@ const Toast = (): JSX.Element => {
   useEffect(() => {
     const errors: IError[] = list;
     if (editProfileError) {
-      errors.push({ id: nanoid(), text: editProfileError });
+      errors.push({ id: nanoid(), text: getErrorText(editProfileError) });
     }
     if (userError) {
-      errors.push({ id: nanoid(), text: userError });
+      errors.push({ id: nanoid(), text: getErrorText(userError) });
     }
     if (columnError) {
-      errors.push({ id: nanoid(), text: columnError });
+      errors.push({ id: nanoid(), text: getErrorText(columnError) });
     }
     if (deleteUserError) {
-      errors.push({ id: nanoid(), text: deleteUserError });
+      errors.push({ id: nanoid(), text: getErrorText(deleteUserError) });
     }
     if (getIdBoardError) {
-      errors.push({ id: nanoid(), text: getIdBoardError });
+      errors.push({ id: nanoid(), text: getErrorText(getIdBoardError) });
     }
     if (mainError) {
-      errors.push({ id: nanoid(), text: mainError });
+      errors.push({ id: nanoid(), text: getErrorText(mainError) });
     }
     if (taskError) {
-      errors.push({ id: nanoid(), text: taskError });
+      errors.push({ id: nanoid(), text: getErrorText(taskError) });
     }
     if (usersError) {
-      errors.push({ id: nanoid(), text: usersError });
+      errors.push({ id: nanoid(), text: getErrorText(usersError) });
     }
     if (createUserError.length) {
-      errors.push({ id: nanoid(), text: createUserError });
+      errors.push({ id: nanoid(), text: getErrorText(createUserError) });
     }
     setList([...errors]);
   }, [

@@ -1,9 +1,9 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import Confirmation from '../Confirmation/Confirmation';
-import { deleteBoard, deleteBoardFetch, openBoard } from '../../redux/MainSlice';
+import { deleteBoard, deleteBoardFetch, openBoard, selectBoardsError } from '../../redux/MainSlice';
 import { AppDispatch } from '../../redux/Store';
 import { getBoardById } from '../../redux/GetBoardSlice';
 import { buttonName } from '../../constants/Constants';
@@ -13,11 +13,15 @@ import './boardPreview.css';
 const BoardPreview = (props: { boardInf: IBoard }): JSX.Element => {
   const dispatch = useDispatch<AppDispatch>();
 
+  const boardError: string | null = useSelector(selectBoardsError);
+
   const [isConfirmationOpen, setIsConfirmationOpen] = useState<boolean>(false);
 
   const confirmationSubmit = async (): Promise<void> => {
     await dispatch(deleteBoardFetch(props.boardInf.id));
-    dispatch(deleteBoard(props.boardInf.id));
+    if (!boardError) {
+      dispatch(deleteBoard(props.boardInf.id));
+    }
   };
 
   const openBoardHandler = (): void => {

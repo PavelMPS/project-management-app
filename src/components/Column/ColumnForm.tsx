@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { FieldError, useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { useAppSelector } from '../../redux/hooks/redux';
 import { buttonName, columnFormProps, formType } from '../../constants/Constants';
-import { createColumnFetch, updateColumnFetch } from '../../redux/ColumnSlice';
+import { createColumnFetch, updateColumnFetch, selectColumnsError } from '../../redux/ColumnSlice';
 import { getBoardById } from '../../redux/GetBoardSlice';
 import { AppDispatch } from '../../redux/Store';
 import Confirmation from '../Confirmation/Confirmation';
@@ -21,6 +21,7 @@ const ColumnForm = (props: { boardId: string; columnInf?: IColumn; type: string 
   } = useForm<IColumn>();
 
   const { idBoard } = useAppSelector((store) => store.idBoard);
+  const columnError: string | null = useSelector(selectColumnsError);
 
   const [isValid, setIsValid] = useState<boolean>(false);
   const [title, setTitle] = useState<string>(() => {
@@ -65,7 +66,9 @@ const ColumnForm = (props: { boardId: string; columnInf?: IColumn; type: string 
         })
       );
     }
-    dispatch(getBoardById(props.boardId));
+    if (!columnError) {
+      dispatch(getBoardById(props.boardId));
+    }
   };
 
   const handleError = (): void => {
