@@ -13,6 +13,7 @@ const Header = (): JSX.Element => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { isAuth, token } = useAppSelector((store) => store.user);
+  const [navbar, setNavbar] = useState<boolean>(false);
 
   useEffect(() => {
     if (!token && !isAuth) {
@@ -37,8 +38,18 @@ const Header = (): JSX.Element => {
     return navigate('/');
   };
 
+  const setActiveNavbar = () => {
+    if (window.scrollY >= 100) {
+      setNavbar(true);
+    } else {
+      setNavbar(false);
+    }
+  };
+
+  window.addEventListener('scroll', setActiveNavbar);
+
   return (
-    <header>
+    <header className={navbar ? 'header-active' : ''}>
       <h1 className="header-title">{appName}</h1>
       {isAuth && (
         <div className="menu-container">
