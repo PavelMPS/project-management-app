@@ -12,11 +12,11 @@ import ColumnForm from './ColumnForm';
 import TaskForm from '../Task/TaskForm';
 import { ColumnState, getBoardById, TaskState } from '../../redux/GetBoardSlice';
 import { formType, buttonName } from '../../constants/Constants';
-import { Draggable } from 'react-beautiful-dnd';
+import { Draggable, Droppable } from 'react-beautiful-dnd';
 
 import './column.css';
 
-const Column = (props: { columnInf: ColumnState }): JSX.Element => {
+const Column = (props: { columnInf: ColumnState; index: number }): JSX.Element => {
   const board: IBoard = useSelector(selectBoard);
   const dispatch = useDispatch<AppDispatch>();
 
@@ -62,52 +62,66 @@ const Column = (props: { columnInf: ColumnState }): JSX.Element => {
 
   return (
     <>
-      <div className="column-container">
-        <div className="column-wrapper">
-          {!isTitleUpdate && (
-            <>
-              <div className="column-title" onClick={() => setIsTitleUpdate(true)}>
-                {props.columnInf.title}
-              </div>
-              <div className="column-bin" onClick={() => setIsConfirmationOpen(true)}></div>
-            </>
-          )}
-          {isTitleUpdate && (
-            <>
-              <input
-                className="update-title-input"
-                type="text"
-                defaultValue={props.columnInf.title}
-                onChange={(event) => setTitle(event.target.value)}
-              ></input>
-              <div className="update-title-btn" onClick={updateTitle}></div>
-              <div className="close-title-btn" onClick={() => setIsTitleUpdate(false)}></div>
-            </>
-          )}
-        </div>
-        <div className="tasks-container">
-          {props.columnInf.tasks &&
-            props.columnInf.tasks.map((task: TaskState, index: number) => {
-              return (
-                <Draggable key={task.id} draggableId={task.id} index={index}>
-                  {(provided) => (
-                    <div
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      ref={provided.innerRef}
-                    >
-                      <Task taskInf={task} columnId={props.columnInf.id} />
-                    </div>
-                  )}
-                </Draggable>
-              );
-            })}
-        </div>
-        <div className="task-create-btn" onClick={async () => setTaskModalOpen(true)}>
-          <div className="task-create"></div>
-          <div>{buttonName.addTask}</div>
-        </div>
-      </div>
+      <Draggable draggableId={props.columnInf.id} index={props.index}>
+        {(provided) => (
+          <div className="column-container" {...provided.draggableProps} ref={provided.innerRef}>
+            <div className="column-wrapper">
+              {!isTitleUpdate && (
+                <>
+                  <div
+                    {...provided.dragHandleProps}
+                    className="column-title"
+                    onClick={() => setIsTitleUpdate(true)}
+                  >
+                    {props.columnInf.title}
+                  </div>
+                  <div className="column-bin" onClick={() => setIsConfirmationOpen(true)}></div>
+                </>
+              )}
+              {isTitleUpdate && (
+                <>
+                  <input
+                    className="update-title-input"
+                    type="text"
+                    defaultValue={props.columnInf.title}
+                    onChange={(event) => setTitle(event.target.value)}
+                  ></input>
+                  <div className="update-title-btn" onClick={updateTitle}></div>
+                  <div className="close-title-btn" onClick={() => setIsTitleUpdate(false)}></div>
+                </>
+              )}
+            </div>
+            <Droppable droppableId={props.columnInf.id} direction="vertical" type="task">
+              {(provided) => (
+                <div
+                  className="tasks-container"
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                >
+                  {props.columnInf.tasks &&
+                    props.columnInf.tasks.map((task: TaskState, index: number) => {
+                      return (
+                        <Task
+                          key={task.id}
+                          taskInf={task}
+                          columnId={props.columnInf.id}
+                          index={index}
+                        />
+                      );
+                    })}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+
+            <div className="task-create-btn" onClick={async () => setTaskModalOpen(true)}>
+              <div className="task-create"></div>
+              <div>{buttonName.addTask}</div>
+            </div>
+          </div>
+        )}
+      </Draggable>
+
       {isColumnModalOpen && (
         <ModalWindow onClick={handleModalClose}>
           {<ColumnForm boardId={board.id} columnInf={props.columnInf} type={formType.update} />}
