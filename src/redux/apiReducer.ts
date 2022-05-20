@@ -5,6 +5,7 @@ import { EmptyObject } from 'react-hook-form';
 import { AppDispatch } from './Store';
 import { logout, userSlice } from './userSlice';
 import { path } from '../constants/Constants';
+import { useAppDispatch } from './hooks/redux';
 
 export const setUser: AsyncThunk<void, IUserState, EmptyObject> = createAsyncThunk(
   'user/setUser',
@@ -15,7 +16,9 @@ export const setUser: AsyncThunk<void, IUserState, EmptyObject> = createAsyncThu
         login: arg.login,
         password: arg.password,
       });
-    } catch (e) {}
+    } catch (e) {
+      const err = e as AxiosError;
+    }
   }
 );
 
