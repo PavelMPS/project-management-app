@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { FieldError, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import { useAppSelector } from '../../redux/hooks/redux';
-import { buttonName, columnFormProps, formType } from '../../constants/Constants';
+import { columnFormProps, formType } from '../../constants/Constants';
 import { createColumnFetch, updateColumnFetch, selectColumnsError } from '../../redux/ColumnSlice';
 import { getBoardById } from '../../redux/GetBoardSlice';
 import { AppDispatch } from '../../redux/Store';
@@ -12,6 +13,7 @@ import Confirmation from '../Confirmation/Confirmation';
 import './columnForm.css';
 
 const ColumnForm = (props: { boardId: string; columnInf?: IColumn; type: string }): JSX.Element => {
+  const { t } = useTranslation();
   const {
     register,
     handleSubmit,
@@ -94,7 +96,7 @@ const ColumnForm = (props: { boardId: string; columnInf?: IColumn; type: string 
       <form className="form" onSubmit={handleSubmit(handleSubmite, handleError)}>
         <div className="form-element-wrapper">
           <label className="form-label">
-            {columnFormProps.title}
+            {t('column.title')}
             <br />
             <input
               className="form-input"
@@ -113,7 +115,7 @@ const ColumnForm = (props: { boardId: string; columnInf?: IColumn; type: string 
         </div>
 
         <button className="form-btn" type="submit" disabled={!isValid}>
-          {buttonName.submit}
+          {t('column.submit')}
         </button>
       </form>
       {isConfirmationOpen && (

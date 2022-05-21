@@ -121,3 +121,8 @@ interface IError {
   id: string;
   text: string;
 }
+
+interface ILangs {
+  en: string;
+  ru: string;
+}

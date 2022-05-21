@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import Confirmation from '../Confirmation/Confirmation';
 import { deleteBoard, deleteBoardFetch, openBoard, selectBoardsError } from '../../redux/MainSlice';
@@ -11,6 +12,7 @@ import { buttonName } from '../../constants/Constants';
 import './boardPreview.css';
 
 const BoardPreview = (props: { boardInf: IBoard }): JSX.Element => {
+  const { t } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
 
   const boardError: string | null = useSelector(selectBoardsError);
@@ -38,7 +40,7 @@ const BoardPreview = (props: { boardInf: IBoard }): JSX.Element => {
         </div>
         <Link className="edit-link" to={'/board'}>
           <div className="board-open-btn" onClick={openBoardHandler}>
-            {buttonName.open}
+            {t('main.open')}
           </div>
         </Link>
       </div>

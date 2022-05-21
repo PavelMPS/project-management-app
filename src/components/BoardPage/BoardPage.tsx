@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import ModalWindow from '../ModalWindow/ModalWindow';
 import ColumnForm from '../Column/ColumnForm';
@@ -31,6 +32,7 @@ import { DragDropContext, DraggableLocation, Droppable, DropResult } from 'react
 import './boardPage.css';
 
 const BoardPage = (): JSX.Element => {
+  const { t } = useTranslation();
   const board = useSelector(selectBoard);
   const statusColumn = useSelector(selectStatusColumn);
   const statusTasks = useSelector(selectStatusTasks);
@@ -202,7 +204,7 @@ const BoardPage = (): JSX.Element => {
           <h1>{board.title}</h1>
           <Link to="/main">
             <div className="board-close" onClick={boardCloseHadler}>
-              {buttonName.close}
+              {t('board.close')}
             </div>
           </Link>
         </div>
@@ -224,7 +226,7 @@ const BoardPage = (): JSX.Element => {
                   }}
                 >
                   <div className="board-add-column-icon"></div>
-                  <div>{buttonName.addColumn}</div>
+                  <div>{t('board.addColumn')}</div>
                 </div>
                 {provided.placeholder}
               </div>

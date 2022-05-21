@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { FieldError, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import { updateTaskFetch, createTaskFetch, selectTasksError } from '../../redux/TaskSlice';
 import { getBoardById, ColumnState } from '../../redux/GetBoardSlice';
@@ -18,6 +19,7 @@ const TaskForm = (props: {
   taskInf?: ITask;
   type: string;
 }): JSX.Element => {
+  const { t } = useTranslation();
   const {
     register,
     handleSubmit,
@@ -136,7 +138,7 @@ const TaskForm = (props: {
       <form className="form" onSubmit={handleSubmit(handleSubmite, handleError)}>
         <div className="form-element-wrapper">
           <label className="form-label">
-            {taskFormSettings.title}
+            {t('task.title')}
             <br />
             <input
               className="form-input"
@@ -156,7 +158,7 @@ const TaskForm = (props: {
 
         <div className="form-element-wrapper">
           <label className="form-label">
-            {taskFormSettings.description}
+            {t('task.description')}
             <br />
             <input
               className="form-input"
@@ -171,12 +173,12 @@ const TaskForm = (props: {
               })}
             />
           </label>
-          {errors.title && <span className="error">{taskFormSettings.error}</span>}
+          {errors.title && <span className="error">{t('task.error')}</span>}
         </div>
 
         <div className="form-element-wrapper">
           <label className="form-label">
-            {taskFormSettings.selectUser}
+            {t('task.selectUser')}
             <br />
             <select
               className="form-input"
@@ -194,7 +196,7 @@ const TaskForm = (props: {
         </div>
 
         <button className="form-btn" type="submit" disabled={!isValid}>
-          {buttonName.submit}
+          {t('task.submit')}
         </button>
       </form>
       {isConfirmationOpen && (

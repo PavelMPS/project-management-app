@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux';
+import { useTranslation } from 'react-i18next';
 
 import { buttonName, pageName } from '../../constants/Constants';
 import { getTokenFromLocalStorage } from '../../redux/ColumnSlice';
@@ -11,6 +11,7 @@ import { Team } from '../../constants/Team';
 import ProfileCard from '../ProfileCard/ProfileCard';
 
 const WelcomePage = (): JSX.Element => {
+  const { t } = useTranslation();
   const { isAuth } = useAppSelector((store) => store.user);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -29,20 +30,20 @@ const WelcomePage = (): JSX.Element => {
 
   return (
     <>
-      <h1>{pageName.welcome}</h1>
+      <h1>{t('welcome.title')}</h1>
       {!isAuth ? (
         <div className="signup-container">
           <NavLink to="/login">
-            <button>{buttonName.logIn}</button>
+            <button>{t('welcome.login')}</button>
           </NavLink>
           <NavLink to="/sign-up">
-            <button>{buttonName.signUp}</button>
+            <button>{t('welcome.signup')}</button>
           </NavLink>
         </div>
       ) : (
         <div className="signup-container">
           <NavLink to="/main">
-            <button>{buttonName.goToMainPage}</button>
+            <button>{t('welcome.toMain')}</button>
           </NavLink>
         </div>
       )}
