@@ -86,7 +86,6 @@ export const createTaskFetch: AsyncThunk<ITask, ITask, EmptyObject> = createAsyn
       requestString,
       {
         title: taskInf.title,
-        order: +taskInf.order,
         description: taskInf.description,
         userId: taskInf.userId,
       },
@@ -240,3 +239,4 @@ export const { closeBoardTask } = boardSlice.actions;
 
 export const selectTasks = (state: RootState): ITask[] => state.tasks.tasks;
 export const selectStatusTasks = (state: RootState): string => state.tasks.statusTasks;
+export const selectTasksError = (state: RootState): string | null => state.tasks.error;

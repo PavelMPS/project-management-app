@@ -26,7 +26,7 @@ import { ColumnState, getBoardById } from '../../redux/GetBoardSlice';
 import { useAppSelector } from '../../redux/hooks/redux';
 import { buttonName, fetchStatus, pageName, formType } from '../../constants/Constants';
 import { Loader } from '../Loader/Loader';
-import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
+import { DragDropContext, DraggableLocation, Droppable, DropResult } from 'react-beautiful-dnd';
 
 import './boardPage.css';
 
@@ -37,17 +37,18 @@ const BoardPage = (): JSX.Element => {
   const statusUsers = useSelector(selectUsersStatus);
   const { idBoard } = useAppSelector((store) => store.idBoard);
   const state = useAppSelector((store) => store);
-  const boardStatus = useAppSelector((store) => store.idBoard.status);
+  const [dragState, updateDragState] = useState(idBoard.columns);
 
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect((): void => {
+    updateDragState(idBoard.columns);
     console.log('state', state.idBoard.idBoard.columns);
     if (statusUsers === fetchStatus.idle) {
       dispatch(fetchUsers());
     }
-  }, [statusUsers, idBoard.columns]);
+  }, [statusUsers, idBoard.columns, dispatch]);
 
   const handleModalClose = (): void => {
     setModalOpen(false);
@@ -58,98 +59,100 @@ const BoardPage = (): JSX.Element => {
     dispatch(closeBoardTask());
   };
 
-  // function handleOnDragEnd(result: DropResult): void {
-  //   if (!result.destination) {
-  //     return;
-  //   }
-  //   console.log(result);
+  const reorderColumns = async (
+    source: DraggableLocation,
+    destination: DraggableLocation
+  ): Promise<void> => {
+    const items = Array.from(dragState);
+    const [reorderedItem] = items.splice(source.index, 1);
+    items.splice(destination.index, 0, reorderedItem);
+    updateDragState(items);
+    // await dispatch(
+    //   updateColumnFetch({
+    //     boardId: board.id,
+    //     columnId: idBoard.columns[source.index].id,
+    //     column: { title: idBoard.columns[source.index].title, order: idBoard.columns.length + 1 },
+    //   })
+    // );
+    // await dispatch(
+    //   updateColumnFetch({
+    //     boardId: board.id,
+    //     columnId: idBoard.columns[destination.index].id,
+    //     column: {
+    //       title: idBoard.columns[destination.index].title,
+    //       order: idBoard.columns[source.index].order,
+    //     },
+    //   })
+    // );
+    // await dispatch(
+    //   updateColumnFetch({
+    //     boardId: board.id,
+    //     columnId: idBoard.columns[source.index].id,
+    //     column: {
+    //       title: idBoard.columns[source.index].title,
+    //       order: idBoard.columns[destination.index].order,
+    //     },
+    //   })
+    // );
+  };
 
-  //   const items = Array.from(columns);
-  //   const [reordedItem] = items.splice(result.source.index, 1);
-  //   items.splice(result.destination!.index, 0, reordedItem);
-  //   console.log(items);
-  //   updateColumns(items);
-  // }
-
-  const onDragEnd = async (result: DropResult) => {
-    const { source, destination, type } = result;
-    console.log(result);
-    if (!destination) return;
-    // if (source.index === destination.index) return;
-    if (type === 'column') {
+  const reorderTasks = async (
+    source: DraggableLocation,
+    destination: DraggableLocation,
+    result: DropResult
+  ): Promise<void> => {
+    if (source.droppableId !== destination.droppableId) {
+      //drag to another column
+      console.log('outside');
       const columnSource = idBoard.columns.find((column) => column.id === source.droppableId);
       const columnDestination = idBoard.columns.find(
         (column) => column.id === destination.droppableId
       );
-      console.log('first column', columnSource);
-      console.log('second column', columnDestination);
+      const taskDrag = columnSource!.tasks[source.index];
+      // const [sourceTasks] = columnSource!.tasks.splice(source.index, 1);
+      // console.log(sourceTasks);
+      const taskinfDrag = {
+        id: taskDrag.id,
+        title: taskDrag.title,
+        // order: columnDestination!.tasks.length + 1,
+        order: destination.index + 1,
+        description: taskDrag.description,
+        userId: taskDrag.userId,
+        boardId: board.id,
+        columnId: columnDestination?.id,
+      };
+      //delete drag task
       await dispatch(
-        updateColumnFetch({
+        deleteTaskFetch({
           boardId: board.id,
-          columnId: idBoard.columns[source.index].id,
-          column: { title: idBoard.columns[source.index].title, order: idBoard.columns.length + 1 },
+          columnId: source.droppableId,
+          taskId: result.draggableId,
         })
       );
-      await dispatch(
-        updateColumnFetch({
-          boardId: board.id,
-          columnId: idBoard.columns[destination.index].id,
-          column: {
-            title: idBoard.columns[destination.index].title,
-            order: idBoard.columns[source.index].order,
-          },
-        })
-      );
-      await dispatch(
-        updateColumnFetch({
-          boardId: board.id,
-          columnId: idBoard.columns[source.index].id,
-          column: {
-            title: idBoard.columns[source.index].title,
-            order: idBoard.columns[destination.index].order,
-          },
-        })
-      );
-    } else {
-      if (source.droppableId !== destination.droppableId) {
-        //здесь нужно удалять драг таску и вставлять ее в дроп колонку с дроп ордером
-        console.log('outside');
-        const columnSource = idBoard.columns.find((column) => column.id === source.droppableId);
-        const columnDestination = idBoard.columns.find(
-          (column) => column.id === destination.droppableId
-        );
-        const taskDrag = columnSource!.tasks[source.index];
-        const taskinfDrag = {
-          id: taskDrag.id,
-          title: taskDrag.title,
-          order: columnDestination!.tasks.length + 1,
-          description: taskDrag.description,
-          userId: taskDrag.userId,
-          boardId: board.id,
-          columnId: columnDestination?.id,
+      await dispatch(createTaskFetch(taskinfDrag));
+    }
+    if (source.droppableId === destination.droppableId) {
+      //Drag to the same column
+      console.log('inside');
+      const column = idBoard.columns.find((column) => column.id === destination.droppableId);
+      if (column) {
+        const newTasks = Array.from(column.tasks);
+        const [reorderedTask] = newTasks.splice(source.index, 1);
+        newTasks.splice(destination.index, 0, reorderedTask);
+        const newColumn = {
+          ...column,
+          tasks: newTasks,
         };
-        //delete drag task
-        console.log('board: ', board.id);
-        console.log('column: ', source.droppableId);
-        console.log('task: ', result.draggableId);
-        await dispatch(
-          deleteTaskFetch({
-            boardId: board.id,
-            columnId: source.droppableId,
-            taskId: result.draggableId,
-          })
-        );
-        //create task in other column
-        await dispatch(createTaskFetch(taskinfDrag));
-        //поменять ордер тасков
-      }
-      if (source.droppableId === destination.droppableId) {
-        //Здесь нужно менять массив с тасками
-        console.log('inside');
-        const column = idBoard.columns.find((column) => column.id === destination.droppableId);
-
-        const taskDrag = column!.tasks[source.index];
-        const taskDrop = column!.tasks[destination.index];
+        const newState = dragState.map((column) => {
+          if (column.id === destination.droppableId) {
+            return { ...newColumn };
+          } else {
+            return column;
+          }
+        });
+        updateDragState(newState);
+        const taskDrag = column.tasks[source.index];
+        const taskDrop = column.tasks[destination.index];
         const taskInfDrag = {
           id: taskDrag.id,
           title: taskDrag.title,
@@ -157,7 +160,7 @@ const BoardPage = (): JSX.Element => {
           description: taskDrag.description,
           userId: taskDrag.userId,
           boardId: board.id,
-          columnId: column!.id,
+          columnId: column.id,
         };
         const taskInfDrop = {
           id: taskDrop.id,
@@ -166,11 +169,27 @@ const BoardPage = (): JSX.Element => {
           description: taskDrop.description,
           userId: taskDrop.userId,
           boardId: board.id,
-          columnId: column!.id,
+          columnId: column.id,
         };
         await dispatch(updateTaskFetch(taskInfDrag));
         await dispatch(updateTaskFetch(taskInfDrop));
       }
+    }
+  };
+
+  const onDragEnd = async (result: DropResult): Promise<void> => {
+    const { source, destination, type } = result;
+    console.log(result);
+    if (!destination) {
+      return;
+    }
+    if (destination.droppableId === source.droppableId && destination.index === source.index) {
+      return;
+    }
+    if (type === 'column') {
+      await reorderColumns(source, destination);
+    } else {
+      await reorderTasks(source, destination, result);
     }
 
     await dispatch(getBoardById(board.id));
@@ -195,7 +214,7 @@ const BoardPage = (): JSX.Element => {
                 {...provided.droppableProps}
                 ref={provided.innerRef}
               >
-                {idBoard.columns.map((column: ColumnState, index: number) => {
+                {dragState.map((column: ColumnState, index: number) => {
                   return <Column key={column.id} columnInf={column} index={index} />;
                 })}
                 <div

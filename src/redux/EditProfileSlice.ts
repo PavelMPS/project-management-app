@@ -4,6 +4,7 @@ import jwt_decode from 'jwt-decode';
 import axios, { AxiosResponse } from 'axios';
 import { fetchStatus, path } from '../constants/Constants';
 import { getTokenFromLocalStorage } from './ColumnSlice';
+import { RootState } from './Store';
 
 const initialState: IProfileState = {
   name: '',
@@ -65,4 +66,4 @@ const editProfileSlice = createSlice({
 
 export default editProfileSlice.reducer;
 
-export const editProfileError = (state: IProfileState): string | null => state.error;
+export const selectEditProfileError = (state: RootState): string | null => state.edit.error;

@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 
 import Confirmation from '../Confirmation/Confirmation';
-import { deleteTaskFetch } from '../../redux/TaskSlice';
+import { deleteTaskFetch, selectTasksError } from '../../redux/TaskSlice';
 import { selectUsers } from '../../redux/UsersSlice';
 import { AppDispatch } from '../../redux/Store';
 import ModalWindow from '../ModalWindow/ModalWindow';
@@ -17,6 +17,7 @@ const Task = (props: { taskInf: TaskState; columnId: string; index: number }): J
   const dispatch = useDispatch<AppDispatch>();
 
   const users: IUser[] = useSelector(selectUsers);
+  const taskError: string | null = useSelector(selectTasksError);
   const { idBoard } = useAppSelector((state) => state.idBoard);
 
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
@@ -35,7 +36,9 @@ const Task = (props: { taskInf: TaskState; columnId: string; index: number }): J
         taskId: props.taskInf.id!,
       })
     );
-    dispatch(getBoardById(idBoard.id));
+    if (!taskError) {
+      dispatch(getBoardById(idBoard.id));
+    }
   };
 
   useEffect((): void => {

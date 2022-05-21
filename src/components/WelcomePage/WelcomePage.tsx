@@ -7,6 +7,8 @@ import { buttonName, pageName } from '../../constants/Constants';
 import { getTokenFromLocalStorage } from '../../redux/ColumnSlice';
 import { getIdFromToken } from '../../redux/EditProfileSlice';
 import { getUserAuth } from '../../redux/apiReducer';
+import { Team } from '../../constants/Team';
+import ProfileCard from '../ProfileCard/ProfileCard';
 
 const WelcomePage = (): JSX.Element => {
   const { isAuth } = useAppSelector((store) => store.user);
@@ -44,6 +46,11 @@ const WelcomePage = (): JSX.Element => {
           </NavLink>
         </div>
       )}
+      <div className="team-info">
+        {Team.map((item) => (
+          <ProfileCard key={Team.indexOf(item)} {...item} />
+        ))}
+      </div>
     </>
   );
 };

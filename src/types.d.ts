@@ -28,6 +28,7 @@ type usersState = {
 interface IBoard {
   id: string;
   title: string;
+  description: string;
 }
 
 interface IColumn {
@@ -109,9 +110,14 @@ interface IUserSlice {
   name: string;
   login: string;
   password: string;
-  errors: string[];
+  error: string | null;
   token: string;
   isAuth: boolean;
   authLogin: string;
   authPass: string;
+}
+
+interface IError {
+  id: string;
+  text: string;
 }

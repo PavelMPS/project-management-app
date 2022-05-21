@@ -30,6 +30,7 @@ export type ColumnState = {
 export type BoardState = {
   id: string;
   title: string;
+  description?: string;
   columns: ColumnState[];
 };
 
@@ -40,7 +41,7 @@ export type MainState = {
 };
 
 const initialState: MainState = {
-  idBoard: { id: '', title: '', columns: [] },
+  idBoard: { id: '', title: '', description: '', columns: [] },
   status: fetchStatus.idle,
   error: null,
 };
@@ -76,7 +77,7 @@ const getBoardSlice = createSlice({
     builder
       .addCase(getBoardById.pending, (state: MainState) => {
         state.status = fetchStatus.loading;
-        state.idBoard = { id: '', title: '', columns: [] } as BoardState;
+        state.idBoard = { id: '', title: '', description: '', columns: [] } as BoardState;
         state.error = null;
       })
       .addCase(
@@ -110,3 +111,4 @@ export const { getBoard } = getBoardSlice.actions;
 
 export const selectedIdBoard = (state: MainState): MainState => state;
 export const selectedBoard = (state: RootState): BoardState => state.idBoard.idBoard;
+export const selectGetBoardsError = (state: RootState): string | null => state.idBoard.error;
