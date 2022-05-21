@@ -10,10 +10,11 @@ import './modalFormBoardCreate.css';
 
 const ModalFormBoardCreate = (): JSX.Element => {
   const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   const dispatch = useDispatch<AppDispatch>();
   const createBoardHandler = async (e: FormEvent): Promise<void> => {
     e.preventDefault();
-    await dispatch(createBoard(title));
+    await dispatch(createBoard({ title, description }));
     await dispatch(fetchBoards());
   };
 
@@ -29,6 +30,16 @@ const ModalFormBoardCreate = (): JSX.Element => {
             type="text"
             placeholder="Enter board title"
             value={title}
+          />
+        </label>
+        <label className="form-label board-label">
+          <p className="description-label">{createBoardSettings.description}</p>
+          <input
+            className="edit-input"
+            onChange={(e) => setDescription(e.target.value)}
+            type="text"
+            placeholder="Enter board description"
+            value={description}
           />
         </label>
         <button className="board-create-btn" onClick={createBoardHandler}>

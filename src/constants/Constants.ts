@@ -6,7 +6,8 @@ export const fetchStatus: IFetchStatus = {
 };
 
 export const path: IPath = {
-  url: 'https://immense-coast-63189.herokuapp.com',
+  // url: 'https://immense-coast-63189.herokuapp.com',
+  url: 'https://radiant-everglades-84578.herokuapp.com',
   bords: '/boards',
   columns: '/columns',
   tasks: '/tasks',
@@ -66,6 +67,7 @@ export const loginSettings = {
 
 export const createBoardSettings = {
   title: 'Board title:',
+  description: 'Board description',
   createBoard: 'Create board',
 };
 

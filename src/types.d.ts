@@ -28,6 +28,7 @@ type usersState = {
 interface IBoard {
   id: string;
   title: string;
+  description: string;
 }
 
 interface IColumn {

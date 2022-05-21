@@ -11,8 +11,9 @@ import { getBoardById, TaskState } from '../../redux/GetBoardSlice';
 import { useAppSelector } from '../../redux/hooks/redux';
 
 import './task.css';
+import { Draggable } from 'react-beautiful-dnd';
 
-const Task = (props: { taskInf: TaskState; columnId: string }): JSX.Element => {
+const Task = (props: { taskInf: TaskState; columnId: string; index: number }): JSX.Element => {
   const dispatch = useDispatch<AppDispatch>();
 
   const users: IUser[] = useSelector(selectUsers);
@@ -50,22 +51,32 @@ const Task = (props: { taskInf: TaskState; columnId: string }): JSX.Element => {
 
   return (
     <>
-      <div className="task-container">
-        <div className="task-wrapper">
-          <div className="task-title">{props.taskInf.title}</div>
-          <div className="task-wrapper">
-            <div
-              className="task-update"
-              onClick={async () => {
-                setModalOpen(true);
-              }}
-            ></div>
-            <div className="task-bin" onClick={() => setIsConfirmationOpen(true)}></div>
+      <Draggable draggableId={props.taskInf.id} index={props.index}>
+        {(provided) => (
+          <div
+            className="task-container"
+            {...provided.dragHandleProps}
+            {...provided.draggableProps}
+            ref={provided.innerRef}
+          >
+            <div className="task-wrapper">
+              <div className="task-title">{props.taskInf.title}</div>
+              <div className="task-wrapper">
+                <div
+                  className="task-update"
+                  onClick={async () => {
+                    setModalOpen(true);
+                  }}
+                ></div>
+                <div className="task-bin" onClick={() => setIsConfirmationOpen(true)}></div>
+              </div>
+            </div>
+            <div className="task-description">{props.taskInf.description}</div>
+            <div className="task-responsible-user">{user}</div>
           </div>
-        </div>
-        <div className="task-description">{props.taskInf.description}</div>
-        <div className="task-responsible-user">{user}</div>
-      </div>
+        )}
+      </Draggable>
+
       {isModalOpen && (
         <ModalWindow onClick={handleModalClose}>
           {

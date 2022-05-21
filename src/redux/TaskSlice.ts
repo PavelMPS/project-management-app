@@ -86,7 +86,6 @@ export const createTaskFetch: AsyncThunk<ITask, ITask, EmptyObject> = createAsyn
       requestString,
       {
         title: taskInf.title,
-        order: +taskInf.order,
         description: taskInf.description,
         userId: taskInf.userId,
       },

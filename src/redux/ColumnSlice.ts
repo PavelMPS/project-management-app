@@ -114,7 +114,7 @@ export const createColumnFetch: AsyncThunk<
       requestString,
       {
         title: inf.column.title,
-        order: +inf.column.order,
+        // order: +inf.column.order,
       },
       {
         headers: {

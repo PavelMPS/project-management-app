@@ -11,24 +11,26 @@ const initialState: ICreateBoardState = {
   error: '',
 };
 
-export const createBoard: AsyncThunk<IBoard, string, EmptyObject> = createAsyncThunk(
-  'board/createBoard',
-  async (title: string): Promise<IBoard> => {
-    const token = getTokenFromLocalStorage();
-    const response: AxiosResponse<IBoard> = await axios.post(
-      path.url + path.bords,
-      {
-        title: title,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
+export const createBoard: AsyncThunk<IBoard, { title: string; description: string }, EmptyObject> =
+  createAsyncThunk(
+    'board/createBoard',
+    async (arg: { title: string; description: string }): Promise<IBoard> => {
+      const token = getTokenFromLocalStorage();
+      const response: AxiosResponse<IBoard> = await axios.post(
+        path.url + path.bords,
+        {
+          title: arg.title,
+          description: arg.description,
         },
-      }
-    );
-    return response.data;
-  }
-);
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    }
+  );
 
 export const createBoardSlice: Slice<ICreateBoardState, EmptyObject, 'createBoard'> = createSlice({
   name: 'createBoard',

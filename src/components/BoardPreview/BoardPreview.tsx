@@ -25,14 +25,15 @@ const BoardPreview = (props: { boardInf: IBoard }): JSX.Element => {
   };
 
   const openBoardHandler = (): void => {
-    dispatch(openBoard(props.boardInf));
     dispatch(getBoardById(props.boardInf.id));
+    dispatch(openBoard(props.boardInf));
   };
   return (
     <>
       <div className="board-prew-container">
         <div className="board-prew-wrapper">
           <div className="board-prew-title">{props.boardInf.title}</div>
+          <div className="board-prew-description">{props.boardInf.description}</div>
           <div className="board-prew-bin" onClick={() => setIsConfirmationOpen(true)}></div>
         </div>
         <Link className="edit-link" to={'/board'}>
