@@ -69,33 +69,33 @@ const BoardPage = (): JSX.Element => {
     const [reorderedItem] = items.splice(source.index, 1);
     items.splice(destination.index, 0, reorderedItem);
     updateDragState(items);
-    // await dispatch(
-    //   updateColumnFetch({
-    //     boardId: board.id,
-    //     columnId: idBoard.columns[source.index].id,
-    //     column: { title: idBoard.columns[source.index].title, order: idBoard.columns.length + 1 },
-    //   })
-    // );
-    // await dispatch(
-    //   updateColumnFetch({
-    //     boardId: board.id,
-    //     columnId: idBoard.columns[destination.index].id,
-    //     column: {
-    //       title: idBoard.columns[destination.index].title,
-    //       order: idBoard.columns[source.index].order,
-    //     },
-    //   })
-    // );
-    // await dispatch(
-    //   updateColumnFetch({
-    //     boardId: board.id,
-    //     columnId: idBoard.columns[source.index].id,
-    //     column: {
-    //       title: idBoard.columns[source.index].title,
-    //       order: idBoard.columns[destination.index].order,
-    //     },
-    //   })
-    // );
+    await dispatch(
+      updateColumnFetch({
+        boardId: board.id,
+        columnId: idBoard.columns[source.index].id,
+        column: { title: idBoard.columns[source.index].title, order: idBoard.columns.length + 1 },
+      })
+    );
+    await dispatch(
+      updateColumnFetch({
+        boardId: board.id,
+        columnId: idBoard.columns[destination.index].id,
+        column: {
+          title: idBoard.columns[destination.index].title,
+          order: idBoard.columns[source.index].order,
+        },
+      })
+    );
+    await dispatch(
+      updateColumnFetch({
+        boardId: board.id,
+        columnId: idBoard.columns[source.index].id,
+        column: {
+          title: idBoard.columns[source.index].title,
+          order: idBoard.columns[destination.index].order,
+        },
+      })
+    );
   };
 
   const reorderTasks = async (
