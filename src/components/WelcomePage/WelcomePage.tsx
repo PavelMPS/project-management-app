@@ -3,7 +3,6 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux';
 import { useTranslation } from 'react-i18next';
 
-import { buttonName, pageName } from '../../constants/Constants';
 import { getTokenFromLocalStorage } from '../../redux/ColumnSlice';
 import { getIdFromToken } from '../../redux/EditProfileSlice';
 import { getUserAuth } from '../../redux/apiReducer';

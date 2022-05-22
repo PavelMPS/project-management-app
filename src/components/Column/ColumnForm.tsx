@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import { useAppSelector } from '../../redux/hooks/redux';
-import { columnFormProps, formType } from '../../constants/Constants';
+import { formType } from '../../constants/Constants';
 import { createColumnFetch, updateColumnFetch, selectColumnsError } from '../../redux/ColumnSlice';
 import { getBoardById } from '../../redux/GetBoardSlice';
 import { AppDispatch } from '../../redux/Store';
@@ -111,7 +111,7 @@ const ColumnForm = (props: { boardId: string; columnInf?: IColumn; type: string 
               })}
             />
           </label>
-          {errors.title && <span className="error">{columnFormProps.error}</span>}
+          {errors.title && <span className="error">{t('column.errors.error')}</span>}
         </div>
 
         <button className="form-btn" type="submit" disabled={!isValid}>

@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
-
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux';
 import { setUser } from '../../redux/apiReducer';
 import { setCredentials } from '../../redux/userSlice';
-import { buttonName, loginSettings, pageName } from '../../constants/Constants';
 
 import './Styles.css';
 
@@ -16,6 +16,7 @@ export interface IUserCredentials {
 }
 
 const SignupPage = (): JSX.Element => {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { name, login, password, token, isAuth } = useAppSelector((store) => store.user);
   const navigate = useNavigate();
@@ -44,24 +45,24 @@ const SignupPage = (): JSX.Element => {
 
   return (
     <div className="sign-up-page">
-      <h1>{pageName.signUp}</h1>
+      <h1>{t('signup.title')}</h1>
       <form className="form-container" onSubmit={handleSubmit(onSubmit)}>
         <label className="text-field__label">
           <input
             className={errors.name ? 'text-field__input input-error' : 'text-field__input'}
             type="text"
-            placeholder="Enter name"
+            placeholder={t('signup.placeholder.name')}
             {...register('name', {
-              required: 'name is required field',
+              required: t('signup.require.name'),
               maxLength: 15,
               minLength: 3,
             })}
           />
           {errors.name && errors.name.type === 'minLength' && (
-            <p className="error">Your name must be at least 3 characters</p>
+            <p className="error">{t('signup.errors.minName')}</p>
           )}
           {errors.name && errors.name.type === 'maxLength' && (
-            <p className="error">Your name must be less than 15 characters</p>
+            <p className="error">{t('signup.errors.maxName')}</p>
           )}
           {errors.name && <p className="error">{errors.name.message}</p>}
         </label>
@@ -69,18 +70,18 @@ const SignupPage = (): JSX.Element => {
           <input
             className={errors.login ? 'text-field__input input-error' : 'text-field__input'}
             type="text"
-            placeholder="Enter login"
+            placeholder={t('signup.placeholder.login')}
             {...register('login', {
-              required: 'login is required field',
+              required: t('signup.require.login'),
               maxLength: 15,
               minLength: 3,
             })}
           />
           {errors.login && errors.login.type === 'minLength' && (
-            <p className="error">Your login must be at least 3 characters</p>
+            <p className="error">{t('signup.errors.minLogin')}</p>
           )}
           {errors.login && errors.login.type === 'maxLength' && (
-            <p className="error">Your login must be less than 15 characters</p>
+            <p className="error">{t('signup.errors.maxLogin')}</p>
           )}
           {errors.login && <p className="error">{errors.login.message}</p>}
         </label>
@@ -88,28 +89,28 @@ const SignupPage = (): JSX.Element => {
           <input
             className={errors.password ? 'text-field__input input-error' : 'text-field__input'}
             type="password"
-            placeholder="Введите пароль"
+            placeholder={t('signup.placeholder.password')}
             {...register('password', {
-              required: 'password is required field',
+              required: t('signup.require.password'),
               maxLength: 15,
               minLength: 3,
             })}
           />
           {errors.password && errors.password.type === 'minLength' && (
-            <p className="error">Your password must be at least 3 characters</p>
+            <p className="error">{t('signup.errors.minPassword')}</p>
           )}
           {errors.password && errors.password.type === 'maxLength' && (
-            <p className="error">Your password must be less than 15 characters</p>
+            <p className="error">{t('signup.errors.maxPassword')}</p>
           )}
           {errors.password && <p className="error">{errors.password.message}</p>}
         </label>
         <div className="sendButton">
-          <input type="submit" value="Registration" />
+          <input type="submit" value={t('signup.registerBtn')} />
         </div>
       </form>
-      {loginSettings.haveAccaunt}
+      {t('signup.haveAccaunt')}
       <NavLink to="/login">
-        <button>{buttonName.enter}</button>
+        <button>{t('signup.enterBtn')}</button>
       </NavLink>
     </div>
   );

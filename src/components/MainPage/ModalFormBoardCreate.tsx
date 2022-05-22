@@ -2,7 +2,6 @@ import React, { FormEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import { buttonName, createBoardSettings } from '../../constants/Constants';
 import { createBoard } from '../../redux/CreateBoardSlice';
 import { fetchBoards } from '../../redux/MainSlice';
 import { AppDispatch } from '../../redux/Store';

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useTranslation, Trans } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux';
 import { logout } from '../../redux/userSlice';
 import ModalFormBoardCreate from '../MainPage/ModalFormBoardCreate';
 import { deleteUser } from '../../redux/DeleteUserSlice';
-import { buttonName, lngs } from '../../constants/Constants';
+import { lngs } from '../../constants/Constants';
 
 import './header.css';
 

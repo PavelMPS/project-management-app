@@ -12,7 +12,6 @@ import {
   fetchBoards,
 } from '../../redux/MainSlice';
 import { AppDispatch } from '../../redux/Store';
-import { pageName } from '../../constants/Constants';
 import { getTokenFromLocalStorage } from '../../redux/ColumnSlice';
 import { getIdFromToken } from '../../redux/EditProfileSlice';
 import { getUserAuth } from '../../redux/apiReducer';

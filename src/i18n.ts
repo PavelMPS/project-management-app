@@ -23,8 +23,52 @@ i18n
             signup: 'Sign up',
             toMain: 'Go to main page',
           },
+          login: {
+            title: 'Log in page',
+            noAccaunt: 'No accaunt?',
+            registerBtn: 'Register',
+            enterBtn: 'Enter',
+            errors: {
+              minLogin: 'Your login must be at least 3 characters',
+              maxLogin: 'Your login must be less than 15 characters',
+              minPassword: 'Your password must be at least 3 characters',
+              maxPassword: 'Your password must be less than 15 characters',
+            },
+            placeholder: {
+              login: 'Enter your login',
+              password: 'Enter your password',
+            },
+            require: {
+              login: 'Login is required field',
+              password: 'Password is required field',
+            },
+          },
+          signup: {
+            title: 'Sign up page',
+            haveAccaunt: 'Have an accaunt?',
+            registerBtn: 'Registration',
+            enterBtn: 'Enter',
+            placeholder: {
+              name: 'Enter your name',
+              login: 'Enter your login',
+              password: 'Enter your password',
+            },
+            require: {
+              name: 'Name is required field',
+              login: 'Login is required field',
+              password: 'Password is required field',
+            },
+            errors: {
+              maxName: 'Your name must be less than 15 characters',
+              minName: 'Your name must be at least 3 characters',
+              minLogin: 'Your login must be at least 3 characters',
+              maxLogin: 'Your login must be less than 15 characters',
+              minPassword: 'Your password must be at least 3 characters',
+              maxPassword: 'Your password must be less than 15 characters',
+            },
+          },
           main: {
-            title: 'Main',
+            title: 'Main page',
             open: 'Open',
           },
           board: {
@@ -41,6 +85,9 @@ i18n
           column: {
             submit: 'Submit',
             title: 'Column title:',
+            errors: {
+              error: 'ErrorError',
+            },
           },
           task: {
             title: 'Task Title:',
@@ -105,8 +152,52 @@ i18n
             signup: 'Зарегистрироваться',
             toMain: 'Перейти на главную страницу',
           },
+          login: {
+            title: 'Страница авторизации',
+            noAccaunt: 'Нет аккаунта?',
+            registerBtn: 'К регистрации',
+            enterBtn: 'Войти',
+            errors: {
+              minLogin: 'Ваш логин должен быть более 3 символов',
+              maxLogin: 'Ваш логин должен быть менее 15 символов',
+              minPassword: 'Ваш пароль должен быть более 3 символов',
+              maxPassword: 'Ваш пароль должен быть менее 15 символов',
+            },
+            placeholder: {
+              login: 'Введите логин',
+              password: 'Введите пароль',
+            },
+            require: {
+              login: 'Логин обязателен',
+              password: 'Пароль обязателен',
+            },
+          },
+          signup: {
+            title: 'Страница регистрации',
+            haveAccaunt: 'Уже есть аккаунт?',
+            registerBtn: 'Зарегистрироваться',
+            enterBtn: 'Войти',
+            placeholder: {
+              name: 'Введите имя',
+              login: 'Введите логин',
+              password: 'Введите пароль',
+            },
+            require: {
+              name: 'Имя обязательно',
+              login: 'Логин обязателен',
+              password: 'Пароль обязателен',
+            },
+            errors: {
+              maxName: 'Ваше имя должно состоять не более чем из 15 символов',
+              minName: 'Ваше имя должно состоять из более чем 3 символов',
+              minLogin: 'Ваш логин должен быть более 3 символов',
+              maxLogin: 'Ваш логин должен быть менее 15 символов',
+              minPassword: 'Ваш пароль должен быть более 3 символов',
+              maxPassword: 'Ваш пароль должен быть менее 15 символов',
+            },
+          },
           main: {
-            title: 'Главная',
+            title: 'Главная страница',
             open: 'Открыть',
           },
           board: {
@@ -123,6 +214,9 @@ i18n
           column: {
             submit: 'Подтвердить',
             title: 'Название колонки: ',
+            errors: {
+              error: 'У Вас ошибка в ДНК',
+            },
           },
           task: {
             title: 'Имя задачи:',

@@ -7,7 +7,6 @@ import { updateTaskFetch, createTaskFetch, selectTasksError } from '../../redux/
 import { getBoardById, ColumnState } from '../../redux/GetBoardSlice';
 import { selectUsers } from '../../redux/UsersSlice';
 import { AppDispatch } from '../../redux/Store';
-import { buttonName, taskFormSettings } from '../../constants/Constants';
 import Confirmation from '../Confirmation/Confirmation';
 import { useAppSelector } from '../../redux/hooks/redux';
 
@@ -153,7 +152,7 @@ const TaskForm = (props: {
               })}
             />
           </label>
-          {errors.title && <span className="error">{taskFormSettings.error}</span>}
+          {errors.title && <span className="error">{t('task.error')}</span>}
         </div>
 
         <div className="form-element-wrapper">
@@ -192,7 +191,7 @@ const TaskForm = (props: {
               ))}
             </select>
           </label>
-          {errors.userId && <span className="error">{taskFormSettings.error}</span>}
+          {errors.userId && <span className="error">{t('task.error')}</span>}
         </div>
 
         <button className="form-btn" type="submit" disabled={!isValid}>

@@ -15,36 +15,6 @@ export const path: IPath = {
   signIn: '/signin',
 };
 
-export const buttonName = {
-  open: 'OPEN',
-  // close: 'CLOSE',
-  submit: 'SUBMITE',
-  cancel: 'CANCEL',
-  register: 'Register',
-  // logIn: 'Log In',
-  // signUp: 'Sign up',
-  create: 'CREATE',
-  enter: 'Enter',
-  // addColumn: 'ADD COLUMN',
-  // addTask: 'ADD TASK',
-  // goToMainPage: 'Go to main page',
-};
-
-// export const appName = 'Project managment application';
-
-export const pageName = {
-  // board: 'Board',
-  editProfile: 'Edit profile',
-  // main: 'Main',
-  notFound: 'This page does not exist. ...or does it? Try the homepage.',
-  signUp: 'Sign-up page',
-  // welcome: 'Welcome',
-};
-
-export const columnFormProps = {
-  error: 'ErrorErrorError',
-};
-
 export const editProfileProps = {
   newName: 'New name:',
   newLogin: 'New login:',

@@ -5,17 +5,11 @@ import { useTranslation } from 'react-i18next';
 
 import ModalWindow from '../ModalWindow/ModalWindow';
 import ColumnForm from '../Column/ColumnForm';
-import {
-  selectStatusColumn,
-  closeBoardColumn,
-  updateColumnFetch,
-  fetchColumn,
-} from '../../redux/ColumnSlice';
+import { selectStatusColumn, closeBoardColumn, updateColumnFetch } from '../../redux/ColumnSlice';
 import {
   closeBoardTask,
   createTaskFetch,
   deleteTaskFetch,
-  fetchTask,
   selectStatusTasks,
   updateTaskFetch,
 } from '../../redux/TaskSlice';
@@ -25,7 +19,7 @@ import { fetchUsers, selectUsersStatus } from '../../redux/UsersSlice';
 import Column from '../Column/Column';
 import { ColumnState, getBoardById } from '../../redux/GetBoardSlice';
 import { useAppSelector } from '../../redux/hooks/redux';
-import { buttonName, fetchStatus, pageName, formType } from '../../constants/Constants';
+import { fetchStatus, formType } from '../../constants/Constants';
 import { Loader } from '../Loader/Loader';
 import { DragDropContext, DraggableLocation, Droppable, DropResult } from 'react-beautiful-dnd';
 

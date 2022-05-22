@@ -7,7 +7,6 @@ import Confirmation from '../Confirmation/Confirmation';
 import { deleteBoard, deleteBoardFetch, openBoard, selectBoardsError } from '../../redux/MainSlice';
 import { AppDispatch } from '../../redux/Store';
 import { getBoardById } from '../../redux/GetBoardSlice';
-import { buttonName } from '../../constants/Constants';
 
 import './boardPreview.css';
 

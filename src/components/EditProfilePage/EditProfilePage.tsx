@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import { buttonName, editProfileProps, pageName } from '../../constants/Constants';
 import { getTokenFromLocalStorage } from '../../redux/ColumnSlice';
 import { editProfile, getIdFromToken } from '../../redux/EditProfileSlice';
 import { AppDispatch } from '../../redux/Store';

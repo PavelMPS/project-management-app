@@ -12,7 +12,7 @@ import ModalWindow from '../ModalWindow/ModalWindow';
 import ColumnForm from './ColumnForm';
 import TaskForm from '../Task/TaskForm';
 import { ColumnState, getBoardById, TaskState } from '../../redux/GetBoardSlice';
-import { formType, buttonName } from '../../constants/Constants';
+import { formType } from '../../constants/Constants';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 
 import './column.css';
