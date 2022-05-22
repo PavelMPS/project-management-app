@@ -15,9 +15,11 @@ const Header = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const { isAuth, token } = useAppSelector((store) => store.user);
   const [navbar, setNavbar] = useState<boolean>(false);
+  const [language, toggleLanguage] = useState<boolean>(true);
   const { t, i18n } = useTranslation();
 
   useEffect((): void => {
+    i18n.changeLanguage(lngs.en);
     if (!token && !isAuth) {
       return navigate('/');
     }
@@ -48,6 +50,11 @@ const Header = (): JSX.Element => {
     }
   };
 
+  const languageToggler = (): void => {
+    language ? i18n.changeLanguage(lngs.ru) : i18n.changeLanguage(lngs.en);
+    toggleLanguage(!language);
+  };
+
   window.addEventListener('scroll', setActiveNavbar);
 
   return (
@@ -61,8 +68,10 @@ const Header = (): JSX.Element => {
           <button className="button logout-btn" onClick={logoutHandler}></button>
           <button className="button user-delete-btn" onClick={deleteUserHandler}></button>
           <button className="button create-board-btn" onClick={togglePopup}></button>
-          <button className="button en-btn" onClick={() => i18n.changeLanguage(lngs.en)}></button>
-          <button className="button ru-btn" onClick={() => i18n.changeLanguage(lngs.ru)}></button>
+          <label className="checkbox-green">
+            <input type="checkbox" onClick={languageToggler} />
+            <span className="checkbox-green-switch" data-label-on="Ru" data-label-off="En"></span>
+          </label>
           {createBoardClicked ? (
             <div className="modal-form-create-container">
               <div className="popup-body">
