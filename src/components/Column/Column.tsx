@@ -29,9 +29,6 @@ const Column = (props: { columnInf: ColumnState; index: number }): JSX.Element =
   const [isTitleUpdate, setIsTitleUpdate] = useState<boolean>(false);
   const [isColumnModalOpen, setColumnModalOpen] = useState<boolean>(false);
   const [isTaskModalOpen, setTaskModalOpen] = useState<boolean>(false);
-  useEffect(() => {
-    console.log(props.columnInf.tasks);
-  }, []);
 
   const handleModalClose = (): void => {
     setColumnModalOpen(false);

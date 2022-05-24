@@ -65,3 +65,5 @@ export const lngs: ILangs = {
   en: 'en',
   ru: 'ru',
 };
+
+export const column = 'column';

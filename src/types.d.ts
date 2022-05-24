@@ -45,6 +45,7 @@ interface ITask {
   userId: string;
   boardId?: string;
   columnId?: string;
+  columnChange?: string;
 }
 
 interface IUser {

@@ -49,6 +49,7 @@ const initialState: MainState = {
 export const getBoardById: AsyncThunk<BoardState, string, EmptyObject> = createAsyncThunk(
   'idBoard/getIdBoard',
   async (boardId: string): Promise<BoardState> => {
+    console.log('get board!');
     const requestString = `${path.url}${path.bords}/${boardId}`;
     const token = getTokenFromLocalStorage();
     const response = await axios.get(requestString, {
@@ -112,3 +113,4 @@ export const { getBoard } = getBoardSlice.actions;
 export const selectedIdBoard = (state: MainState): MainState => state;
 export const selectedBoard = (state: RootState): BoardState => state.idBoard.idBoard;
 export const selectGetBoardsError = (state: RootState): string | null => state.idBoard.error;
+export const statusGetBoardId = (state: RootState): string => state.idBoard.status;
