@@ -18,8 +18,6 @@ const ModalFormBoardCreate = (): JSX.Element => {
     formState: { errors },
     reset,
   } = useForm<ICreateBoard>();
-  // const [title, setTitle] = useState('');
-  // const [description, setDescription] = useState('');
   const [isConfirmationOpen, setIsConfirmationOpen] = useState<boolean>(false);
   const [boardInf, setBoardInf] = useState<ICreateBoard>({
     title: '',
