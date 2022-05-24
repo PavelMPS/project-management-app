@@ -29,11 +29,6 @@ const Header = (): JSX.Element => {
       return navigate('/');
     }
   }, [isAuth]);
-  const [createBoardClicked, setCreateBoardToggle] = useState(false);
-
-  const togglePopup = (): void => {
-    setCreateBoardToggle(!createBoardClicked);
-  };
 
   const logoutHandler = (): void => {
     setIsConfirmationLogoutOpen(true);

@@ -1,4 +1,7 @@
 footer {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
   min-height: 100px;
   background: rgb(210, 232, 250);
   display: flex;

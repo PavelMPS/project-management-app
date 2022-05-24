@@ -112,3 +112,4 @@ export const { getBoard } = getBoardSlice.actions;
 export const selectedIdBoard = (state: MainState): MainState => state;
 export const selectedBoard = (state: RootState): BoardState => state.idBoard.idBoard;
 export const selectGetBoardsError = (state: RootState): string | null => state.idBoard.error;
+export const selectBoardStatus = (state: RootState): string => state.idBoard.status;
