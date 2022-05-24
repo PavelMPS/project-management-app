@@ -10,6 +10,7 @@ import { lngs } from '../../constants/Constants';
 
 import './header.css';
 import Confirmation from '../Confirmation/Confirmation';
+import ModalWindow from '../ModalWindow/ModalWindow';
 
 const Header = (): JSX.Element => {
   const { t, i18n } = useTranslation();
@@ -20,6 +21,7 @@ const Header = (): JSX.Element => {
   const [language, toggleLanguage] = useState<boolean>(true);
   const [isConfirmationDeleteOpen, setIsConfirmationDeleteOpen] = useState<boolean>(false);
   const [isConfirmationLogoutOpen, setIsConfirmationLogoutOpen] = useState<boolean>(false);
+  const [isModalCreateBoardOpen, setIsModalCreateBoardOpen] = useState<boolean>(false);
 
   useEffect((): void => {
     i18n.changeLanguage(lngs.en);
@@ -65,6 +67,14 @@ const Header = (): JSX.Element => {
     toggleLanguage(!language);
   };
 
+  const handleModalClose = (): void => {
+    setIsModalCreateBoardOpen(false);
+  };
+
+  const createBoardHandler = (): void => {
+    setIsModalCreateBoardOpen(true);
+  };
+
   window.addEventListener('scroll', setActiveNavbar);
 
   return (
@@ -77,23 +87,11 @@ const Header = (): JSX.Element => {
           </Link>
           <button className="button logout-btn" onClick={logoutHandler}></button>
           <button className="button user-delete-btn" onClick={deleteUserHandler}></button>
-          <button className="button create-board-btn" onClick={togglePopup}></button>
+          <button className="button create-board-btn" onClick={createBoardHandler}></button>
           <label className="checkbox-green">
             <input type="checkbox" onClick={languageToggler} />
             <span className="checkbox-green-switch" data-label-on="Ru" data-label-off="En"></span>
           </label>
-          {createBoardClicked ? (
-            <div className="modal-form-create-container">
-              <div className="popup-body">
-                <ModalFormBoardCreate />
-                <button className="close-modal-btn" onClick={togglePopup}>
-                  {t('board.close')}
-                </button>
-              </div>
-            </div>
-          ) : (
-            ''
-          )}
         </div>
       )}
       {isConfirmationDeleteOpen && (
@@ -107,6 +105,11 @@ const Header = (): JSX.Element => {
           onCancel={() => setIsConfirmationLogoutOpen(false)}
           onSubmit={() => logoutUserConfirmationSubmit()}
         />
+      )}
+      {isModalCreateBoardOpen && (
+        <ModalWindow onClick={handleModalClose}>
+          <ModalFormBoardCreate />
+        </ModalWindow>
       )}
     </header>
   );

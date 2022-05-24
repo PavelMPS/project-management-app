@@ -81,6 +81,10 @@ i18n
             titlePlaceholder: 'Enter board title',
             descriptionPlaceholder: 'Enter board description',
             createButton: 'Create board',
+            errors: {
+              title: 'Enter correct title!',
+              description: 'Enter correct description!',
+            },
           },
           column: {
             submit: 'Submit',
@@ -210,6 +214,10 @@ i18n
             titlePlaceholder: 'Введите имя доски: ',
             descriptionPlaceholder: 'Введите описание доски',
             createButton: 'Создать доску',
+            errors: {
+              title: 'Введите корректное имя!',
+              description: 'Введите корректное описание!',
+            },
           },
           column: {
             submit: 'Подтвердить',

@@ -31,6 +31,11 @@ interface IBoard {
   description: string;
 }
 
+interface ICreateBoard {
+  title: string;
+  description: string;
+}
+
 interface IColumn {
   id?: string;
   title: string;
