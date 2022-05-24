@@ -9,14 +9,16 @@ import { deleteUser } from '../../redux/DeleteUserSlice';
 import { lngs } from '../../constants/Constants';
 
 import './header.css';
+import Confirmation from '../Confirmation/Confirmation';
 
 const Header = (): JSX.Element => {
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { isAuth, token } = useAppSelector((store) => store.user);
   const [navbar, setNavbar] = useState<boolean>(false);
   const [language, toggleLanguage] = useState<boolean>(true);
-  const { t, i18n } = useTranslation();
+  const [isConfirmationDeleteOpen, setIsConfirmationDeleteOpen] = useState<boolean>(false);
 
   useEffect((): void => {
     i18n.changeLanguage(lngs.en);
@@ -32,14 +34,16 @@ const Header = (): JSX.Element => {
 
   const logoutHandler = (): void => {
     dispatch(logout());
-    //TODO confirmation window Are you shure delete user?
   };
 
   const deleteUserHandler = (): void => {
-    //TODO confirmation window Are you shure delete user?
-    //TODO also delete user's tasks
+    setIsConfirmationDeleteOpen(true);
+  };
+
+  const deleteUserConfirmationSubmit = (): void => {
+    setIsConfirmationDeleteOpen(false);
     dispatch(deleteUser());
-    return navigate('/');
+    dispatch(logout());
   };
 
   const setActiveNavbar = () => {
@@ -85,6 +89,12 @@ const Header = (): JSX.Element => {
             ''
           )}
         </div>
+      )}
+      {isConfirmationDeleteOpen && (
+        <Confirmation
+          onCancel={() => setIsConfirmationDeleteOpen(false)}
+          onSubmit={() => deleteUserConfirmationSubmit()}
+        />
       )}
     </header>
   );
