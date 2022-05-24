@@ -19,6 +19,7 @@ const Header = (): JSX.Element => {
   const [navbar, setNavbar] = useState<boolean>(false);
   const [language, toggleLanguage] = useState<boolean>(true);
   const [isConfirmationDeleteOpen, setIsConfirmationDeleteOpen] = useState<boolean>(false);
+  const [isConfirmationLogoutOpen, setIsConfirmationLogoutOpen] = useState<boolean>(false);
 
   useEffect((): void => {
     i18n.changeLanguage(lngs.en);
@@ -33,7 +34,7 @@ const Header = (): JSX.Element => {
   };
 
   const logoutHandler = (): void => {
-    dispatch(logout());
+    setIsConfirmationLogoutOpen(true);
   };
 
   const deleteUserHandler = (): void => {
@@ -43,6 +44,11 @@ const Header = (): JSX.Element => {
   const deleteUserConfirmationSubmit = (): void => {
     setIsConfirmationDeleteOpen(false);
     dispatch(deleteUser());
+    dispatch(logout());
+  };
+
+  const logoutUserConfirmationSubmit = (): void => {
+    setIsConfirmationLogoutOpen(false);
     dispatch(logout());
   };
 
@@ -94,6 +100,12 @@ const Header = (): JSX.Element => {
         <Confirmation
           onCancel={() => setIsConfirmationDeleteOpen(false)}
           onSubmit={() => deleteUserConfirmationSubmit()}
+        />
+      )}
+      {isConfirmationLogoutOpen && (
+        <Confirmation
+          onCancel={() => setIsConfirmationLogoutOpen(false)}
+          onSubmit={() => logoutUserConfirmationSubmit()}
         />
       )}
     </header>
