@@ -46,6 +46,7 @@ export const taskFormSettings = {
 
 export const year = '2022';
 export const loading = 'Loading...';
+export const column = 'column';
 
 export const formType = {
   create: 'create',

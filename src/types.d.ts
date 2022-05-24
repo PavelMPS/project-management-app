@@ -31,6 +31,11 @@ interface IBoard {
   description: string;
 }
 
+interface ICreateBoard {
+  title: string;
+  description: string;
+}
+
 interface IColumn {
   id?: string;
   title: string;
@@ -45,6 +50,7 @@ interface ITask {
   userId: string;
   boardId?: string;
   columnId?: string;
+  columnChange?: string;
 }
 
 interface IUser {

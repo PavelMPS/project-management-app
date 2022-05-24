@@ -5,12 +5,7 @@ import { useTranslation } from 'react-i18next';
 import BoardPreview from '../BoardPreview/BoardPreview';
 import { Loader } from '../Loader/Loader';
 import { fetchStatus } from '../../constants/Constants';
-import {
-  selectBoards,
-  selectBoardsFetchStatus,
-  selectBoardsError,
-  fetchBoards,
-} from '../../redux/MainSlice';
+import { selectBoards, selectBoardsFetchStatus, fetchBoards } from '../../redux/MainSlice';
 import { AppDispatch } from '../../redux/Store';
 import { getTokenFromLocalStorage } from '../../redux/ColumnSlice';
 import { getIdFromToken } from '../../redux/EditProfileSlice';
@@ -22,7 +17,6 @@ const Main = (): JSX.Element => {
   const { t } = useTranslation();
   const boards: IBoard[] = useSelector(selectBoards);
   const status: string = useSelector(selectBoardsFetchStatus);
-  const error: string | null = useSelector(selectBoardsError);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect((): void => {
