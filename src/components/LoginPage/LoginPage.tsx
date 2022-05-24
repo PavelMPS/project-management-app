@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
-
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux';
 import { getUser } from '../../redux/apiReducer';
 import { setAuthCredentials } from '../../redux/userSlice';
-import { buttonName, loginSettings } from '../../constants/Constants';
 
 import './../SignupPage/Styles.css';
 
@@ -15,6 +15,7 @@ export interface ILoginData {
 }
 
 const LoginPage = (): JSX.Element => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { authLogin, authPass, isAuth } = useAppSelector((store) => store.user);
@@ -49,18 +50,18 @@ const LoginPage = (): JSX.Element => {
             <input
               className={errors.login ? 'text-field__input input-error' : 'text-field__input'}
               type="text"
-              placeholder="Enter login"
+              placeholder={t('login.placeholder.login')}
               {...register('login', {
-                required: 'login is required field',
+                required: t('login.require.login'),
                 maxLength: 15,
                 minLength: 3,
               })}
             />
             {errors.login && errors.login.type === 'minLength' && (
-              <p className="error">Your login must be at least 3 characters</p>
+              <p className="error">{t('login.errors.minLogin')}</p>
             )}
             {errors.login && errors.login.type === 'maxLength' && (
-              <p className="error">Your login must be less than 15 characters</p>
+              <p className="error">{t('login.errors.maxLogin')}</p>
             )}
             {errors.login && <p className="error">{errors.login.message}</p>}
           </label>
@@ -68,28 +69,28 @@ const LoginPage = (): JSX.Element => {
             <input
               className={errors.password ? 'text-field__input input-error' : 'text-field__input'}
               type="password"
-              placeholder="Введите пароль"
+              placeholder={t('login.placeholder.password')}
               {...register('password', {
-                required: 'password is required field',
+                required: t('login.require.password'),
                 maxLength: 15,
                 minLength: 3,
               })}
             />
             {errors.password && errors.password.type === 'minLength' && (
-              <p className="error">Your password must be at least 3 characters</p>
+              <p className="error">{t('login.errors.minPassword')}</p>
             )}
             {errors.password && errors.password.type === 'maxLength' && (
-              <p className="error">Your password must be less than 15 characters</p>
+              <p className="error">{t('login.errors.maxPassword')}</p>
             )}
             {errors.password && <p className="error">{errors.password.message}</p>}
           </label>
           <div className="sendButton">
-            <input type="submit" value="Enter" />
+            <input type="submit" value={t('login.enterBtn')} />
           </div>
         </form>
-        {loginSettings.noAccaunt}
+        {t('login.noAccaunt')}
         <NavLink to="/sign-up">
-          <button>{buttonName.register}</button>
+          <button>{t('login.registerBtn')}</button>
         </NavLink>
       </div>
     </>

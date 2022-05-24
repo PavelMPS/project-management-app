@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import BoardPreview from '../BoardPreview/BoardPreview';
 import { Loader } from '../Loader/Loader';
@@ -11,7 +12,6 @@ import {
   fetchBoards,
 } from '../../redux/MainSlice';
 import { AppDispatch } from '../../redux/Store';
-import { pageName } from '../../constants/Constants';
 import { getTokenFromLocalStorage } from '../../redux/ColumnSlice';
 import { getIdFromToken } from '../../redux/EditProfileSlice';
 import { getUserAuth } from '../../redux/apiReducer';
@@ -19,6 +19,7 @@ import { getUserAuth } from '../../redux/apiReducer';
 import './mainPage.css';
 
 const Main = (): JSX.Element => {
+  const { t } = useTranslation();
   const boards: IBoard[] = useSelector(selectBoards);
   const status: string = useSelector(selectBoardsFetchStatus);
   const error: string | null = useSelector(selectBoardsError);
@@ -43,7 +44,7 @@ const Main = (): JSX.Element => {
       <div className="main-container">
         {!!boards.length && (
           <>
-            <h1>{pageName.main}</h1>
+            <h1>{t('main.title')}</h1>
             <div className="boards-prew-container">
               {boards.length > 0 &&
                 boards.map((board: IBoard) => {

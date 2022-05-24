@@ -45,9 +45,9 @@
 
 .board-create-btn {
   position: absolute;
-  top: 270px;
-  left: 120px;
-  width: 100px;
+  top: 275px;
+  left: 260px;
+  width: 167px;
   height: 40px;
   font-size: 22px;
   cursor: pointer;
@@ -58,8 +58,8 @@
 .close-modal-btn {
   position: relative;
   z-index: 6;
-  top: -166px;
-  right: 87px; 
+  top: 115px;
+  right: 105px; 
   margin-top: 40px;
   cursor: pointer;
   border: none;

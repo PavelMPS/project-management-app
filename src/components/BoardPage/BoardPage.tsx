@@ -1,20 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import ModalWindow from '../ModalWindow/ModalWindow';
 import ColumnForm from '../Column/ColumnForm';
-import {
-  selectStatusColumn,
-  closeBoardColumn,
-  updateColumnFetch,
-  fetchColumn,
-} from '../../redux/ColumnSlice';
+import { selectStatusColumn, closeBoardColumn, updateColumnFetch } from '../../redux/ColumnSlice';
 import {
   closeBoardTask,
   createTaskFetch,
   deleteTaskFetch,
-  fetchTask,
   selectStatusTasks,
   updateTaskFetch,
 } from '../../redux/TaskSlice';
@@ -24,13 +19,14 @@ import { fetchUsers, selectUsersStatus } from '../../redux/UsersSlice';
 import Column from '../Column/Column';
 import { ColumnState, getBoardById } from '../../redux/GetBoardSlice';
 import { useAppSelector } from '../../redux/hooks/redux';
-import { buttonName, fetchStatus, pageName, formType } from '../../constants/Constants';
+import { fetchStatus, formType } from '../../constants/Constants';
 import { Loader } from '../Loader/Loader';
 import { DragDropContext, DraggableLocation, Droppable, DropResult } from 'react-beautiful-dnd';
 
 import './boardPage.css';
 
 const BoardPage = (): JSX.Element => {
+  const { t } = useTranslation();
   const board = useSelector(selectBoard);
   const statusColumn = useSelector(selectStatusColumn);
   const statusTasks = useSelector(selectStatusTasks);
@@ -67,33 +63,33 @@ const BoardPage = (): JSX.Element => {
     const [reorderedItem] = items.splice(source.index, 1);
     items.splice(destination.index, 0, reorderedItem);
     updateDragState(items);
-    // await dispatch(
-    //   updateColumnFetch({
-    //     boardId: board.id,
-    //     columnId: idBoard.columns[source.index].id,
-    //     column: { title: idBoard.columns[source.index].title, order: idBoard.columns.length + 1 },
-    //   })
-    // );
-    // await dispatch(
-    //   updateColumnFetch({
-    //     boardId: board.id,
-    //     columnId: idBoard.columns[destination.index].id,
-    //     column: {
-    //       title: idBoard.columns[destination.index].title,
-    //       order: idBoard.columns[source.index].order,
-    //     },
-    //   })
-    // );
-    // await dispatch(
-    //   updateColumnFetch({
-    //     boardId: board.id,
-    //     columnId: idBoard.columns[source.index].id,
-    //     column: {
-    //       title: idBoard.columns[source.index].title,
-    //       order: idBoard.columns[destination.index].order,
-    //     },
-    //   })
-    // );
+    await dispatch(
+      updateColumnFetch({
+        boardId: board.id,
+        columnId: idBoard.columns[source.index].id,
+        column: { title: idBoard.columns[source.index].title, order: idBoard.columns.length + 1 },
+      })
+    );
+    await dispatch(
+      updateColumnFetch({
+        boardId: board.id,
+        columnId: idBoard.columns[destination.index].id,
+        column: {
+          title: idBoard.columns[destination.index].title,
+          order: idBoard.columns[source.index].order,
+        },
+      })
+    );
+    await dispatch(
+      updateColumnFetch({
+        boardId: board.id,
+        columnId: idBoard.columns[source.index].id,
+        column: {
+          title: idBoard.columns[source.index].title,
+          order: idBoard.columns[destination.index].order,
+        },
+      })
+    );
   };
 
   const reorderTasks = async (
@@ -202,7 +198,7 @@ const BoardPage = (): JSX.Element => {
           <h1>{board.title}</h1>
           <Link to="/main">
             <div className="board-close" onClick={boardCloseHadler}>
-              {buttonName.close}
+              {t('board.close')}
             </div>
           </Link>
         </div>
@@ -224,7 +220,7 @@ const BoardPage = (): JSX.Element => {
                   }}
                 >
                   <div className="board-add-column-icon"></div>
-                  <div>{buttonName.addColumn}</div>
+                  <div>{t('board.addColumn')}</div>
                 </div>
                 {provided.placeholder}
               </div>

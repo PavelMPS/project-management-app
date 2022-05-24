@@ -1,6 +1,6 @@
 import React, { FormEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { buttonName, createBoardSettings } from '../../constants/Constants';
+import { useTranslation } from 'react-i18next';
 
 import { createBoard } from '../../redux/CreateBoardSlice';
 import { fetchBoards } from '../../redux/MainSlice';
@@ -9,6 +9,7 @@ import { AppDispatch } from '../../redux/Store';
 import './modalFormBoardCreate.css';
 
 const ModalFormBoardCreate = (): JSX.Element => {
+  const { t } = useTranslation();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const dispatch = useDispatch<AppDispatch>();
@@ -20,30 +21,30 @@ const ModalFormBoardCreate = (): JSX.Element => {
 
   return (
     <div className="popup-content">
-      <h2 className="modal-board-title">{createBoardSettings.createBoard}</h2>
+      <h2 className="modal-board-title">{t('board.create')}</h2>
       <form className="modal-board-form">
         <label className="form-label board-label">
-          <p className="title-label">{createBoardSettings.title}</p>
+          <p className="title-label">{t('board.title')}</p>
           <input
             className="edit-input"
             onChange={(e) => setTitle(e.target.value)}
             type="text"
-            placeholder="Enter board title"
+            placeholder={t('board.titlePlaceholder')}
             value={title}
           />
         </label>
         <label className="form-label board-label">
-          <p className="description-label">{createBoardSettings.description}</p>
+          <p className="description-label">{t('board.description')}</p>
           <input
             className="edit-input"
             onChange={(e) => setDescription(e.target.value)}
             type="text"
-            placeholder="Enter board description"
+            placeholder={t('board.descriptionPlaceholder')}
             value={description}
           />
         </label>
         <button className="board-create-btn" onClick={createBoardHandler}>
-          {buttonName.create}
+          {t('board.createButton')}
         </button>
       </form>
     </div>

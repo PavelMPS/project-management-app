@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import Confirmation from '../Confirmation/Confirmation';
 import { selectBoard } from '../../redux/MainSlice';
@@ -11,12 +12,13 @@ import ModalWindow from '../ModalWindow/ModalWindow';
 import ColumnForm from './ColumnForm';
 import TaskForm from '../Task/TaskForm';
 import { ColumnState, getBoardById, TaskState } from '../../redux/GetBoardSlice';
-import { formType, buttonName } from '../../constants/Constants';
+import { formType } from '../../constants/Constants';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 
 import './column.css';
 
 const Column = (props: { columnInf: ColumnState; index: number }): JSX.Element => {
+  const { t } = useTranslation();
   const board: IBoard = useSelector(selectBoard);
   const columnError: string | null = useSelector(selectColumnsError);
 
@@ -122,7 +124,7 @@ const Column = (props: { columnInf: ColumnState; index: number }): JSX.Element =
 
             <div className="task-create-btn" onClick={async () => setTaskModalOpen(true)}>
               <div className="task-create"></div>
-              <div>{buttonName.addTask}</div>
+              <div>{t('board.addTask')}</div>
             </div>
           </div>
         )}
