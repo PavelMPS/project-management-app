@@ -96,10 +96,20 @@ const Header = (): JSX.Element => {
             <div className="btn-text">{headerBTNs.createBoard}</div>
             <div className="create-board-btn"></div>
           </div>
-          <label className="checkbox-green">
-            <input type="checkbox" onClick={languageToggler} />
-            <span className="checkbox-green-switch" data-label-on="Ru" data-label-off="En"></span>
-          </label>
+          <div className="toglers-container">
+            <label htmlFor="checkbox" className="togler-container">
+              <input className="checkbox" type="checkbox" id="checkbox" onClick={languageToggler} />
+              <span className="togler-ball"></span>
+              <b className="ru">{'RU'}</b>
+              <b className="en">{'EN'}</b>
+            </label>
+            <label htmlFor="checkbox-theme" className="togler-container">
+              <input className="checkbox" type="checkbox" id="checkbox-theme" />
+              <span className="togler-ball"></span>
+              <b className="sun"></b>
+              <b className="moon"></b>
+            </label>
+          </div>
         </div>
       )}
       {isConfirmationDeleteOpen && (

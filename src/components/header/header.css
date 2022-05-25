@@ -98,103 +98,72 @@ header {
 .ru-btn:hover {
   transform: scale(1.2);
 }
-/*Language toggler*/
+/* togglers */
 
-.checkbox-green {
-	display: inline-block;    
-	height: 28px;    
-	line-height: 28px;  
-	margin-right: 10px;      
-	position: relative;
-	vertical-align: middle;
-	font-size: 18px;
-	user-select: none;	
+.toglers-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+  justify-content: center;
 }
-
-.checkbox-green .checkbox-green-switch {
-	display: inline-block;	
-	height: 28px;
-	width: 90px;
-	box-sizing: border-box;
-	position: relative;	
-	border-radius: 2px;
-	background: #848484;
-	transition: background-color 0.3s cubic-bezier(0, 1, 0.5, 1);
+.checkbox {
+  display: none;
 }
-
-.checkbox-green .checkbox-green-switch:before {
-	content: attr(data-label-on);
-	display: inline-block;
-	box-sizing: border-box;		
-	width: 45px;	
-	padding: 0 12px;	
-	position: absolute;
-	top: 0;
-	left: 45px;	
-	text-transform: uppercase;
-	text-align: center;
-	color: rgba(255, 255, 255, 0.5);
-	font-size: 18px;
-  font-weight: bold;
-	line-height: 28px;
+.togler-container {
+  display: block;
+  width: 60px;
+  height: 31px;
+  border: 3px solid var(--tenth-color);
+  border-radius: 30px;
+  position: relative;
+  cursor: pointer;
 }
-
-.checkbox-green .checkbox-green-switch:after {
-	content: attr(data-label-off);
-	display: inline-block;
-	box-sizing: border-box;	
-	width: 44px;	
-	border-radius: 1px;	
-	position: absolute;
-	top: 1px;
-	left: 1px;	
-	z-index: 5;
-	text-transform: uppercase;
-	text-align: center;
-	background: #4fb743;
-	line-height: 26px;
-	font-size: 18px;
-  font-weight: bold;
-	color: white;
-	transition: transform 0.3s cubic-bezier(0, 1, 0.5, 1);
+.togler-ball {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-color: var(--tenth-color);
+  border-radius: 50%;
+  left: 1px;
+  z-index: 10;
+  transition: transform 0.5s ease-in-out;
 }
-
-.checkbox-green input[type="checkbox"] {
-	display: block;	
-	width: 0;
-	height: 0;	
-	position: absolute;
-	z-index: -1;
-	opacity: 0;
+.en,
+.ru,
+.sun,
+.moon {
+  line-height: 30px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--tenth-color);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
-.checkbox-green input[type="checkbox"]:checked + .checkbox-green-switch {
-	background-color: #848484;
+.en {
+  right: 5px;
 }
-.checkbox-green input[type="checkbox"]:checked + .checkbox-green-switch:before {
-	content: attr(data-label-off);
-	left: 0;
+.ru {
+  left: 5px;
 }
-.checkbox-green input[type="checkbox"]:checked + .checkbox-green-switch:after {
-	content: attr(data-label-on);
-	color: white;
-	transform: translate3d(44px, 0, 0);
+.sun,
+.moon {
+  height: 24px;
+  width: 24px;
+  background-size: cover;
+}
+.sun {
+  background-image: url(../../assets/sun.svg);
+  left: 2px;
+}
+.moon {
+  background-image: url(../../assets/moon.svg);
+  right: 2px;
 }
 
-/* Hover */
-.checkbox-green input[type="checkbox"]:not(:disabled) + .checkbox-green-switch:hover {
-	cursor: pointer;
-}
-.checkbox-green input[type="checkbox"]:not(:disabled) + .checkbox-green-switch:hover:after {
-	box-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);
-}
- 
-/* Disabled */
-.checkbox-green input[type=checkbox]:disabled + .checkbox-green-switch {
-	opacity: 0.6;   
-	filter: grayscale(50%);
-}
- 
-/* Focus */
-.checkbox-green.focused .checkbox-green-switch:after {
-	box-shadow: inset 0px 0px 4px #ff5623;
+.checkbox:checked + .togler-ball {
+  transform: translate(29px, -50%);
 }
