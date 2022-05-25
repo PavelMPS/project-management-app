@@ -121,6 +121,8 @@ interface IUserSlice {
   isAuth: boolean;
   authLogin: string;
   authPass: string;
+  isLoading: boolean;
+  statusCode: string | null;
 }
 
 interface IError {

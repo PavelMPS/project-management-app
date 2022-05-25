@@ -18,7 +18,7 @@ export interface IUserCredentials {
 const SignupPage = (): JSX.Element => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const { name, login, password, token, isAuth } = useAppSelector((store) => store.user);
+  const { token, isAuth, isLoading } = useAppSelector((store) => store.user);
   const navigate = useNavigate();
 
   useEffect((): void => {
@@ -27,11 +27,6 @@ const SignupPage = (): JSX.Element => {
     }
   }, [isAuth]);
 
-  const createAccount = (): void => {
-    if (name && login && password) {
-      dispatch(setUser({ name, login, password }));
-    }
-  };
   const {
     register,
     handleSubmit,
@@ -40,7 +35,7 @@ const SignupPage = (): JSX.Element => {
 
   const onSubmit: SubmitHandler<IUserCredentials> = (data): void => {
     dispatch(setCredentials(data));
-    createAccount();
+    dispatch(setUser({ name: data.name, login: data.login, password: data.password }));
   };
 
   return (
@@ -105,7 +100,7 @@ const SignupPage = (): JSX.Element => {
           {errors.password && <p className="error">{errors.password.message}</p>}
         </label>
         <div className="sendButton">
-          <input type="submit" value={t('signup.registerBtn')} />
+          <input type="submit" disabled={isLoading} value={t('signup.registerBtn')} />
         </div>
       </form>
       {t('signup.haveAccaunt')}
