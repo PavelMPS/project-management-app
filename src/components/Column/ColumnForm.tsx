@@ -9,8 +9,6 @@ import { getBoardById } from '../../redux/GetBoardSlice';
 import { AppDispatch } from '../../redux/Store';
 import Confirmation from '../Confirmation/Confirmation';
 
-import './columnForm.css';
-
 const ColumnForm = (props: { boardId: string; columnInf?: IColumn; type: string }): JSX.Element => {
   const {
     register,
@@ -109,7 +107,7 @@ const ColumnForm = (props: { boardId: string; columnInf?: IColumn; type: string 
           {errors.title && <span className="error">{columnFormProps.error}</span>}
         </div>
 
-        <button className="form-btn" type="submit" disabled={!isValid}>
+        <button className="btn" type="submit" disabled={!isValid}>
           {buttonName.submit}
         </button>
       </form>

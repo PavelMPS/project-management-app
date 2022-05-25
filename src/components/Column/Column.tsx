@@ -120,7 +120,7 @@ const Column = (props: { columnInf: ColumnState }): JSX.Element => {
               <div className="column-title" onClick={() => setIsTitleUpdate(true)}>
                 {props.columnInf.title}
               </div>
-              <div className="column-bin" onClick={() => setIsConfirmationOpen(true)}></div>
+              <div className="small-btn trash" onClick={() => setIsConfirmationOpen(true)}></div>
             </>
           )}
           {isTitleUpdate && (
@@ -131,8 +131,8 @@ const Column = (props: { columnInf: ColumnState }): JSX.Element => {
                 defaultValue={props.columnInf.title}
                 onChange={(event) => setTitle(event.target.value)}
               ></input>
-              <div className="update-title-btn" onClick={updateTitle}></div>
-              <div className="close-title-btn" onClick={() => setIsTitleUpdate(false)}></div>
+              <div className="small-btn check" onClick={updateTitle}></div>
+              <div className="small-btn close" onClick={() => setIsTitleUpdate(false)}></div>
             </>
           )}
         </div>
@@ -154,8 +154,8 @@ const Column = (props: { columnInf: ColumnState }): JSX.Element => {
               );
             })}
         </div>
-        <div className="task-create-btn" onClick={async () => setTaskModalOpen(true)}>
-          <div className="task-create"></div>
+        <div className="task-create-btn opacity-btn" onClick={async () => setTaskModalOpen(true)}>
+          <div className="small-btn add"></div>
           <div>{buttonName.addTask}</div>
         </div>
       </div>

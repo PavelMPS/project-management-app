@@ -7,7 +7,7 @@ import ModalFormBoardCreate from '../MainPage/ModalFormBoardCreate';
 import { deleteUser } from '../../redux/DeleteUserSlice';
 
 import './header.css';
-import { appName, buttonName } from '../../constants/Constants';
+import { appName, buttonName, headerBTNs } from '../../constants/Constants';
 
 const Header = (): JSX.Element => {
   const navigate = useNavigate();
@@ -53,14 +53,26 @@ const Header = (): JSX.Element => {
       <h1 className="header-title">{appName}</h1>
       {isAuth && (
         <div className="menu-container">
-          <Link className="edit-link" to={'/edit'}>
-            <button className="button edit-btn"></button>
+          <Link className="edit-link link" to={'/edit'}>
+            <div className="header-btn">
+              <div className="btn-text">{headerBTNs.editProfile}</div>
+              <div className="edit-btn"></div>
+            </div>
           </Link>
-          <button className="button logout-btn" onClick={logoutHandler}></button>
-          <button className="button user-delete-btn" onClick={deleteUserHandler}></button>
-          <button className="button create-board-btn" onClick={togglePopup}></button>
-          <button className="button en-btn"></button>
-          <button className="button ru-btn"></button>
+          <div className="header-btn" onClick={logoutHandler}>
+            <div className="btn-text">{headerBTNs.logOut}</div>
+            <div className="logout-btn"></div>
+          </div>
+          <div className="header-btn" onClick={deleteUserHandler}>
+            <div className="btn-text">{headerBTNs.deleteProfile}</div>
+            <div className="user-delete-btn"></div>
+          </div>
+          <div className="header-btn" onClick={togglePopup}>
+            <div className="btn-text">{headerBTNs.createBoard}</div>
+            <div className="create-board-btn"></div>
+          </div>
+          <button className="header-btn en-btn"></button>
+          <button className="header-btn ru-btn"></button>
           {createBoardClicked ? (
             <div className="modal-form-create-container">
               <div className="popup-body">

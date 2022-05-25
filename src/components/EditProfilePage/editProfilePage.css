@@ -1,6 +1,6 @@
 .edit-container {
     margin: auto;
-    width: 80%;
+    width: 100%;
     height: 70vh;
     background: rgb(212, 249, 235);
 }
@@ -30,12 +30,12 @@
     width: 50%;
 }
 
-.form-label {
+/* .form-label {
     min-height: 150px;
     display: flex;
     flex-direction: column;
     background: rgb(250, 222, 149);
-}
+} */
 
 .title-label {
     font-size: 24px;

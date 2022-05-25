@@ -19,6 +19,7 @@ const Task = (props: { taskInf: TaskState; columnId: string }): JSX.Element => {
   const { idBoard } = useAppSelector((state) => state.idBoard);
 
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
+  const [isTaskOpen, setTaskOpen] = useState<boolean>(false);
   const [user, setUser] = useState<string>('');
   const [isConfirmationOpen, setIsConfirmationOpen] = useState<boolean>(false);
 
@@ -47,7 +48,7 @@ const Task = (props: { taskInf: TaskState; columnId: string }): JSX.Element => {
 
   return (
     <>
-      <div className="task-container">
+      <div className="task-container" onClick={() => setTaskOpen(!isTaskOpen)}>
         <div className="task-wrapper">
           <div className="task-title">{props.taskInf.title}</div>
           <div className="task-wrapper">
@@ -60,8 +61,12 @@ const Task = (props: { taskInf: TaskState; columnId: string }): JSX.Element => {
             <div className="task-bin" onClick={() => setIsConfirmationOpen(true)}></div>
           </div>
         </div>
-        <div className="task-description">{props.taskInf.description}</div>
-        <div className="task-responsible-user">{user}</div>
+        {isTaskOpen && (
+          <>
+            <div className="task-description">{props.taskInf.description}</div>
+            <div className="task-responsible-user">{user}</div>
+          </>
+        )}
       </div>
       {isModalOpen && (
         <ModalWindow onClick={handleModalClose}>

@@ -24,7 +24,7 @@
   width: 25px;
   height: 25px;
   border-radius: 50%;
-  background-color: rgb(30, 30, 30);
+  background-color: var(--fifth-color);
   animation: bounce 0.5s alternate infinite;
 }
 .ball:nth-child(2) {

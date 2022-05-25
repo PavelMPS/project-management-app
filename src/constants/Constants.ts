@@ -99,3 +99,10 @@ export const cardInfo = {
   age: 'Age',
   about: 'About',
 };
+
+export const headerBTNs = {
+  editProfile: 'Edit profile',
+  logOut: 'Log out',
+  deleteProfile: 'Delete profile',
+  createBoard: 'Create board',
+};

@@ -10,8 +10,6 @@ import { buttonName, taskFormSettings } from '../../constants/Constants';
 import Confirmation from '../Confirmation/Confirmation';
 import { useAppSelector } from '../../redux/hooks/redux';
 
-import './taskForm.css';
-
 const TaskForm = (props: {
   boardId: string;
   columnId: string;
@@ -190,7 +188,7 @@ const TaskForm = (props: {
           {errors.userId && <span className="error">{taskFormSettings.error}</span>}
         </div>
 
-        <button className="form-btn" type="submit" disabled={!isValid}>
+        <button className="btn" type="submit" disabled={!isValid}>
           {buttonName.submit}
         </button>
       </form>

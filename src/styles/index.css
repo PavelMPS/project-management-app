@@ -1,4 +1,19 @@
-* {
+:root {
+  --first-color: #eaeaea;
+  --second-color: #ff932e;
+  --third-color: #1f1f1f;
+  --forth-color: #d6d6d6;
+  --fifth-color: #2e2e2e;
+  --sixth-color: #585858;  
+  --seventh-color: #fdfdfd;
+  --eighth-color: #ffffff60;  
+  --ninth-color: #ff3911;  
+  --tenth-color: #ffffff;
+}
+
+*, 
+*::before, 
+*::after {
   box-sizing: border-box;
 }
 
@@ -14,4 +29,8 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+h1 {
+  font-size: 32px;
 }

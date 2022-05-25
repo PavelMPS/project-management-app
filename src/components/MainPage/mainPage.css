@@ -1,14 +1,8 @@
-.main-container {
-  width: 100%;
-  height: calc(100vh - 200px); 
-  padding: 0px 50px;
-}
-
 .boards-prew-container {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-between;
   column-gap: 25px;
   color: rgb(85, 72, 2);
 }

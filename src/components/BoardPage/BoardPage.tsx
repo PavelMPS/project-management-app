@@ -99,8 +99,8 @@ const BoardPage = (): JSX.Element => {
       <div className="board-container">
         <div className="board-title-container">
           <h1>{board.title}</h1>
-          <Link to="/main">
-            <div className="board-close" onClick={boardCloseHadler}>
+          <Link className="link" to="/main">
+            <div className="btn" onClick={boardCloseHadler}>
               {buttonName.close}
             </div>
           </Link>
@@ -123,7 +123,7 @@ const BoardPage = (): JSX.Element => {
             );
           })}
           <div
-            className="board-add-column"
+            className="opacity-btn add-column-btn"
             onClick={() => {
               setModalOpen(true);
             }}

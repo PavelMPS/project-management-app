@@ -1,10 +1,13 @@
 footer {
-  min-height: 100px;
-  background: rgb(210, 232, 250);
+  min-height: 75px;
+  align-items: center;
+  background: linear-gradient(90deg, var(--ninth-color), var(--second-color));
   display: flex;
+  color: var(--tenth-color);
 }
 
 .footer-container {
+  align-items: center;
   margin: auto;
   width: 90%;
   display: flex;
@@ -15,21 +18,29 @@ footer {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  width: 35%;
+  font-size: 16px;
+  padding-left: 10px;
+  padding-right: 10px;
+  cursor: pointer;
 }
 
 .github-container a {
-  text-decoration: none;
-  font-size: 20px;
-  font-weight: 500;
-  color: rgb(120, 25, 68);
-  transition: all 0.4s;
+  min-height: 75px;
+  min-width: 50px;
+  max-width: 150px;
+  align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  display: flex;
+  column-gap: 15px;
+  background-color: none;
+  border: none;
 }
-
 .github-container a:hover {
-  transition: all 0.4s;
-  color: rgb(167, 35, 94);
-  transform: scale(1.1);
+  box-shadow: 0px 56px 21px -29px var(--second-color) inset;
+}
+.github-container a:active {
+  background-color: var(--second-color);
 }
 
 .year {
@@ -37,7 +48,6 @@ footer {
   align-items: center;
   font-size: 20px;
   font-weight: 500;
-  color: rgb(120, 25, 68);
 }
 
 .rsschool-logo {

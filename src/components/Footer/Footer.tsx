@@ -8,13 +8,18 @@ const Footer = (): JSX.Element => {
     <footer>
       <div className="footer-container">
         <div className="github-container">
-          <a href="https://github.com/aiyoy" target="_blank" rel="noreferrer">
+          <a className="link" href="https://github.com/aiyoy" target="_blank" rel="noreferrer">
             {authorsName.veronika}
           </a>
-          <a href="https://github.com/vitalysoroko95" target="_blank" rel="noreferrer">
+          <a
+            className="link"
+            href="https://github.com/vitalysoroko95"
+            target="_blank"
+            rel="noreferrer"
+          >
             {authorsName.vitaliy}
           </a>
-          <a href="https://github.com/PavelMPS/" target="_blank" rel="noreferrer">
+          <a className="link" href="https://github.com/PavelMPS/" target="_blank" rel="noreferrer">
             {authorsName.pavel}
           </a>
         </div>

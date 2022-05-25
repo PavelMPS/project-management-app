@@ -29,11 +29,18 @@ const BoardPreview = (props: { boardInf: IBoard }): JSX.Element => {
       <div className="board-prew-container">
         <div className="board-prew-wrapper">
           <div className="board-prew-title">{props.boardInf.title}</div>
-          <div className="board-prew-bin" onClick={() => setIsConfirmationOpen(true)}></div>
+          <div
+            className="small-btn edit"
+            onClick={() => {
+              console.log('update');
+              //TODO add update
+            }}
+          ></div>
+          <div className="small-btn trash" onClick={() => setIsConfirmationOpen(true)}></div>
         </div>
-        <Link className="edit-link" to={'/board'}>
-          <div className="board-open-btn" onClick={openBoardHandler}>
-            {buttonName.open}
+        <Link className="link" to={'/board'}>
+          <div className="opacity-btn" onClick={openBoardHandler}>
+            <p>{buttonName.open}</p>
           </div>
         </Link>
       </div>
