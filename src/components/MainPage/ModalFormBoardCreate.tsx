@@ -1,41 +1,83 @@
 import React, { FormEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { buttonName, createBoardSettings } from '../../constants/Constants';
+import { useTranslation } from 'react-i18next';
 
 import { createBoard } from '../../redux/CreateBoardSlice';
 import { fetchBoards } from '../../redux/MainSlice';
 import { AppDispatch } from '../../redux/Store';
-
-import './modalFormBoardCreate.css';
+import Confirmation from '../Confirmation/Confirmation';
+import { useForm } from 'react-hook-form';
 
 const ModalFormBoardCreate = (): JSX.Element => {
-  const [title, setTitle] = useState('');
+  const { t } = useTranslation();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<ICreateBoard>();
+  const [isConfirmationOpen, setIsConfirmationOpen] = useState<boolean>(false);
+  const [boardInf, setBoardInf] = useState<ICreateBoard>({
+    title: '',
+    description: '',
+  });
+
   const dispatch = useDispatch<AppDispatch>();
-  const createBoardHandler = async (e: FormEvent): Promise<void> => {
-    e.preventDefault();
-    await dispatch(createBoard(title));
+
+  const createBoardHandler = (data: ICreateBoard): void => {
+    setIsConfirmationOpen(true);
+    setBoardInf({
+      title: data.title,
+      description: data.description,
+    });
+  };
+
+  const confirmationSubmit = async (): Promise<void> => {
+    const { title, description } = boardInf;
+    setIsConfirmationOpen(false);
+    reset();
+    await dispatch(createBoard({ title, description }));
     await dispatch(fetchBoards());
   };
 
   return (
-    <div className="popup-content">
-      <h2 className="modal-board-title">{createBoardSettings.createBoard}</h2>
-      <form className="modal-board-form">
-        <label className="form-label board-label">
-          <p className="title-label">{createBoardSettings.title}</p>
-          <input
-            className="edit-input"
-            onChange={(e) => setTitle(e.target.value)}
-            type="text"
-            placeholder="Enter board title"
-            value={title}
-          />
-        </label>
-        <button className="board-create-btn" onClick={createBoardHandler}>
-          {buttonName.create}
-        </button>
+    <>
+      <form className="form" onSubmit={handleSubmit(createBoardHandler)}>
+        <div className="form-element-wrapper">
+          <label className="form-label">
+            {t('board.title')}
+            <input
+              className="form-input"
+              {...register('title', {
+                required: true,
+              })}
+              type="text"
+              placeholder={t('board.titlePlaceholder')}
+            />
+            {errors.title && <p className="error">{t('board.errors.title')}</p>}
+          </label>
+        </div>
+        <div className="form-element-wrapper">
+          <label className="form-label">
+            {t('board.description')}
+            <input
+              className="form-input"
+              type="text"
+              placeholder={t('board.descriptionPlaceholder')}
+              {...register('description', { required: true })}
+            />
+            {errors.description && <p className="error">{t('board.errors.description')}</p>}
+          </label>
+        </div>
+        <button className="btn">{t('board.createButton')}</button>
       </form>
-    </div>
+      {isConfirmationOpen && (
+        <Confirmation
+          onCancel={() => setIsConfirmationOpen(false)}
+          onSubmit={() => confirmationSubmit()}
+        />
+      )}
+    </>
   );
 };
 

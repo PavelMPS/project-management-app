@@ -28,6 +28,12 @@ type usersState = {
 interface IBoard {
   id: string;
   title: string;
+  description: string;
+}
+
+interface ICreateBoard {
+  title: string;
+  description: string;
 }
 
 interface IColumn {
@@ -44,6 +50,7 @@ interface ITask {
   userId: string;
   boardId?: string;
   columnId?: string;
+  columnChange?: string;
 }
 
 interface IUser {
@@ -109,9 +116,19 @@ interface IUserSlice {
   name: string;
   login: string;
   password: string;
-  errors: string[];
+  error: string | null;
   token: string;
   isAuth: boolean;
   authLogin: string;
   authPass: string;
+}
+
+interface IError {
+  id: string;
+  text: string;
+}
+
+interface ILangs {
+  en: string;
+  ru: string;
 }

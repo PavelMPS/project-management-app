@@ -1,5 +1,5 @@
 import React from 'react';
-import { cardInfo } from '../../constants/Constants';
+import { useTranslation } from 'react-i18next';
 
 import './profileCard.css';
 
@@ -12,6 +12,8 @@ interface IPofile {
 }
 
 const ProfileCard = (props: IPofile): JSX.Element => {
+  const { t } = useTranslation();
+
   return (
     <div className="profile-container">
       <div className="photo">
@@ -19,16 +21,16 @@ const ProfileCard = (props: IPofile): JSX.Element => {
       </div>
       <div className="information">
         <p>
-          {cardInfo.name} : {props.name}
+          {t('profile.name')} : {props.name}
         </p>
         <p>
-          {cardInfo.surname} : {props.surname}
+          {t('profile.surname')} : {props.surname}
         </p>
         <p>
-          {cardInfo.age}: {props.age}
+          {t('profile.age')}: {props.age}
         </p>
         <p>
-          {cardInfo.about} : {props.about}
+          {t('profile.about')} : {props.about}
         </p>
       </div>
     </div>

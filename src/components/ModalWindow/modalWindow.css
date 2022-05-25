@@ -4,12 +4,12 @@
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: #03131f6c;
+  background-color: var(--twelfth-color);
   z-index: 1000;
 }
 .modal-window {
-  position: relative;
   display: flex;
+  justify-content: space-between;
   position: fixed;
   right: 0%;
   top: 0%;

@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { FieldError, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
-import { updateTaskFetch, createTaskFetch } from '../../redux/TaskSlice';
+import { updateTaskFetch, createTaskFetch, selectTasksError } from '../../redux/TaskSlice';
 import { getBoardById, ColumnState } from '../../redux/GetBoardSlice';
 import { selectUsers } from '../../redux/UsersSlice';
 import { AppDispatch } from '../../redux/Store';
-import { buttonName, taskFormSettings } from '../../constants/Constants';
 import Confirmation from '../Confirmation/Confirmation';
 import { useAppSelector } from '../../redux/hooks/redux';
 
@@ -16,6 +16,7 @@ const TaskForm = (props: {
   taskInf?: ITask;
   type: string;
 }): JSX.Element => {
+  const { t } = useTranslation();
   const {
     register,
     handleSubmit,
@@ -68,6 +69,7 @@ const TaskForm = (props: {
   const dispatch = useDispatch<AppDispatch>();
 
   const users: IUser[] = useSelector(selectUsers);
+  const taskError: string | null = useSelector(selectTasksError);
 
   const handleSubmite = async (data: ITask) => {
     const taskInf: ITask = {
@@ -105,7 +107,9 @@ const TaskForm = (props: {
       };
       await dispatch(updateTaskFetch(task));
     }
-    dispatch(getBoardById(props.boardId));
+    if (!taskError) {
+      dispatch(getBoardById(props.boardId));
+    }
   };
 
   const handleError = (): void => {
@@ -131,7 +135,7 @@ const TaskForm = (props: {
       <form className="form" onSubmit={handleSubmit(handleSubmite, handleError)}>
         <div className="form-element-wrapper">
           <label className="form-label">
-            {taskFormSettings.title}
+            {t('task.title')}
             <br />
             <input
               className="form-input"
@@ -146,12 +150,12 @@ const TaskForm = (props: {
               })}
             />
           </label>
-          {errors.title && <span className="error">{taskFormSettings.error}</span>}
+          {errors.title && <p className="error">{t('task.error')}</p>}
         </div>
 
         <div className="form-element-wrapper">
           <label className="form-label">
-            {taskFormSettings.description}
+            {t('task.description')}
             <br />
             <input
               className="form-input"
@@ -166,12 +170,12 @@ const TaskForm = (props: {
               })}
             />
           </label>
-          {errors.title && <span className="error">{taskFormSettings.error}</span>}
+          {errors.description && <p className="error">{t('task.error')}</p>}
         </div>
 
         <div className="form-element-wrapper">
           <label className="form-label">
-            {taskFormSettings.selectUser}
+            {t('task.selectUser')}
             <br />
             <select
               className="form-input"
@@ -185,11 +189,11 @@ const TaskForm = (props: {
               ))}
             </select>
           </label>
-          {errors.userId && <span className="error">{taskFormSettings.error}</span>}
+          {errors.userId && <p className="error">{t('task.error')}</p>}
         </div>
 
         <button className="btn" type="submit" disabled={!isValid}>
-          {buttonName.submit}
+          {t('task.submit')}
         </button>
       </form>
       {isConfirmationOpen && (

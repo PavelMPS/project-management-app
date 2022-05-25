@@ -9,6 +9,8 @@ import usersSlice from './UsersSlice';
 import deleteUser from './DeleteUserSlice';
 import GetBoardSlice from './GetBoardSlice';
 import EditProfileSlice from './EditProfileSlice';
+import DragAndDropTasksSlice from './DragAndDropTasksSlice';
+import DragAndDropColumnSlice from './DragAndDropColumnSlice';
 
 export const store = configureStore({
   reducer: {
@@ -21,6 +23,8 @@ export const store = configureStore({
     users: usersSlice,
     delUser: deleteUser,
     edit: EditProfileSlice,
+    dragTask: DragAndDropTasksSlice,
+    dragColumn: DragAndDropColumnSlice,
   },
 });
 

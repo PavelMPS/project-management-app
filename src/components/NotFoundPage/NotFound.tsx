@@ -1,17 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
-import { notFoundSettings, pageName } from '../../constants/Constants';
+import { useTranslation } from 'react-i18next';
 
 import './notFound.css';
 
 const NotFound = (): JSX.Element => {
+  const { t } = useTranslation();
+
   return (
     <div className="not-found-page">
       <div className="not-found-page-title">
-        <h2>{pageName.notFound}</h2>
+        <h2>{t('notFound.title')}</h2>
         <p>
-          {notFoundSettings.tryThe} <Link to="/">{notFoundSettings.homepage}</Link>
+          {t('notFound.tryThe')} <Link to="/">{t('notFound.homepage')}</Link>
         </p>
       </div>
       <div className="animation-container">

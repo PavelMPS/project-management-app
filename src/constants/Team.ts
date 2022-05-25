@@ -8,11 +8,11 @@ export const Team = [
   },
 
   {
-    imgSrc: 'vs.png',
+    imgSrc: 'ps.png',
     name: 'Pavel',
     surname: 'Mazhaiski',
-    age: '',
-    about: '',
+    age: '35',
+    about: 'JavaScript, TypeScript, React, Git',
   },
   {
     imgSrc: 'vs.png',

@@ -1,22 +1,17 @@
 .edit-container {
-    margin: auto;
-    width: 100%;
-    height: 70vh;
-    background: rgb(212, 249, 235);
+  width: 100%;
+  height: 100%;
+  padding: 0px 25px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
-
-.edit-title {
-    text-align: center;
-    font-size: 1.7rem;
-    background: rgb(172, 215, 251);
-}
-
-.edit-form {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
+.edit-title-container {
+  width: 100%;
+  column-gap: 25px;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
 }
 
 .edit-form-inputs,
@@ -24,45 +19,6 @@
     display: flex;
     justify-content: space-evenly;
 }
-
 .edit-form-buttons {
-    align-self: center;
-    width: 50%;
-}
-
-/* .form-label {
-    min-height: 150px;
-    display: flex;
-    flex-direction: column;
-    background: rgb(250, 222, 149);
-} */
-
-.title-label {
-    font-size: 24px;
-    margin-left: 10px;
-}
-
-.edit-submit-btn,
-.edit-cancel-btn {
-    font-size: 26px;
-    background: rgb(173, 173, 250);
-    border: none;
-}
-
-.edit-form-error {
-    position: absolute;
-    color: red;
-    font-size: 16px;
-}
-
-.success-message {
-    color: green;
-}
-
-.edit-input {
-    font-size: 20px;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-bottom: 45px solid rgb(137, 158, 252);
+  margin-top: 25px;
 }

@@ -86,7 +86,6 @@ export const createTaskFetch: AsyncThunk<ITask, ITask, EmptyObject> = createAsyn
       requestString,
       {
         title: taskInf.title,
-        order: +taskInf.order,
         description: taskInf.description,
         userId: taskInf.userId,
       },
@@ -114,6 +113,31 @@ export const updateTaskFetch: AsyncThunk<ITask, ITask, EmptyObject> = createAsyn
         userId: taskInf.userId,
         boardId: taskInf.boardId,
         columnId: taskInf.columnId,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  }
+);
+
+export const updateTaskChangeColumn: AsyncThunk<ITask, ITask, EmptyObject> = createAsyncThunk(
+  'tasks/updateTaskFetch',
+  async (taskInf: ITask): Promise<ITask> => {
+    const requestString = `${path.url}${path.bords}/${taskInf.boardId}${path.columns}/${taskInf.columnId}${path.tasks}/${taskInf.id}`;
+    const token = getTokenFromLocalStorage();
+    const response: AxiosResponse<ITask> = await axios.put(
+      requestString,
+      {
+        title: taskInf.title,
+        order: +taskInf.order,
+        description: taskInf.description,
+        userId: taskInf.userId,
+        boardId: taskInf.boardId,
+        columnId: taskInf.columnChange,
       },
       {
         headers: {
@@ -240,3 +264,4 @@ export const { closeBoardTask } = boardSlice.actions;
 
 export const selectTasks = (state: RootState): ITask[] => state.tasks.tasks;
 export const selectStatusTasks = (state: RootState): string => state.tasks.statusTasks;
+export const selectTasksError = (state: RootState): string | null => state.tasks.error;

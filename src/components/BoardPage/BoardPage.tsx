@@ -1,99 +1,136 @@
 import React, { useEffect, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import ModalWindow from '../ModalWindow/ModalWindow';
 import ColumnForm from '../Column/ColumnForm';
 import { selectStatusColumn, closeBoardColumn, updateColumnFetch } from '../../redux/ColumnSlice';
-import { closeBoardTask, selectStatusTasks } from '../../redux/TaskSlice';
+import {
+  closeBoardTask,
+  selectStatusTasks,
+  updateTaskChangeColumn,
+  updateTaskFetch,
+} from '../../redux/TaskSlice';
 import { selectBoard } from '../../redux/MainSlice';
 import { AppDispatch } from '../../redux/Store';
 import { fetchUsers, selectUsersStatus } from '../../redux/UsersSlice';
 import Column from '../Column/Column';
-import { ColumnState, getBoardById } from '../../redux/GetBoardSlice';
+import { ColumnState, getBoardById, selectBoardStatus } from '../../redux/GetBoardSlice';
 import { useAppSelector } from '../../redux/hooks/redux';
-import { buttonName, fetchStatus, pageName, formType } from '../../constants/Constants';
+import { column, fetchStatus, formType } from '../../constants/Constants';
 import { Loader } from '../Loader/Loader';
+import { DragDropContext, DraggableLocation, Droppable, DropResult } from 'react-beautiful-dnd';
 
 import './boardPage.css';
 
 const BoardPage = (): JSX.Element => {
+  const { t } = useTranslation();
   const board = useSelector(selectBoard);
   const statusColumn = useSelector(selectStatusColumn);
   const statusTasks = useSelector(selectStatusTasks);
   const statusUsers = useSelector(selectUsersStatus);
+  const statusBoard = useSelector(selectBoardStatus);
+
   const { idBoard } = useAppSelector((store) => store.idBoard);
+  const [dragState, updateDragState] = useState(idBoard.columns);
 
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
-  const [firstOrder, setFirstOrder] = useState<number | null>(null);
-  const [firstColumnId, setFirstColumnId] = useState<string>('');
-  const [firstTitle, setFirstTitle] = useState<string>('');
-
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect((): void => {
+    updateDragState(idBoard.columns);
     if (statusUsers === fetchStatus.idle) {
       dispatch(fetchUsers());
     }
-  }, [statusColumn]);
+  }, [statusUsers, idBoard.columns, dispatch]);
 
   const handleModalClose = (): void => {
     setModalOpen(false);
   };
 
-  const dragStartHandler = (e: React.DragEvent, columnId: ColumnState): void => {
-    // e.preventDefault();
-    setFirstOrder(columnId.order);
-    setFirstColumnId(columnId.id);
-    setFirstTitle(columnId.title);
-  };
-
-  const dropHandler = async (
-    e: React.DragEvent<HTMLDivElement>,
-    columnId: ColumnState
-  ): Promise<void> => {
-    e.preventDefault();
-    const secondOrder: number = columnId.order;
-    const secondColumnId: string = columnId.id;
-    await dispatch(
-      updateColumnFetch({
-        boardId: board.id,
-        columnId: firstColumnId,
-        column: { title: firstTitle, order: idBoard.columns.length + 1 },
-      })
-    );
-    await dispatch(
-      updateColumnFetch({
-        boardId: board.id,
-        columnId: secondColumnId,
-        column: { title: columnId.title, order: firstOrder! },
-      })
-    );
-    await dispatch(
-      updateColumnFetch({
-        boardId: board.id,
-        columnId: firstColumnId,
-        column: { title: firstTitle, order: secondOrder },
-      })
-    );
-    await dispatch(getBoardById(board.id));
-  };
-
-  const dragOverHandler = (e: React.DragEvent<HTMLDivElement>): void => {
-    e.preventDefault();
-    const elem = e.target as HTMLElement;
-    //TODO change style dragging item
-  };
-
-  const dragEndHandler = (e: React.DragEvent<HTMLDivElement>): void => {
-    e.preventDefault();
-    const elem = e.target as HTMLElement;
-    // elem.style.background = 'white';
-  };
   const boardCloseHadler = (): void => {
     dispatch(closeBoardColumn());
     dispatch(closeBoardTask());
   };
+
+  const reorderColumns = async (
+    source: DraggableLocation,
+    destination: DraggableLocation
+  ): Promise<void> => {
+    await dispatch(
+      updateColumnFetch({
+        boardId: board.id,
+        columnId: idBoard.columns[source.index].id,
+        column: {
+          title: idBoard.columns[source.index].title,
+          order: idBoard.columns[destination.index].order,
+        },
+      })
+    );
+  };
+
+  const reorderTasks = async (
+    source: DraggableLocation,
+    destination: DraggableLocation,
+    result: DropResult
+  ): Promise<void> => {
+    if (source.droppableId !== destination.droppableId) {
+      const columnSource = idBoard.columns.find(
+        (column: ColumnState) => column.id === source.droppableId
+      ) as ColumnState;
+      const taskDrag = columnSource!.tasks[source.index];
+      const taskinfDrag = {
+        id: result.draggableId,
+        title: taskDrag.title,
+        order: destination.index + 1,
+        description: taskDrag.description,
+        userId: taskDrag.userId,
+        boardId: board.id,
+        columnId: source.droppableId,
+        columnChange: destination!.droppableId,
+      };
+      await dispatch(updateTaskChangeColumn(taskinfDrag));
+    }
+    if (source.droppableId === destination.droppableId) {
+      const column = idBoard.columns.find((column) => column.id === destination.droppableId);
+      if (column) {
+        const newTasks = Array.from(column.tasks);
+        const [reorderedTask] = newTasks.splice(source.index, 1);
+        newTasks.splice(destination.index, 0, reorderedTask);
+        const taskDrag = column.tasks[source.index];
+        const taskDrop = column.tasks[destination.index];
+        const taskInfDrag = {
+          id: taskDrag.id,
+          title: taskDrag.title,
+          order: taskDrop.order,
+          description: taskDrag.description,
+          userId: taskDrag.userId,
+          boardId: board.id,
+          columnId: column.id,
+        };
+        await dispatch(updateTaskFetch(taskInfDrag));
+      }
+    }
+  };
+
+  const onDragEnd = async (result: DropResult): Promise<void> => {
+    const { source, destination, type } = result;
+    if (!destination) {
+      return;
+    }
+    if (destination.droppableId === source.droppableId && destination.index === source.index) {
+      return;
+    }
+    if (type === column) {
+      await reorderColumns(source, destination);
+    } else {
+      await reorderTasks(source, destination, result);
+    }
+
+    await dispatch(getBoardById(board.id));
+  };
+
   return (
     <>
       <div className="board-container">
@@ -101,37 +138,41 @@ const BoardPage = (): JSX.Element => {
           <h1>{board.title}</h1>
           <Link className="link" to="/main">
             <div className="btn" onClick={boardCloseHadler}>
-              {buttonName.close}
+              {t('board.close')}
             </div>
           </Link>
         </div>
-
-        <div className="columns-container">
-          {idBoard.columns.map((column: ColumnState) => {
-            return (
-              <div
-                key={column.id}
-                draggable={true}
-                onDragStart={(e) => dragStartHandler(e, column)}
-                onDragEnd={(e) => dragEndHandler(e)}
-                onDragLeave={(e) => dragEndHandler(e)}
-                onDragOver={(e) => dragOverHandler(e)}
-                onDrop={(e) => dropHandler(e, column)}
-              >
-                <Column columnInf={column} />
-              </div>
-            );
-          })}
-          <div
-            className="opacity-btn add-column-btn"
-            onClick={() => {
-              setModalOpen(true);
-            }}
-          >
-            <div className="board-add-column-icon"></div>
-            <div>{buttonName.addColumn}</div>
-          </div>
-        </div>
+        {statusBoard === fetchStatus.loading ||
+        statusColumn === fetchStatus.loading ||
+        statusTasks === fetchStatus.loading ? (
+          <Loader />
+        ) : (
+          <DragDropContext onDragEnd={onDragEnd}>
+            <Droppable droppableId="all-columns" direction="horizontal" type="column">
+              {(provided) => (
+                <div
+                  className="columns-container"
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                >
+                  {dragState.map((column: ColumnState, index: number) => {
+                    return <Column key={column.id} columnInf={column} index={index} />;
+                  })}
+                  <div
+                    className="opacity-btn add-column-btn "
+                    onClick={() => {
+                      setModalOpen(true);
+                    }}
+                  >
+                    <div className="small-btn add"></div>
+                    <div>{t('board.addColumn')}</div>
+                  </div>
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
+        )}
       </div>
       {!board.id && <Navigate to={'/main'} />}
       {isModalOpen && (
@@ -139,7 +180,6 @@ const BoardPage = (): JSX.Element => {
           {<ColumnForm boardId={board.id} type={formType.create} />}
         </ModalWindow>
       )}
-      {(statusColumn === fetchStatus.loading || statusTasks === fetchStatus.loading) && <Loader />}
     </>
   );
 };

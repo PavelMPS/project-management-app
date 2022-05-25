@@ -4,7 +4,7 @@
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: #0606066c;
+  background-color: var(--twelfth-color);
   z-index: 1001;
 }
 .confirmation-window {
@@ -20,7 +20,8 @@
   height: 200px;
   padding: 25px;
   column-gap: 50px;
-  background-color: rgb(128, 198, 255);
+  border-radius: 3px;
+  background-color: var(--second-color);
 }
 .confirmation-title {
   width: 100%;
@@ -28,14 +29,8 @@
   font-size: 30px;
   line-height: 50px;
 }
-.confirmation-cancel,
-.confirmation-submit {
-  width: 100px;
-  height: 40px;
-  background-color: rgb(197, 229, 255);
-  cursor: pointer;
-}
-.confirmation-cancel:active,
-.confirmation-submit:active {
-  transform: scale(1.2);
+.confirmation-modal-btn {
+  position: fixed;
+  right: 15px;
+  top: 15px;
 }

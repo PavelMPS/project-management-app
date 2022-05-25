@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 
 import Confirmation from '../Confirmation/Confirmation';
-import { deleteTaskFetch } from '../../redux/TaskSlice';
+import { deleteTaskFetch, selectTasksError } from '../../redux/TaskSlice';
 import { selectUsers } from '../../redux/UsersSlice';
 import { AppDispatch } from '../../redux/Store';
 import ModalWindow from '../ModalWindow/ModalWindow';
@@ -11,11 +11,13 @@ import { getBoardById, TaskState } from '../../redux/GetBoardSlice';
 import { useAppSelector } from '../../redux/hooks/redux';
 
 import './task.css';
+import { Draggable } from 'react-beautiful-dnd';
 
-const Task = (props: { taskInf: TaskState; columnId: string }): JSX.Element => {
+const Task = (props: { taskInf: TaskState; columnId: string; index: number }): JSX.Element => {
   const dispatch = useDispatch<AppDispatch>();
 
   const users: IUser[] = useSelector(selectUsers);
+  const taskError: string | null = useSelector(selectTasksError);
   const { idBoard } = useAppSelector((state) => state.idBoard);
 
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
@@ -35,7 +37,9 @@ const Task = (props: { taskInf: TaskState; columnId: string }): JSX.Element => {
         taskId: props.taskInf.id!,
       })
     );
-    dispatch(getBoardById(idBoard.id));
+    if (!taskError) {
+      dispatch(getBoardById(idBoard.id));
+    }
   };
 
   useEffect((): void => {
@@ -48,26 +52,37 @@ const Task = (props: { taskInf: TaskState; columnId: string }): JSX.Element => {
 
   return (
     <>
-      <div className="task-container" onClick={() => setTaskOpen(!isTaskOpen)}>
-        <div className="task-wrapper">
-          <div className="task-title">{props.taskInf.title}</div>
-          <div className="task-wrapper">
-            <div
-              className="task-update"
-              onClick={async () => {
-                setModalOpen(true);
-              }}
-            ></div>
-            <div className="task-bin" onClick={() => setIsConfirmationOpen(true)}></div>
+      <Draggable draggableId={props.taskInf.id} index={props.index}>
+        {(provided) => (
+          <div
+            className="task-container"
+            {...provided.dragHandleProps}
+            {...provided.draggableProps}
+            ref={provided.innerRef}
+            onClick={() => setTaskOpen(!isTaskOpen)}
+          >
+            <div className="task-wrapper">
+              <div className="task-title">{props.taskInf.title}</div>
+              <div className="task-wrapper">
+                <div
+                  className="small-btn edit"
+                  onClick={async () => {
+                    setModalOpen(true);
+                  }}
+                ></div>
+                <div className="small-btn trash" onClick={() => setIsConfirmationOpen(true)}></div>
+              </div>
+            </div>
+            {isTaskOpen && (
+              <>
+                <div className="task-description">{props.taskInf.description}</div>
+                <div className="task-responsible-user">{user}</div>
+              </>
+            )}
           </div>
-        </div>
-        {isTaskOpen && (
-          <>
-            <div className="task-description">{props.taskInf.description}</div>
-            <div className="task-responsible-user">{user}</div>
-          </>
         )}
-      </div>
+      </Draggable>
+
       {isModalOpen && (
         <ModalWindow onClick={handleModalClose}>
           {

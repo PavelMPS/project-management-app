@@ -1,70 +1,8 @@
-.sign-up-page {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
+.sign-up-page,
+.login-page {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: 0 auto;
 }
-
-.form-container {
-    display: flex;
-    flex-direction: column;
-    width: 20vw;
-    align-items: center;
-}
-
-.text-field__input:focus {
-    color: #212529;
-    background-color: #fff;
-    border-color: #bdbdbd;
-    outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(158, 158, 158, 0.25);
-}
-  
-/* input[type='text'] {
-    font-family: inherit;
-    font-size: inherit;
-    line-height: inherit;
-    margin: 0;
-} */
-
-.text-field__input {
-    display: block;
-    width: 100%;
-    height: calc(2.25rem + 2px);
-    padding: 0.375rem 0.75rem;
-    font-family: inherit;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #212529;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #bdbdbd;
-    border-radius: 0.25rem;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
-
-.input-error {
-    border: 1px solid #ffff;
-    border-radius: 0.25rem;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-    box-shadow: 0 0 0 0.2rem rgba(214, 0, 0, 0.486);
-}
-
-/* .error {
-    color: rgb(214, 0, 0);
-    font-size: 10px;
-    position: relative;
-    top: -90px;
-    right: 30px;
-    text-align: start;
-    padding: 0 5px;
-    background-color: #ffffff;
-    display: inline-block;
-} */
-
-.text-field__label {
-    display: block;
-    height: 40px;
-    margin: 20px 0;
-  }

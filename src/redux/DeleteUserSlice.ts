@@ -5,6 +5,7 @@ import { EmptyObject } from 'react-hook-form';
 import { fetchStatus, path } from '../constants/Constants';
 import { getTokenFromLocalStorage } from './ColumnSlice';
 import { getIdFromToken } from './EditProfileSlice';
+import { RootState } from './Store';
 
 const initialState: IDeleteUserState = {
   status: fetchStatus.idle,
@@ -33,16 +34,20 @@ const deleteUserSLice: Slice<IDeleteUserState, EmptyObject, 'delUser'> = createS
   extraReducers: {
     [deleteUser.pending.type]: (state: IDeleteUserState) => {
       state.isLoading = true;
+      state.error = null;
     },
     [deleteUser.fulfilled.type]: (state: IDeleteUserState) => {
       state.status = fetchStatus.succeeded;
       state.isLoading = false;
     },
-    [deleteUser.rejected.type]: (state: IDeleteUserState) => {
+    [deleteUser.rejected.type]: (state: IDeleteUserState, action) => {
       state.status = fetchStatus.failed;
       state.isLoading = false;
+      state.error = action.error.message;
     },
   },
 });
+
+export const selectDeleteUserError = (state: RootState): string | null => state.delUser.error;
 
 export default deleteUserSLice.reducer;

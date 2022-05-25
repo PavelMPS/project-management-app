@@ -1,9 +1,8 @@
-import React, { FormEvent, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
-import { buttonName, editProfileProps, pageName } from '../../constants/Constants';
 import { getTokenFromLocalStorage } from '../../redux/ColumnSlice';
 import { editProfile, getIdFromToken } from '../../redux/EditProfileSlice';
 import { AppDispatch } from '../../redux/Store';
@@ -11,6 +10,7 @@ import { AppDispatch } from '../../redux/Store';
 import './editProfilePage.css';
 
 const EditProfile = (): JSX.Element => {
+  const { t } = useTranslation();
   const {
     register,
     handleSubmit,
@@ -37,47 +37,51 @@ const EditProfile = (): JSX.Element => {
   return (
     <>
       <div className="edit-container">
-        <h2 className="edit-title">{pageName.editProfile}</h2>
-        <form className="edit-form" onSubmit={handleSubmit(onSubmit)}>
-          <div className="edit-form-inputs">
+        <div className="edit-title-container">
+          <h1>{t('edit.title')}</h1>
+          <button className="btn" onClick={backToHome}>
+            {t('edit.cancel')}
+          </button>
+        </div>
+        <form className="form" onSubmit={handleSubmit(onSubmit)}>
+          <div className="form-element-wrapper">
             <label className="form-label">
-              <span className="edit-form-error">{errors.name && 'Enter correct name!'}</span>
-              <p className="title-label">{editProfileProps.newName}</p>
+              {t('edit.newName')}
               <input
-                className="edit-input"
+                className={errors.name ? 'form-input input-error' : 'form-input'}
                 type="text"
-                placeholder="Edit your name"
+                placeholder={t('edit.newNamePlaceholder')}
                 {...register('name', { required: true })}
               />
+              {errors.name && <p className="error">{t('edit.errors.name')}</p>}
             </label>
+          </div>
+          <div className="form-element-wrapper">
             <label className="form-label">
-              <span className="edit-form-error">{errors.login && 'Enter correct login!'}</span>
-              <p className="title-label">{editProfileProps.newLogin}</p>
+              {t('edit.newLogin')}
               <input
-                className="edit-input"
+                className={errors.login ? 'form-input input-error' : 'form-input'}
                 type="text"
-                placeholder="Edit your login"
+                placeholder={t('edit.newLoginPlaceholder')}
                 {...register('login', { required: true })}
               />
+              {errors.login && <p className="error">{t('edit.errors.name')}</p>}
             </label>
+          </div>
+          <div className="form-element-wrapper">
             <label className="form-label">
-              <span className="edit-form-error">
-                {errors.password && 'Enter correct password!'}
-              </span>
-              <p className="title-label">{editProfileProps.newPassword}</p>
+              {t('edit.newPassword')}
               <input
-                className="edit-input"
+                className={errors.password ? 'form-input input-error' : 'form-input'}
                 type="text"
-                placeholder="Edit your password"
+                placeholder={t('edit.newPasswordPlaceholder')}
                 {...register('password', { required: true })}
               />
+              {errors.password && <p className="error">{t('edit.errors.name')}</p>}
             </label>
           </div>
           <div className="edit-form-buttons">
-            <button className="button edit-submit-btn">{buttonName.submit}</button>
-            <button className="button edit-cancel-btn" onClick={backToHome}>
-              {buttonName.cancel}
-            </button>
+            <button className="btn">{t('edit.submit')}</button>
           </div>
         </form>
       </div>

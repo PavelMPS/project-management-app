@@ -1,41 +1,53 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux';
 import { logout } from '../../redux/userSlice';
 import ModalFormBoardCreate from '../MainPage/ModalFormBoardCreate';
 import { deleteUser } from '../../redux/DeleteUserSlice';
+import { lngs } from '../../constants/Constants';
 
 import './header.css';
-import { appName, buttonName, headerBTNs } from '../../constants/Constants';
+import { headerBTNs } from '../../constants/Constants';
+import Confirmation from '../Confirmation/Confirmation';
+import ModalWindow from '../ModalWindow/ModalWindow';
 
 const Header = (): JSX.Element => {
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { isAuth, token } = useAppSelector((store) => store.user);
   const [navbar, setNavbar] = useState<boolean>(false);
+  const [language, toggleLanguage] = useState<boolean>(true);
+  const [isConfirmationDeleteOpen, setIsConfirmationDeleteOpen] = useState<boolean>(false);
+  const [isConfirmationLogoutOpen, setIsConfirmationLogoutOpen] = useState<boolean>(false);
+  const [isModalCreateBoardOpen, setIsModalCreateBoardOpen] = useState<boolean>(false);
 
-  useEffect(() => {
+  useEffect((): void => {
+    i18n.changeLanguage(lngs.en);
     if (!token && !isAuth) {
       return navigate('/');
     }
   }, [isAuth]);
-  const [createBoardClicked, setCreateBoardToggle] = useState(false);
-
-  const togglePopup = (): void => {
-    setCreateBoardToggle(!createBoardClicked);
-  };
 
   const logoutHandler = (): void => {
-    dispatch(logout());
-    //TODO confirmation window Are you shure delete user?
+    setIsConfirmationLogoutOpen(true);
   };
 
   const deleteUserHandler = (): void => {
-    //TODO confirmation window Are you shure delete user?
-    //TODO also delete user's tasks
+    setIsConfirmationDeleteOpen(true);
+  };
+
+  const deleteUserConfirmationSubmit = (): void => {
+    setIsConfirmationDeleteOpen(false);
     dispatch(deleteUser());
-    return navigate('/');
+    dispatch(logout());
+  };
+
+  const logoutUserConfirmationSubmit = (): void => {
+    setIsConfirmationLogoutOpen(false);
+    dispatch(logout());
   };
 
   const setActiveNavbar = () => {
@@ -46,11 +58,24 @@ const Header = (): JSX.Element => {
     }
   };
 
+  const languageToggler = (): void => {
+    language ? i18n.changeLanguage(lngs.ru) : i18n.changeLanguage(lngs.en);
+    toggleLanguage(!language);
+  };
+
+  const handleModalClose = (): void => {
+    setIsModalCreateBoardOpen(false);
+  };
+
+  const createBoardHandler = (): void => {
+    setIsModalCreateBoardOpen(true);
+  };
+
   window.addEventListener('scroll', setActiveNavbar);
 
   return (
     <header className={navbar ? 'header-active' : ''}>
-      <h1 className="header-title">{appName}</h1>
+      <h1 className="header-title">{t('header.title')}</h1>
       {isAuth && (
         <div className="menu-container">
           <Link className="edit-link link" to={'/edit'}>
@@ -67,25 +92,32 @@ const Header = (): JSX.Element => {
             <div className="btn-text">{headerBTNs.deleteProfile}</div>
             <div className="user-delete-btn"></div>
           </div>
-          <div className="header-btn" onClick={togglePopup}>
+          <div className="header-btn" onClick={createBoardHandler}>
             <div className="btn-text">{headerBTNs.createBoard}</div>
             <div className="create-board-btn"></div>
           </div>
-          <button className="header-btn en-btn"></button>
-          <button className="header-btn ru-btn"></button>
-          {createBoardClicked ? (
-            <div className="modal-form-create-container">
-              <div className="popup-body">
-                <ModalFormBoardCreate />
-                <button className="close-modal-btn" onClick={togglePopup}>
-                  {buttonName.close}
-                </button>
-              </div>
-            </div>
-          ) : (
-            ''
-          )}
+          <label className="checkbox-green">
+            <input type="checkbox" onClick={languageToggler} />
+            <span className="checkbox-green-switch" data-label-on="Ru" data-label-off="En"></span>
+          </label>
         </div>
+      )}
+      {isConfirmationDeleteOpen && (
+        <Confirmation
+          onCancel={() => setIsConfirmationDeleteOpen(false)}
+          onSubmit={() => deleteUserConfirmationSubmit()}
+        />
+      )}
+      {isConfirmationLogoutOpen && (
+        <Confirmation
+          onCancel={() => setIsConfirmationLogoutOpen(false)}
+          onSubmit={() => logoutUserConfirmationSubmit()}
+        />
+      )}
+      {isModalCreateBoardOpen && (
+        <ModalWindow onClick={handleModalClose}>
+          <ModalFormBoardCreate />
+        </ModalWindow>
       )}
     </header>
   );

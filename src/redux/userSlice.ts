@@ -2,12 +2,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { ILoginData } from '../components/LoginPage/LoginPage';
 import { IUserCredentials } from '../components/SignupPage/SignupPage';
+import { RootState } from './Store';
 
 const initialState: IUserSlice = {
   name: '',
   login: '',
   password: '',
-  errors: [],
+  error: null,
   token: '',
   isAuth: false,
   authLogin: '',
@@ -23,8 +24,8 @@ export const userSlice = createSlice({
       state.login = action.payload.login;
       state.password = action.payload.password;
     },
-    setError: (state, action: PayloadAction<string>) => {
-      state.errors = [...state.errors, action.payload];
+    setError: (state, action: PayloadAction<string | null>) => {
+      state.error = action.payload;
     },
     setToken: (state, action: PayloadAction<string>) => {
       state.token = action.payload;
@@ -51,3 +52,5 @@ export const userSlice = createSlice({
 
 export const { setCredentials, setError, setToken, setAuthCredentials, logout } = userSlice.actions;
 export default userSlice.reducer;
+
+export const selectUserError = (state: RootState): string | null => state.user.error;

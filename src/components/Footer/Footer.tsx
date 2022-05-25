@@ -1,15 +1,19 @@
 import React from 'react';
-import { authorsName, year } from '../../constants/Constants';
+import { useTranslation } from 'react-i18next';
+
+import { year } from '../../constants/Constants';
 
 import './footer.css';
 
 const Footer = (): JSX.Element => {
+  const { t } = useTranslation();
+
   return (
     <footer>
       <div className="footer-container">
         <div className="github-container">
           <a className="link" href="https://github.com/aiyoy" target="_blank" rel="noreferrer">
-            {authorsName.veronika}
+            {t('footer.veronika')}
           </a>
           <a
             className="link"
@@ -17,14 +21,14 @@ const Footer = (): JSX.Element => {
             target="_blank"
             rel="noreferrer"
           >
-            {authorsName.vitaliy}
+            {t('footer.vitaliy')}
           </a>
           <a className="link" href="https://github.com/PavelMPS/" target="_blank" rel="noreferrer">
-            {authorsName.pavel}
+            {t('footer.pavel')}
           </a>
         </div>
         <div className="year">{year}</div>
-        <a href="https://rs.school/react/" target="_blank" rel="noreferrer">
+        <a className="logo-link" href="https://rs.school/react/" target="_blank" rel="noreferrer">
           <div className="rsschool-logo"></div>
         </a>
       </div>

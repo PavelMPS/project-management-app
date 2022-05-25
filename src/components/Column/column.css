@@ -1,8 +1,7 @@
 .column-container {
-  position: relative;
-  width: 300px;
+  min-width: 300px;
+  max-width: 300px;
   max-height: calc(100% - 5px);
-  min-height: 200px;
   padding: 10px;
   text-align: center;
   background-color: var(--forth-color);
@@ -10,7 +9,6 @@
   overflow-y: auto;
   border-radius: 3px;
   box-shadow: 4px 4px 4px 0px var(--sixth-color);
-  color: var(--third-color);
 }
 
 .column-container::-webkit-scrollbar {
@@ -44,27 +42,9 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-align: left;
 }
 
-.update-title-input {
-  height: 90%;
-  width: 180px;
-  padding: 2px;
-  font-size: 20px;
-  font-weight: 400;
-  color: var(--eighth-color);
-  background-color: var(--second-color);
-  background-clip: padding-box;
-  border: none;
-  border-radius: 3px;
-  transition: box-shadow 0.3s ease-in-out;
-}
-.update-title-input:focus {
-  outline: none;
-  border: 3px solid var(--forth-color);
-}
-
-.task-create-btn {
-  position: relative;
-  bottom: 0;
+.tasks-container {
+  min-height: 50px;
 }
