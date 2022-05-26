@@ -74,7 +74,9 @@ const Header = (): JSX.Element => {
 
   return (
     <header className={navbar ? 'header-active' : ''}>
-      <h1 className="header-title">{t('header.title')}</h1>
+      <h1 className="header-title">
+        <Link to="/">{t('header.title')}</Link>
+      </h1>
       {isAuth && (
         <div className="menu-container">
           <Link className="edit-link" to={'/edit'}>
