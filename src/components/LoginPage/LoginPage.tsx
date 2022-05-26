@@ -89,7 +89,7 @@ const LoginPage = (): JSX.Element => {
 
         <div>
           {t('login.noAccaunt')}{' '}
-          <NavLink className="link link-text" to="/login">
+          <NavLink className="link link-text" to="/sign-up">
             {t('login.registerBtn')}
           </NavLink>
         </div>
