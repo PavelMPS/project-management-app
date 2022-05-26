@@ -42,7 +42,6 @@ export const signupSlice = createSlice({
     [setUser.rejected.type]: (state: ISignUpState, action) => {
       state.isLoading = false;
       state.error = action.error.message;
-      console.log(state.error);
     },
   },
 });
