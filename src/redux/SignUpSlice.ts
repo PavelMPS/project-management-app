@@ -1,6 +1,7 @@
 import { AsyncThunk, createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { EmptyObject } from 'react-hook-form';
 import axios from 'axios';
+
 import { path } from '../constants/Constants';
 import { RootState } from './Store';
 
@@ -23,7 +24,7 @@ const initialState: ISignUpState = {
 };
 
 export const signupSlice = createSlice({
-  name: 'signupSlice',
+  name: 'signUp',
   initialState,
   reducers: {
     setSignupError: (state) => {

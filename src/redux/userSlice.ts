@@ -1,6 +1,7 @@
 import { AsyncThunk, createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { EmptyObject } from 'react-hook-form';
+
 import { ILoginData } from '../components/LoginPage/LoginPage';
 import { IUserCredentials } from '../components/SignupPage/SignupPage';
 import { path } from '../constants/Constants';
