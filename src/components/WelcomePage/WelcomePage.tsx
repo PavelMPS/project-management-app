@@ -47,7 +47,7 @@ const WelcomePage = (): JSX.Element => {
         </div>
       )}
       <div className="team-info">
-        {Team.map((item) => (
+        {Team.map((item: ITeam) => (
           <ProfileCard key={Team.indexOf(item)} {...item} />
         ))}
       </div>
