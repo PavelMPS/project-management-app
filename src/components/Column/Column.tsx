@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Confirmation from '../Confirmation/Confirmation';
@@ -80,19 +80,22 @@ const Column = (props: { columnInf: ColumnState; index: number }): JSX.Element =
                   >
                     {props.columnInf.title}
                   </div>
-                  <div className="column-bin" onClick={() => setIsConfirmationOpen(true)}></div>
+                  <div
+                    className="small-btn trash"
+                    onClick={() => setIsConfirmationOpen(true)}
+                  ></div>
                 </>
               )}
               {isTitleUpdate && (
                 <>
                   <input
-                    className="update-title-input"
+                    className="form-input"
                     type="text"
                     defaultValue={props.columnInf.title}
                     onChange={(event) => setTitle(event.target.value)}
                   ></input>
-                  <div className="update-title-btn" onClick={updateTitle}></div>
-                  <div className="close-title-btn" onClick={() => setIsTitleUpdate(false)}></div>
+                  <div className="small-btn check" onClick={updateTitle}></div>
+                  <div className="small-btn close" onClick={() => setIsTitleUpdate(false)}></div>
                 </>
               )}
             </div>
@@ -119,8 +122,8 @@ const Column = (props: { columnInf: ColumnState; index: number }): JSX.Element =
               )}
             </Droppable>
 
-            <div className="task-create-btn" onClick={async () => setTaskModalOpen(true)}>
-              <div className="task-create"></div>
+            <div className="opacity-btn" onClick={async () => setTaskModalOpen(true)}>
+              <div className="small-btn add"></div>
               <div>{t('board.addTask')}</div>
             </div>
           </div>

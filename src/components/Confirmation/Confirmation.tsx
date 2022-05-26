@@ -24,18 +24,16 @@ const Confirmation: (props: {
         onClick={(event) => event.currentTarget === event.target && props.onCancel()}
       >
         <div className="confirmation-window">
+          <div
+            className="small-btn close confirmation-modal-btn"
+            onClick={(event) => event.currentTarget === event.target && props.onCancel()}
+          ></div>
           <div className="confirmation-title">{t('modal.agree')}</div>
           <button
-            className="confirmation-submit"
+            className="btn"
             onClick={(event) => event.currentTarget === event.target && props.onSubmit()}
           >
             {t('modal.yes')}
-          </button>
-          <button
-            className="confirmation-cancel"
-            onClick={(event) => event.currentTarget === event.target && props.onCancel()}
-          >
-            {t('modal.cancel')}
           </button>
         </div>
       </div>

@@ -5,8 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { createBoard } from '../../redux/CreateBoardSlice';
 import { fetchBoards } from '../../redux/MainSlice';
 import { AppDispatch } from '../../redux/Store';
-
-import './modalFormBoardCreate.css';
 import Confirmation from '../Confirmation/Confirmation';
 import { useForm } from 'react-hook-form';
 
@@ -44,34 +42,34 @@ const ModalFormBoardCreate = (): JSX.Element => {
 
   return (
     <>
-      <form className="modal-board-form" onSubmit={handleSubmit(createBoardHandler)}>
+      <form className="form" onSubmit={handleSubmit(createBoardHandler)}>
         <div className="form-element-wrapper">
           <label className="form-label">
-            <span className="edit-form-error">{errors.title && t('board.errors.title')}</span>
-            <p className="title-label">{t('board.title')}</p>
+            {t('board.title')}
             <input
-              className="edit-input"
+              className="form-input"
               {...register('title', {
                 required: true,
               })}
               type="text"
               placeholder={t('board.titlePlaceholder')}
             />
+            {errors.title && <p className="error">{t('board.errors.title')}</p>}
           </label>
+        </div>
+        <div className="form-element-wrapper">
           <label className="form-label">
-            <span className="edit-form-error">
-              {errors.description && t('board.errors.description')}
-            </span>
-            <p className="description-label">{t('board.description')}</p>
+            {t('board.description')}
             <input
-              className="edit-input"
+              className="form-input"
               type="text"
               placeholder={t('board.descriptionPlaceholder')}
               {...register('description', { required: true })}
             />
+            {errors.description && <p className="error">{t('board.errors.description')}</p>}
           </label>
-          <button className="board-create-btn">{t('board.createButton')}</button>
         </div>
+        <button className="btn">{t('board.createButton')}</button>
       </form>
       {isConfirmationOpen && (
         <Confirmation

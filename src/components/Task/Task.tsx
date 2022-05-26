@@ -21,6 +21,7 @@ const Task = (props: { taskInf: TaskState; columnId: string; index: number }): J
   const { idBoard } = useAppSelector((state) => state.idBoard);
 
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
+  const [isTaskOpen, setTaskOpen] = useState<boolean>(false);
   const [user, setUser] = useState<string>('');
   const [isConfirmationOpen, setIsConfirmationOpen] = useState<boolean>(false);
 
@@ -58,21 +59,26 @@ const Task = (props: { taskInf: TaskState; columnId: string; index: number }): J
             {...provided.dragHandleProps}
             {...provided.draggableProps}
             ref={provided.innerRef}
+            onClick={() => setTaskOpen(!isTaskOpen)}
           >
             <div className="task-wrapper">
               <div className="task-title">{props.taskInf.title}</div>
               <div className="task-wrapper">
                 <div
-                  className="task-update"
+                  className="small-btn edit"
                   onClick={async () => {
                     setModalOpen(true);
                   }}
                 ></div>
-                <div className="task-bin" onClick={() => setIsConfirmationOpen(true)}></div>
+                <div className="small-btn trash" onClick={() => setIsConfirmationOpen(true)}></div>
               </div>
             </div>
-            <div className="task-description">{props.taskInf.description}</div>
-            <div className="task-responsible-user">{user}</div>
+            {isTaskOpen && (
+              <>
+                <div className="task-description">{props.taskInf.description}</div>
+                <div className="task-responsible-user">{user}</div>
+              </>
+            )}
           </div>
         )}
       </Draggable>

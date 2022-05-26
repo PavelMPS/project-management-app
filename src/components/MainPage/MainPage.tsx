@@ -35,7 +35,7 @@ const Main = (): JSX.Element => {
 
   return (
     <>
-      <div className="main-container">
+      <div className="main-page-container">
         {!!boards.length && (
           <>
             <h1>{t('main.title')}</h1>

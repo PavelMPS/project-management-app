@@ -8,8 +8,6 @@ import ColumnForm from '../Column/ColumnForm';
 import { selectStatusColumn, closeBoardColumn, updateColumnFetch } from '../../redux/ColumnSlice';
 import {
   closeBoardTask,
-  createTaskFetch,
-  deleteTaskFetch,
   selectStatusTasks,
   updateTaskChangeColumn,
   updateTaskFetch,
@@ -138,8 +136,8 @@ const BoardPage = (): JSX.Element => {
       <div className="board-container">
         <div className="board-title-container">
           <h1>{board.title}</h1>
-          <Link to="/main">
-            <div className="board-close" onClick={boardCloseHadler}>
+          <Link className="link" to="/main">
+            <div className="btn" onClick={boardCloseHadler}>
               {t('board.close')}
             </div>
           </Link>
@@ -161,12 +159,12 @@ const BoardPage = (): JSX.Element => {
                     return <Column key={column.id} columnInf={column} index={index} />;
                   })}
                   <div
-                    className="board-add-column"
+                    className="opacity-btn add-column-btn "
                     onClick={() => {
                       setModalOpen(true);
                     }}
                   >
-                    <div className="board-add-column-icon"></div>
+                    <div className="small-btn add"></div>
                     <div>{t('board.addColumn')}</div>
                   </div>
                   {provided.placeholder}

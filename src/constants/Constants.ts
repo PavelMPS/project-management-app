@@ -66,3 +66,10 @@ export const lngs: ILangs = {
   en: 'en',
   ru: 'ru',
 };
+
+export const headerBTNs = {
+  editProfile: 'Edit profile',
+  logOut: 'Log out',
+  deleteProfile: 'Delete profile',
+  createBoard: 'Create board',
+};

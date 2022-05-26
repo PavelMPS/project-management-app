@@ -10,8 +10,6 @@ import { AppDispatch } from '../../redux/Store';
 import Confirmation from '../Confirmation/Confirmation';
 import { useAppSelector } from '../../redux/hooks/redux';
 
-import './taskForm.css';
-
 const TaskForm = (props: {
   boardId: string;
   columnId: string;
@@ -152,7 +150,7 @@ const TaskForm = (props: {
               })}
             />
           </label>
-          {errors.title && <span className="error">{t('task.error')}</span>}
+          {errors.title && <p className="error">{t('task.error')}</p>}
         </div>
 
         <div className="form-element-wrapper">
@@ -172,7 +170,7 @@ const TaskForm = (props: {
               })}
             />
           </label>
-          {errors.title && <span className="error">{t('task.error')}</span>}
+          {errors.description && <p className="error">{t('task.error')}</p>}
         </div>
 
         <div className="form-element-wrapper">
@@ -191,10 +189,10 @@ const TaskForm = (props: {
               ))}
             </select>
           </label>
-          {errors.userId && <span className="error">{t('task.error')}</span>}
+          {errors.userId && <p className="error">{t('task.error')}</p>}
         </div>
 
-        <button className="form-btn" type="submit" disabled={!isValid}>
+        <button className="btn" type="submit" disabled={!isValid}>
           {t('task.submit')}
         </button>
       </form>
