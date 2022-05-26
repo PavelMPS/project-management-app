@@ -155,3 +155,11 @@ interface IRegistrationResponce {
   name: string;
   login: string;
 }
+
+interface ITeam {
+  imgSrc: string;
+  name: string;
+  surname: string;
+  age: string;
+  about: string;
+}

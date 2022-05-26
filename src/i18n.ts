@@ -15,7 +15,10 @@ i18n
       en: {
         translation: {
           header: {
-            title: 'Project managemen application',
+            edit: 'Edit profile',
+            logout: 'Logout',
+            delete: 'Delete profile',
+            create: 'Create board',
           },
           welcome: {
             title: 'Welcome',
@@ -148,7 +151,10 @@ i18n
       ru: {
         translation: {
           header: {
-            title: 'Приложение для управления проектами',
+            edit: 'Редактировать профиль',
+            logout: 'Выйти',
+            delete: 'Удалить профиль',
+            create: 'Создать доску',
           },
           welcome: {
             title: 'Добро пожаловать',

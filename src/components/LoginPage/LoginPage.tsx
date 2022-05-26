@@ -38,8 +38,7 @@ const LoginPage = (): JSX.Element => {
   return (
     <>
       <div className="login-page">
-        {/* TODO изменить заголовок */}
-        <h1>{t('signup.title')}</h1>
+        <h1>{t('login.title')}</h1>
         <form className="form" onSubmit={handleSubmit(onSubmit)}>
           <div className="form-element-wrapper">
             <label className="form-label">

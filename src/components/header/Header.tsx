@@ -7,11 +7,10 @@ import { logout } from '../../redux/userSlice';
 import ModalFormBoardCreate from '../MainPage/ModalFormBoardCreate';
 import { deleteUser } from '../../redux/DeleteUserSlice';
 import { lngs } from '../../constants/Constants';
-
-import './header.css';
-import { headerBTNs } from '../../constants/Constants';
 import Confirmation from '../Confirmation/Confirmation';
 import ModalWindow from '../ModalWindow/ModalWindow';
+
+import './header.css';
 
 const Header = (): JSX.Element => {
   const { t, i18n } = useTranslation();
@@ -25,11 +24,17 @@ const Header = (): JSX.Element => {
   const [isModalCreateBoardOpen, setIsModalCreateBoardOpen] = useState<boolean>(false);
 
   useEffect((): void => {
-    i18n.changeLanguage(lngs.en);
+    if (localStorage.getItem('i18nextLng') === lngs.en) {
+      i18n.changeLanguage(lngs.en);
+      toggleLanguage(false);
+    } else {
+      i18n.changeLanguage(lngs.ru);
+      toggleLanguage(true);
+    }
     if (!token && !isAuth) {
       return navigate('/');
     }
-  }, [isAuth]);
+  }, [isAuth, i18n]);
 
   const logoutHandler = (): void => {
     setIsConfirmationLogoutOpen(true);
@@ -59,7 +64,7 @@ const Header = (): JSX.Element => {
   };
 
   const languageToggler = (): void => {
-    language ? i18n.changeLanguage(lngs.ru) : i18n.changeLanguage(lngs.en);
+    language ? i18n.changeLanguage(lngs.en) : i18n.changeLanguage(lngs.ru);
     toggleLanguage(!language);
   };
 
@@ -82,25 +87,31 @@ const Header = (): JSX.Element => {
         <div className="menu-container">
           <Link className="edit-link link" to={'/edit'}>
             <div className="header-btn">
-              <div className="btn-text">{headerBTNs.editProfile}</div>
+              <div className="btn-text">{t('header.edit')}</div>
               <div className="edit-btn"></div>
             </div>
           </Link>
           <div className="header-btn" onClick={logoutHandler}>
-            <div className="btn-text">{headerBTNs.logOut}</div>
+            <div className="btn-text">{t('header.logout')}</div>
             <div className="logout-btn"></div>
           </div>
           <div className="header-btn" onClick={deleteUserHandler}>
-            <div className="btn-text">{headerBTNs.deleteProfile}</div>
+            <div className="btn-text">{t('header.delete')}</div>
             <div className="user-delete-btn"></div>
           </div>
           <div className="header-btn" onClick={createBoardHandler}>
-            <div className="btn-text">{headerBTNs.createBoard}</div>
+            <div className="btn-text">{t('header.create')}</div>
             <div className="create-board-btn"></div>
           </div>
           <div className="toglers-container">
             <label htmlFor="checkbox" className="togler-container">
-              <input className="checkbox" type="checkbox" id="checkbox" onClick={languageToggler} />
+              <input
+                className="checkbox"
+                type="checkbox"
+                id="checkbox"
+                checked={language}
+                onChange={languageToggler}
+              />
               <span className="togler-ball"></span>
               <b className="ru">{'RU'}</b>
               <b className="en">{'EN'}</b>
