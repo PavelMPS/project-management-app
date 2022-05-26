@@ -1,4 +1,3 @@
-import React, { FormEvent, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
@@ -38,47 +37,51 @@ const EditProfile = (): JSX.Element => {
   return (
     <>
       <div className="edit-container">
-        <h2 className="edit-title">{t('edit.title')}</h2>
-        <form className="edit-form" onSubmit={handleSubmit(onSubmit)}>
-          <div className="edit-form-inputs">
+        <div className="edit-title-container">
+          <h1>{t('edit.title')}</h1>
+          <button className="btn" onClick={backToHome}>
+            {t('edit.cancel')}
+          </button>
+        </div>
+        <form className="form" onSubmit={handleSubmit(onSubmit)}>
+          <div className="form-element-wrapper">
             <label className="form-label">
-              <span className="edit-form-error">{errors.name && t('edit.errors.name')}</span>
-              <p className="title-label">{t('edit.newName')}</p>
+              {t('edit.newName')}
               <input
-                className="edit-input"
+                className={errors.name ? 'form-input input-error' : 'form-input'}
                 type="text"
                 placeholder={t('edit.newNamePlaceholder')}
                 {...register('name', { required: true })}
               />
+              {errors.name && <p className="error">{t('edit.errors.name')}</p>}
             </label>
+          </div>
+          <div className="form-element-wrapper">
             <label className="form-label">
-              <span className="edit-form-error">{errors.login && t('edit.errors.login')}</span>
-              <p className="title-label">{t('edit.newLogin')}</p>
+              {t('edit.newLogin')}
               <input
-                className="edit-input"
+                className={errors.login ? 'form-input input-error' : 'form-input'}
                 type="text"
                 placeholder={t('edit.newLoginPlaceholder')}
                 {...register('login', { required: true })}
               />
+              {errors.login && <p className="error">{t('edit.errors.name')}</p>}
             </label>
+          </div>
+          <div className="form-element-wrapper">
             <label className="form-label">
-              <span className="edit-form-error">
-                {errors.password && t('edit.errors.password')}
-              </span>
-              <p className="title-label">{t('edit.newPassword')}</p>
+              {t('edit.newPassword')}
               <input
-                className="edit-input"
+                className={errors.password ? 'form-input input-error' : 'form-input'}
                 type="text"
                 placeholder={t('edit.newPasswordPlaceholder')}
                 {...register('password', { required: true })}
               />
+              {errors.password && <p className="error">{t('edit.errors.name')}</p>}
             </label>
           </div>
           <div className="edit-form-buttons">
-            <button className="button edit-submit-btn">{t('edit.submit')}</button>
-            <button className="button edit-cancel-btn" onClick={backToHome}>
-              {t('edit.cancel')}
-            </button>
+            <button className="btn">{t('edit.submit')}</button>
           </div>
         </form>
       </div>

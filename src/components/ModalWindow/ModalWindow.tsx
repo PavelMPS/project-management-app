@@ -24,7 +24,7 @@ const ModalWindow: (props: {
       >
         <div className="modal-window">
           <div
-            className="modal-close-icon"
+            className="small-btn close modal-btn"
             onClick={(event) => event.currentTarget === event.target && props.onClick()}
           ></div>
           <div>{props.children}</div>

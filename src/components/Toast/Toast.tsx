@@ -113,8 +113,7 @@ const Toast = (): JSX.Element => {
       <div className={`toast-container`}>
         {list.map((toast, i) => (
           <div key={toast.id} className={`toast`}>
-            <button onClick={() => deleteToast(i)}></button>
-            <div className="toast-image"></div>
+            <button className="small-btn close toast-close" onClick={() => deleteToast(i)}></button>
             <div className="toast-message">{toast.text}</div>
           </div>
         ))}

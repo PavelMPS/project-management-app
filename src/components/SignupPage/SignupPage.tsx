@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -48,72 +48,81 @@ const SignupPage = (): JSX.Element => {
   return (
     <div className="sign-up-page">
       <h1>{t('signup.title')}</h1>
-      <form className="form-container" onSubmit={handleSubmit(onSubmit)}>
-        <label className="text-field__label">
-          <input
-            className={errors.name ? 'text-field__input input-error' : 'text-field__input'}
-            type="text"
-            placeholder={t('signup.placeholder.name')}
-            {...register('name', {
-              required: t('signup.require.name'),
-              maxLength: 15,
-              minLength: 3,
-            })}
-          />
-          {errors.name && errors.name.type === 'minLength' && (
-            <p className="error">{t('signup.errors.minName')}</p>
-          )}
-          {errors.name && errors.name.type === 'maxLength' && (
-            <p className="error">{t('signup.errors.maxName')}</p>
-          )}
-          {errors.name && <p className="error">{errors.name.message}</p>}
-        </label>
-        <label className="text-field__label">
-          <input
-            className={errors.login ? 'text-field__input input-error' : 'text-field__input'}
-            type="text"
-            placeholder={t('signup.placeholder.login')}
-            {...register('login', {
-              required: t('signup.require.login'),
-              maxLength: 15,
-              minLength: 3,
-            })}
-          />
-          {errors.login && errors.login.type === 'minLength' && (
-            <p className="error">{t('signup.errors.minLogin')}</p>
-          )}
-          {errors.login && errors.login.type === 'maxLength' && (
-            <p className="error">{t('signup.errors.maxLogin')}</p>
-          )}
-          {errors.login && <p className="error">{errors.login.message}</p>}
-        </label>
-        <label className="text-field__label">
-          <input
-            className={errors.password ? 'text-field__input input-error' : 'text-field__input'}
-            type="password"
-            placeholder={t('signup.placeholder.password')}
-            {...register('password', {
-              required: t('signup.require.password'),
-              maxLength: 15,
-              minLength: 3,
-            })}
-          />
-          {errors.password && errors.password.type === 'minLength' && (
-            <p className="error">{t('signup.errors.minPassword')}</p>
-          )}
-          {errors.password && errors.password.type === 'maxLength' && (
-            <p className="error">{t('signup.errors.maxPassword')}</p>
-          )}
-          {errors.password && <p className="error">{errors.password.message}</p>}
-        </label>
-        <div className="sendButton">
-          <input type="submit" disabled={isLoading} value={t('signup.registerBtn')} />
+      <form className="form" onSubmit={handleSubmit(onSubmit)}>
+        <div className="form-element-wrapper">
+          <label className="form-label">
+            <input
+              className={errors.name ? 'form-input input-error' : 'form-input'}
+              type="text"
+              placeholder={t('signup.placeholder.name')}
+              {...register('name', {
+                required: t('signup.require.name'),
+                maxLength: 15,
+                minLength: 3,
+              })}
+            />
+            {errors.name && errors.name.type === 'minLength' && (
+              <p className="error">{t('signup.errors.minName')}</p>
+            )}
+            {errors.name && errors.name.type === 'maxLength' && (
+              <p className="error">{t('signup.errors.maxName')}</p>
+            )}
+            {errors.name && <p className="error">{errors.name.message}</p>}
+          </label>
         </div>
+        <div className="form-element-wrapper">
+          <label className="form-label">
+            <input
+              className={errors.login ? 'form-input input-error' : 'form-input'}
+              type="text"
+              placeholder={t('signup.placeholder.login')}
+              {...register('login', {
+                required: t('signup.require.login'),
+                maxLength: 15,
+                minLength: 3,
+              })}
+            />
+            {errors.login && errors.login.type === 'minLength' && (
+              <p className="error">{t('signup.errors.minLogin')}</p>
+            )}
+            {errors.login && errors.login.type === 'maxLength' && (
+              <p className="error">{t('signup.errors.maxLogin')}</p>
+            )}
+            {errors.login && <p className="error">{errors.login.message}</p>}
+          </label>
+        </div>
+        <div className="form-element-wrapper">
+          <label className="form-label">
+            <input
+              className={errors.password ? 'form-input input-error' : 'form-input'}
+              type="password"
+              placeholder={t('signup.placeholder.password')}
+              {...register('password', {
+                required: t('signup.require.password'),
+                maxLength: 15,
+                minLength: 3,
+              })}
+            />
+            {errors.password && errors.password.type === 'minLength' && (
+              <p className="error">{t('signup.errors.minPassword')}</p>
+            )}
+            {errors.password && errors.password.type === 'maxLength' && (
+              <p className="error">{t('signup.errors.maxPassword')}</p>
+            )}
+            {errors.password && <p className="error">{errors.password.message}</p>}
+          </label>
+        </div>
+
+        <button className="btn" type="submit">
+          {t('signup.registerBtn')}
+        </button>
       </form>
-      {t('signup.haveAccaunt')}
-      <NavLink to="/login">
-        <button>{t('signup.enterBtn')}</button>
-      </NavLink>
+      <div>
+        {t('signup.haveAccaunt')}{' '}
+        <NavLink className="link link-text" to="/login">
+          {t('signup.enterBtn')}
+        </NavLink>
+      </div>
     </div>
   );
 };

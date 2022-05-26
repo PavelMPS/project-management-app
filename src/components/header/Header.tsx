@@ -9,6 +9,7 @@ import { deleteUser } from '../../redux/DeleteUserSlice';
 import { lngs } from '../../constants/Constants';
 
 import './header.css';
+import { headerBTNs } from '../../constants/Constants';
 import Confirmation from '../Confirmation/Confirmation';
 import ModalWindow from '../ModalWindow/ModalWindow';
 
@@ -79,16 +80,38 @@ const Header = (): JSX.Element => {
       </h1>
       {isAuth && (
         <div className="menu-container">
-          <Link className="edit-link" to={'/edit'}>
-            <button className="button edit-btn"></button>
+          <Link className="edit-link link" to={'/edit'}>
+            <div className="header-btn">
+              <div className="btn-text">{headerBTNs.editProfile}</div>
+              <div className="edit-btn"></div>
+            </div>
           </Link>
-          <button className="button logout-btn" onClick={logoutHandler}></button>
-          <button className="button user-delete-btn" onClick={deleteUserHandler}></button>
-          <button className="button create-board-btn" onClick={createBoardHandler}></button>
-          <label className="checkbox-green">
-            <input type="checkbox" onClick={languageToggler} />
-            <span className="checkbox-green-switch" data-label-on="Ru" data-label-off="En"></span>
-          </label>
+          <div className="header-btn" onClick={logoutHandler}>
+            <div className="btn-text">{headerBTNs.logOut}</div>
+            <div className="logout-btn"></div>
+          </div>
+          <div className="header-btn" onClick={deleteUserHandler}>
+            <div className="btn-text">{headerBTNs.deleteProfile}</div>
+            <div className="user-delete-btn"></div>
+          </div>
+          <div className="header-btn" onClick={createBoardHandler}>
+            <div className="btn-text">{headerBTNs.createBoard}</div>
+            <div className="create-board-btn"></div>
+          </div>
+          <div className="toglers-container">
+            <label htmlFor="checkbox" className="togler-container">
+              <input className="checkbox" type="checkbox" id="checkbox" onClick={languageToggler} />
+              <span className="togler-ball"></span>
+              <b className="ru">{'RU'}</b>
+              <b className="en">{'EN'}</b>
+            </label>
+            <label htmlFor="checkbox-theme" className="togler-container">
+              <input className="checkbox" type="checkbox" id="checkbox-theme" />
+              <span className="togler-ball"></span>
+              <b className="sun"></b>
+              <b className="moon"></b>
+            </label>
+          </div>
         </div>
       )}
       {isConfirmationDeleteOpen && (

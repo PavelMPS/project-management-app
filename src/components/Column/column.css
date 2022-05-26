@@ -1,11 +1,14 @@
 .column-container {
-  width: 300px;
+  min-width: 300px;
+  max-width: 300px;
   max-height: calc(100% - 5px);
   padding: 10px;
   text-align: center;
-  background-color: rgb(210, 232, 250);
+  background-color: var(--forth-color);
   overflow-x: hidden;
   overflow-y: auto;
+  border-radius: 3px;
+  box-shadow: 4px 4px 4px 0px var(--sixth-color);
 }
 
 .column-container::-webkit-scrollbar {
@@ -14,11 +17,13 @@
   bottom: 0;
 }
 .column-container::-webkit-scrollbar-track {
-  background-color: #f9f9fd;
+  background-color: var(--first-color);
   border-radius: 10px;
+  margin: 10px 0px;
 }
 .column-container::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, rgb(163, 214, 255), rgb(127, 197, 255));
+  background-color: var(--second-color);
+  border-radius: 10px;
 }
 
 .column-wrapper {
@@ -30,84 +35,16 @@
   align-items: center;
 }
 
-.column-bin,
-.column-update,
-.task-create,
-.update-title-btn,
-.close-title-btn {
-  width: 30px;
-  height: 30px;
-  background-size: cover;
-  cursor: pointer;
-}
-
-.update-title-btn {
-  background-image: url(../../assets/save.png);
-}
-.close-title-btn {
-  background-image: url(../../assets/close.png);
-}
-.column-bin {
-  background-image: url(../../assets/bin.png);
-}
-.column-update {
-  background-image: url(../../assets/update.png);
-}
-.task-create {
-  background-image: url(../../assets/add.png);
-}
-.task-create-btn {
-  display: flex;
-  column-gap: 25px;
-  align-items: center;
-  margin: auto;
-  cursor: pointer;
-}
-.task-create-btn:active .task-create {
-  transform: scale(1.2);
-}
-
-.task-create:active,
-.column-bin:active,
-.column-update:active {
-  transform: scale(1.2);
-}
-
-.update-column-btn {
-  width: 100px;
-  height: 50px;
-  text-align: center;
-  line-height: 50px;
-  background-color: rgb(163, 214, 255);
-}
-.update-column-btn:active {
-  transform: scale(1.2);
-  background-color: rgb(121, 195, 255);
-}
-
 .column-title {
   width: calc(100% - 55px);
-  font-size: 24px;
-  font-weight: 700;
+  font-weight: 500;
   line-height: 50px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-align: left;
 }
 
-.update-title-input {
-  height: 90%;
-  width: 180px;
-  padding: 2px;
-  font-size: 20px;
-  font-weight: 400;
-  background-color: rgb(255, 255, 255);
-  background-clip: padding-box;
-  border: none;
-  box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.15);
-  transition: box-shadow 0.15s ease-in-out;
-}
-.update-title-input:focus {
-  outline: none;
-  border: 2px solid rgb(89, 180, 255);
+.tasks-container {
+  min-height: 50px;
 }

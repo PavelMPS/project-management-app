@@ -1,6 +1,7 @@
 .board-container {
   width: 100%;
   height: 100%;
+  padding: 0px 25px;
 }
 .board-title-container {
   display: flex;
@@ -8,57 +9,37 @@
   column-gap: 25px;
   align-items: center;
 }
-
-.board-close,
-.board-add-column {
-  width: 100px;
-  height: 50px;
-  text-align: center;
-  line-height: 50px;
-  background-color: rgb(163, 214, 255);
-  cursor: pointer;
-}
-
-.board-add-column {
+.add-column-btn {
   min-width: 300px;
-  padding: 10px;
+  margin-right: 4px;
   display: flex;
   justify-content: flex-start;
   column-gap: 25px;
-  align-items: center;
-}
-.board-add-column-icon {
-  width: 30px;
-  height: 30px;
-  background-image: url(../../assets/add.png);
-  background-size: cover;
-}
-
-.board-close:active,
-.board-add-column:active {
-  transform: scale(1.2);
-  background-color: rgb(121, 195, 255);
 }
 
 .columns-container {
   display: flex;
+  align-items: flex-start;
   justify-content: flex-start;
   height: calc(100% - 90px);
   width: 100%;
   padding: 20px 0px;
   column-gap: 25px;
-  overflow-x: auto;
+  overflow-x: visible;
   overflow-y: hidden;
 }
 .columns-container::-webkit-scrollbar {
   height: 10px;
+  width: 90%;
   position: fixed;
   bottom: 0;
+  border-radius: 10px;
 }
 .columns-container::-webkit-scrollbar-track {
-  background-color: #f9f9fd;
+  background-color: var(--first-color);
   border-radius: 10px;
 }
 .columns-container::-webkit-scrollbar-thumb {
-  background: linear-gradient(90deg, rgb(163, 214, 255), rgb(201, 231, 255));
+  background-color: var(--second-color);
+  border-radius: 10px;
 }

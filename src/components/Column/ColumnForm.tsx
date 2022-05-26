@@ -10,8 +10,6 @@ import { getBoardById } from '../../redux/GetBoardSlice';
 import { AppDispatch } from '../../redux/Store';
 import Confirmation from '../Confirmation/Confirmation';
 
-import './columnForm.css';
-
 const ColumnForm = (props: { boardId: string; columnInf?: IColumn; type: string }): JSX.Element => {
   const { t } = useTranslation();
   const {
@@ -111,10 +109,10 @@ const ColumnForm = (props: { boardId: string; columnInf?: IColumn; type: string 
               })}
             />
           </label>
-          {errors.title && <span className="error">{t('column.errors.error')}</span>}
+          {errors.title && <p className="error">{t('column.errors.error')}</p>}
         </div>
 
-        <button className="form-btn" type="submit" disabled={!isValid}>
+        <button className="btn" type="submit" disabled={!isValid}>
           {t('column.submit')}
         </button>
       </form>
