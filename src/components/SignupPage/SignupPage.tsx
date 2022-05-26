@@ -5,9 +5,9 @@ import { useTranslation } from 'react-i18next';
 
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux';
 import { setCredentials } from '../../redux/userSlice';
+import { setSignupError, setUser } from '../../redux/SignUpSlice';
 
 import './Styles.css';
-import { setSignupError, setUser } from '../../redux/SignUpSlice';
 
 export interface IUserCredentials {
   name: string;
