@@ -4,8 +4,8 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux';
-import { setUser } from '../../redux/apiReducer';
 import { setCredentials } from '../../redux/userSlice';
+import { setSignupError, setUser } from '../../redux/SignUpSlice';
 
 import './Styles.css';
 
@@ -18,7 +18,8 @@ export interface IUserCredentials {
 const SignupPage = (): JSX.Element => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const { name, login, password, token, isAuth } = useAppSelector((store) => store.user);
+  const { token, isAuth } = useAppSelector((store) => store.user);
+  const { isLoading, error } = useAppSelector((store) => store.signUp);
   const navigate = useNavigate();
 
   useEffect((): void => {
@@ -27,11 +28,12 @@ const SignupPage = (): JSX.Element => {
     }
   }, [isAuth]);
 
-  const createAccount = (): void => {
-    if (name && login && password) {
-      dispatch(setUser({ name, login, password }));
+  useEffect((): void => {
+    if (error) {
+      dispatch(setSignupError());
     }
-  };
+  }, [error]);
+
   const {
     register,
     handleSubmit,
@@ -40,7 +42,7 @@ const SignupPage = (): JSX.Element => {
 
   const onSubmit: SubmitHandler<IUserCredentials> = (data): void => {
     dispatch(setCredentials(data));
-    createAccount();
+    dispatch(setUser({ name: data.name, login: data.login, password: data.password }));
   };
 
   return (

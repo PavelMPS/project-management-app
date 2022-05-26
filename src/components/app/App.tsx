@@ -14,7 +14,7 @@ import Toast from '../Toast/Toast';
 import { RequireAuth } from '../../hoc/RequireAuth';
 
 import { getTokenFromLocalStorage } from '../../redux/ColumnSlice';
-import { getUserAuth } from '../../redux/apiReducer';
+import { getUserAuth } from '../../redux/userSlice';
 import { getIdFromToken } from '../../redux/EditProfileSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux';
 
@@ -29,7 +29,7 @@ const App = (): JSX.Element => {
     const token = getTokenFromLocalStorage();
     if (token) {
       const userId = getIdFromToken(token);
-      dispatch(getUserAuth(userId, token));
+      dispatch(getUserAuth({ id: userId, token }));
     } else {
       if (!isAuth) {
         return navigate('/');

@@ -4,8 +4,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux';
-import { getUser } from '../../redux/apiReducer';
-import { setAuthCredentials } from '../../redux/userSlice';
+import { getUser } from '../../redux/userSlice';
 
 import './../SignupPage/Styles.css';
 
@@ -18,7 +17,7 @@ const LoginPage = (): JSX.Element => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { authLogin, authPass, isAuth } = useAppSelector((store) => store.user);
+  const { isAuth, isLoading } = useAppSelector((store) => store.user);
 
   const {
     register,
@@ -27,14 +26,8 @@ const LoginPage = (): JSX.Element => {
   } = useForm<ILoginData>();
 
   const onSubmit: SubmitHandler<ILoginData> = (data): void => {
-    dispatch(setAuthCredentials(data));
+    dispatch(getUser({ login: data.login, password: data.password }));
   };
-
-  useEffect((): void => {
-    if (authLogin && authPass) {
-      dispatch(getUser(authLogin, authPass));
-    }
-  }, [authPass]);
 
   useEffect((): void => {
     if (isAuth) {

@@ -121,6 +121,7 @@ interface IUserSlice {
   isAuth: boolean;
   authLogin: string;
   authPass: string;
+  isLoading: boolean;
 }
 
 interface IError {
@@ -131,4 +132,26 @@ interface IError {
 interface ILangs {
   en: string;
   ru: string;
+}
+
+interface ISignUpResponse {
+  statusCode: number;
+  message: string;
+}
+
+interface ISignUpState {
+  error: string | null;
+  isLoading: boolean;
+  isRegistrationSucces: boolean;
+}
+
+interface IRegistrationRequest {
+  login: string;
+  password: string;
+}
+
+interface IRegistrationResponce {
+  id: string;
+  name: string;
+  login: string;
 }
