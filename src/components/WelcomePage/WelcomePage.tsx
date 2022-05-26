@@ -5,9 +5,9 @@ import { useTranslation } from 'react-i18next';
 
 import { getTokenFromLocalStorage } from '../../redux/ColumnSlice';
 import { getIdFromToken } from '../../redux/EditProfileSlice';
-import { getUserAuth } from '../../redux/userSlice';
 import { Team } from '../../constants/Team';
 import ProfileCard from '../ProfileCard/ProfileCard';
+import { getUserAuth } from '../../redux/userSlice';
 
 const WelcomePage = (): JSX.Element => {
   const { t } = useTranslation();
