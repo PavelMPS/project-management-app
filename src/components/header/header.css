@@ -80,16 +80,6 @@ header {
   background-image: url(../../assets/plus.svg);
 }
 
-.en-btn {
-  width: 40px;
-  background-image: url('/public/en.png');
-}
-
-.ru-btn {
-  width: 40px;
-  background-image: url('/public/ru.png');
-}
-
 .edit-btn:hover,
 .logout-btn:hover,
 .user-delete-btn:hover,
@@ -166,4 +156,22 @@ header {
 
 .checkbox:checked + .togler-ball {
   transform: translate(29px, -50%);
+}
+
+.logo {
+  width: 163px;
+  height: 41px;
+  background-image: url(../../assets/logo.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  transition: all 0.4s;
+}
+
+.logo:hover {
+  transition: all 0.4s;
+  transform: scale(1.2);
+}
+
+.logo:active {
+  transform: translateY(2px);
 }
