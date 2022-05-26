@@ -4,10 +4,10 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux';
-import { setUser } from '../../redux/apiReducer';
 import { setCredentials } from '../../redux/userSlice';
 
 import './Styles.css';
+import { setSignupError, setUser } from '../../redux/SignUpSlice';
 
 export interface IUserCredentials {
   name: string;
@@ -18,7 +18,8 @@ export interface IUserCredentials {
 const SignupPage = (): JSX.Element => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const { token, isAuth, isLoading } = useAppSelector((store) => store.user);
+  const { token, isAuth } = useAppSelector((store) => store.user);
+  const { isLoading, error } = useAppSelector((store) => store.signUp);
   const navigate = useNavigate();
 
   useEffect((): void => {
@@ -26,6 +27,12 @@ const SignupPage = (): JSX.Element => {
       return navigate('/main');
     }
   }, [isAuth]);
+
+  useEffect((): void => {
+    if (error) {
+      dispatch(setSignupError());
+    }
+  }, [error]);
 
   const {
     register,

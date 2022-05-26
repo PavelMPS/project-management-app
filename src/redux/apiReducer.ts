@@ -1,26 +1,9 @@
 import { AsyncThunk, createAsyncThunk } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
-import { EmptyObject } from 'react-hook-form';
 
 import { AppDispatch } from './Store';
 import { logout, userSlice } from './userSlice';
 import { path } from '../constants/Constants';
-import { useAppDispatch } from './hooks/redux';
-
-export const setUser: AsyncThunk<void, IUserState, EmptyObject> = createAsyncThunk(
-  'user/setUser',
-  async (arg: { name: string; login: string; password: string }): Promise<void> => {
-    try {
-      await axios.post(path.url + path.signUp, {
-        name: arg.name,
-        login: arg.login,
-        password: arg.password,
-      });
-    } catch (e) {
-      const err = e as AxiosError;
-    }
-  }
-);
 
 export const getUser =
   (login: string, password: string) =>

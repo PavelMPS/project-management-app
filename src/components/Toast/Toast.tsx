@@ -12,6 +12,7 @@ import { selectUsersError } from '../../redux/UsersSlice';
 import { selectUserError } from '../../redux/userSlice';
 import { selectEditProfileError } from '../../redux/EditProfileSlice';
 import { serverErrorText } from '../../constants/Constants';
+import { sigupUserError } from '../../redux/SignUpSlice';
 
 import './toast.css';
 
@@ -26,6 +27,8 @@ const getErrorText = (error: string) => {
       return serverErrorText[403];
     case '404':
       return serverErrorText[404];
+    case '409':
+      return serverErrorText[409];
     case '500':
       return serverErrorText[500];
     default:
@@ -44,7 +47,7 @@ const Toast = (): JSX.Element => {
   const mainError: string | null = useSelector(selectBoardsError);
   const taskError: string | null = useSelector(selectTasksError);
   const usersError: string | null = useSelector(selectUsersError);
-  const createUserError: string = useSelector(boardCreateError);
+  const signupError: string | null = useSelector(sigupUserError);
 
   useEffect(() => {
     const errors: IError[] = list;
@@ -72,13 +75,13 @@ const Toast = (): JSX.Element => {
     if (usersError) {
       errors.push({ id: nanoid(), text: getErrorText(usersError) });
     }
-    if (createUserError.length) {
-      errors.push({ id: nanoid(), text: getErrorText(createUserError) });
+    if (signupError) {
+      errors.push({ id: nanoid(), text: getErrorText(signupError) });
     }
     setList([...errors]);
   }, [
     columnError,
-    createUserError,
+    signupError,
     deleteUserError,
     editProfileError,
     getIdBoardError,

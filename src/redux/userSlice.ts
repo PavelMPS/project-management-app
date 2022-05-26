@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { ILoginData } from '../components/LoginPage/LoginPage';
 import { IUserCredentials } from '../components/SignupPage/SignupPage';
-import { setUser } from './apiReducer';
 import { RootState } from './Store';
 
 const initialState: IUserSlice = {
@@ -15,7 +14,6 @@ const initialState: IUserSlice = {
   authLogin: '',
   authPass: '',
   isLoading: false,
-  statusCode: null,
 };
 
 export const userSlice = createSlice({
@@ -49,21 +47,6 @@ export const userSlice = createSlice({
       state.isAuth = false;
       localStorage.clear();
       state.token = '';
-    },
-  },
-  extraReducers: {
-    [setUser.fulfilled.type]: (state: IUserSlice, action: PayloadAction<string>) => {
-      state.isLoading = false;
-      state.error = '';
-    },
-    [setUser.pending.type]: (state: IUserSlice) => {
-      state.isLoading = true;
-    },
-    [setUser.rejected.type]: (state: IUserSlice, action) => {
-      state.isLoading = false;
-      state.error = action.error.message;
-      state.statusCode = action.statusCode;
-      console.log(state.statusCode);
     },
   },
 });

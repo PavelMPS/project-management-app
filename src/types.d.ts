@@ -122,7 +122,6 @@ interface IUserSlice {
   authLogin: string;
   authPass: string;
   isLoading: boolean;
-  statusCode: string | null;
 }
 
 interface IError {
@@ -133,4 +132,15 @@ interface IError {
 interface ILangs {
   en: string;
   ru: string;
+}
+
+interface ISignUpResponse {
+  statusCode: number;
+  message: string;
+}
+
+interface ISignUpState {
+  error: string | null;
+  isLoading: boolean;
+  isRegistrationSucces: boolean;
 }
