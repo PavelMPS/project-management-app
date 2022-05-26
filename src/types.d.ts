@@ -144,3 +144,14 @@ interface ISignUpState {
   isLoading: boolean;
   isRegistrationSucces: boolean;
 }
+
+interface IRegistrationRequest {
+  login: string;
+  password: string;
+}
+
+interface IRegistrationResponce {
+  id: string;
+  name: string;
+  login: string;
+}

@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { getTokenFromLocalStorage } from '../../redux/ColumnSlice';
 import { getIdFromToken } from '../../redux/EditProfileSlice';
-import { getUserAuth } from '../../redux/apiReducer';
+import { getUserAuth } from '../../redux/userSlice';
 import { Team } from '../../constants/Team';
 import ProfileCard from '../ProfileCard/ProfileCard';
 
@@ -19,7 +19,7 @@ const WelcomePage = (): JSX.Element => {
     const token = getTokenFromLocalStorage();
     if (token) {
       const userId = getIdFromToken(token);
-      dispatch(getUserAuth(userId, token));
+      dispatch(getUserAuth({ id: userId, token }));
     } else {
       if (!isAuth) {
         return navigate('/');

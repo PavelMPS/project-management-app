@@ -9,7 +9,7 @@ import { selectBoards, selectBoardsFetchStatus, fetchBoards } from '../../redux/
 import { AppDispatch } from '../../redux/Store';
 import { getTokenFromLocalStorage } from '../../redux/ColumnSlice';
 import { getIdFromToken } from '../../redux/EditProfileSlice';
-import { getUserAuth } from '../../redux/apiReducer';
+import { getUserAuth } from '../../redux/userSlice';
 
 import './mainPage.css';
 
@@ -29,7 +29,7 @@ const Main = (): JSX.Element => {
     const token = getTokenFromLocalStorage();
     if (token) {
       const userId = getIdFromToken(token);
-      dispatch(getUserAuth(userId, token));
+      dispatch(getUserAuth({ id: userId, token }));
     }
   }, []);
 
