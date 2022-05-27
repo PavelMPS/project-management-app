@@ -43,3 +43,23 @@
   background-color: var(--second-color);
   border-radius: 10px;
 }
+
+.user-task-form {
+  display: flex;
+  align-items: center;
+}
+
+.user-task-btn {
+  width: 100px;
+  height: 30px;
+  background: var(--second-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all 0.4s;
+}
+
+.user-task-btn:hover {
+  transition: all 0.4s;
+  transform: scale(1.2);
+}

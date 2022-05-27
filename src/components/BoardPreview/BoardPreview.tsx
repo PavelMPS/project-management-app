@@ -9,6 +9,7 @@ import { AppDispatch } from '../../redux/Store';
 import { getBoardById } from '../../redux/GetBoardSlice';
 
 import './boardPreview.css';
+import { fetchUsers } from '../../redux/UsersSlice';
 
 const BoardPreview = (props: { boardInf: IBoard }): JSX.Element => {
   const { t } = useTranslation();
@@ -28,6 +29,7 @@ const BoardPreview = (props: { boardInf: IBoard }): JSX.Element => {
   const openBoardHandler = (): void => {
     dispatch(getBoardById(props.boardInf.id));
     dispatch(openBoard(props.boardInf));
+    dispatch(fetchUsers());
   };
   return (
     <>
