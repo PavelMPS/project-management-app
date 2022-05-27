@@ -1,0 +1,26 @@
+.welcome-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: calc(100vh - 150px);
+    padding: 0px 50px;
+    overflow-y: scroll;
+}
+
+.welcome-container::-webkit-scrollbar {
+    width: 10px;
+    position: fixed;
+    bottom: 0;
+}
+
+.welcome-container::-webkit-scrollbar-track {
+  background-color: var(--first-color);
+  border-radius: 10px;
+  margin: 10px 0px;
+}
+
+.welcome-container::-webkit-scrollbar-thumb {
+  background-color: var(--second-color);
+  border-radius: 10px;
+}

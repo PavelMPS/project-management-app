@@ -1,7 +1,7 @@
 .body {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-between;
   height: 100vh;
   background-color: var(--first-color);
   color: var(--third-color);
@@ -12,6 +12,7 @@
   width: 100%;
   height: calc(100vh - 150px);
   z-index: 1;
+  background-color: var(--first-color);
 }
 
 /* BTN */
