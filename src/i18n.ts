@@ -26,6 +26,35 @@ i18n
             signup: 'Sign up',
             toMain: 'Go to main page',
           },
+          aboutProject: {
+            title: 'About the project:',
+            project:
+              'A project management system is an application that helps an individual in a team or group of developers accomplish their tasks.',
+            functionality: {
+              title: 'In this project were implemented:',
+              func_1: 'welcome page',
+              func_2: 'user login',
+              func_3: 'project management page (main page)',
+              func_4: 'board page',
+              func_5: 'additional functionality(change day and night theme)',
+            },
+            develop: {
+              title: 'Development process',
+              description:
+                'The GitHub Flow model was chosen as the main path for the development of the project. To implement the various requirements of the application, functional branches were created, after the implementation of the functionality, a PR was opened in the develop branch, the code was reviewed by the rest of the team members, which helped to monitor the quality of the code and fix various kinds of errors and bugs in time. After the review, if there were no comments, the working branch was merged with the develop one.',
+              work: 'Trello was used to control the development process and meet deadlines, where the main tasks and deadlines for their implementation were highlighted.',
+            },
+          },
+          aboutCourses: {
+            title: 'About the course:',
+            promo: 'Online course "Development with React"',
+            promo_2: 'Free course from the community',
+            rs: ' The Rolling Scopes.',
+            pay_it_forward:
+              ' The principle of "Pay it forward" works at RS School: "We share our knowledge with students for free now, hoping that in the future they will return to us as mentors and pass on their knowledge to the next generation of students in the same way."',
+            description:
+              ' Everyone can study at RS School, regardless of age, professional employment and place of residence. However, for successful learning it is necessary to have a solid knowledge of HTML, CSS and Javascript.',
+          },
           login: {
             title: 'Log in page',
             noAccaunt: 'No accaunt?',
@@ -161,6 +190,35 @@ i18n
             login: 'Авторизоваться',
             signup: 'Зарегистрироваться',
             toMain: 'Перейти на главную страницу',
+          },
+          aboutProject: {
+            title: 'О проекте:',
+            project:
+              'Система управления проектами – приложение, помогающее достичь поставленные задачи отдельному человеку в команде или группе разработчиков.',
+            functionality: {
+              title: 'В данном проекты были реализованы:',
+              func_1: 'приветственная страница',
+              func_2: 'пользовательский логин',
+              func_3: 'страница управления проектами',
+              func_4: 'страница управления проектом',
+              func_5: 'дополнительный функционал(смена дневной и ночной темы)',
+            },
+            develop: {
+              title: 'Процесс разработки',
+              description:
+                'В качестве оcновного пути развития проекта была выбрана модель GitHub Flow. Для реализации различных требований приложения создавлись функциональные ветки, после реализации функционала открывался PR в ветку develop, код проходил ревью от остальных участников команды, что помогало следить за качеством кода и вовремя устранять различного рода ошибки и баги. После ревью, если замечаний нет, происходило слияние рабочей ветки с основной.',
+              work: 'Для контроля процесса разработки и соблюдения сроков использовалось Trello, где выделялись основные задачи и сроки их реализации.',
+            },
+          },
+          aboutCourses: {
+            title: 'О курсе:',
+            promo: 'Онлайн курс «Разработка на React»',
+            promo_2: 'Бесплатный курс от сообщества',
+            rs: ' The Rolling Scopes.',
+            pay_it_forward:
+              ' В RS School работает принцип "Pay it forward": "Мы бесплатно делимся с учащимися своими знаниями сейчас, надеясь, что в будущем они вернутся к нам в качестве менторов и точно так же передадут свои знания следующему поколению студентов."',
+            description:
+              ' В RS School может учиться каждый, независимо от возраста, профессиональной занятости и места жительства. Однако для успешного обучения необходимо иметь увереные знания HTML, CSS и Javascript.',
           },
           login: {
             title: 'Страница авторизации',
