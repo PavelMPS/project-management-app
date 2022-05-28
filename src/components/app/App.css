@@ -26,15 +26,15 @@
   background-color: var(--ninth-color);
   border: none;
   border-radius: 3px;
-  color: var(--first-color);
+  color: var(--seventh-color);
   font-size: 24px;
   font-weight: 500;
-  box-shadow: var(--third-color) 4px 4px 0px;
+  box-shadow: var(--twelfth-color) 4px 4px 0px;
   transition: transform 200ms, box-shadow 200ms;
 }
 .btn:active {
   transform: translateX(4px) translateY(4px);
-  box-shadow: var(--third-color) 0px 0px 0px;
+  box-shadow: var(--twelfth-color) 0px 0px 0px;
 }
 .btn:disabled {
   background-color: var(--sixth-color);
@@ -42,6 +42,10 @@
   box-shadow: none;
   transition: 0.2s;
   color: var(--third-color);
+}
+.sign-up-btn {
+  background-color: var(--seventh-color);
+  color: var(--ninth-color);
 }
 .opacity-btn {
   align-items: center;
@@ -51,7 +55,7 @@
   column-gap: 25px;
   border-radius: 50px;
   background-color: var(--seventh-color);
-  color: var(--third-color);
+  color: var(--eighth-color);
   opacity: 0.6;
   transition: 0.3;
   cursor: pointer;
@@ -73,11 +77,11 @@
   cursor: pointer;
 }
 .small-btn:hover {
-  background-color: var(--twelfth-color);
+  background-color: var(--eleventh-color);
   transition: 0.3;
 }
 .small-btn:active {
-  background-color: var(--eleventh-color);
+  background-color: var(--ninth-color);
   transform: scale(1.2);
   transition: 0.3;
 }
@@ -97,9 +101,25 @@
   background-image: url(../../assets/plus-dark.svg);
 }
 
+.body.dark .trash {
+  background-image: url(../../assets/trash-light.svg);
+}
+.body.dark .edit {
+  background-image: url(../../assets/edit-light.svg);
+}
+.body.dark .close {
+  background-image: url(../../assets/cross-dark.svg);
+}
+.body.dark .check {
+  background-image: url(../../assets/check-dark.svg);
+}
+.body.dark .add {
+  background-image: url(../../assets/plus-dark.svg);
+}
+
 .link {
   text-decoration: none;
-  color: var(--first-color);
+  color: var(--tenth-color);
 }
 .link-text {
   color: var(--ninth-color);
@@ -125,8 +145,8 @@
   margin-bottom: 50px;
 }
 .form-label {
-  line-height: 100%;
   position: relative;
+  line-height: 100%;
   padding-left: 10px;
 }
 .form-input {
@@ -146,10 +166,12 @@
   cursor: text;
 }
 .form-input:focus {
-  border: 2px solid var(--ninth-color);
+  border: 3px solid var(--ninth-color);
   outline: none;
 }
-
+.column-input {
+  width: 190px;
+}
 .input-error {
   border: 1px solid var(--tenth-color);
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -157,7 +179,7 @@
 }
 .error {
   position: absolute;
-  top: 25px;
+  top: 80%;
   color: #ff0000;
   font-size: 16px;
   text-align: start;

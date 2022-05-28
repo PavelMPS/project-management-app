@@ -1,5 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import ReactDom from 'react-dom';
+import { useSelector } from 'react-redux';
+
+import { selectTheme, setTheme } from '../../redux/ThemeSlice';
+import { useAppDispatch } from '../../redux/hooks/redux';
+import { themes } from '../../constants/Constants';
 
 import './modalWindow.css';
 
@@ -8,6 +13,14 @@ const ModalWindow: (props: {
   onClick: () => void;
 }) => JSX.Element = (props: { children: JSX.Element; onClick: () => void }): JSX.Element => {
   const root = document.createElement('div');
+
+  const dispatch = useAppDispatch();
+  const selectsTheme = useSelector(selectTheme);
+  const [theme, setThemeApp] = useState<string>();
+
+  useEffect(() => {
+    setThemeApp(`modal-window ${selectsTheme}`);
+  }, [selectsTheme]);
 
   useEffect((): (() => void) => {
     document.body.appendChild(root);
@@ -22,7 +35,7 @@ const ModalWindow: (props: {
         className="modal-window-overly"
         onClick={(event) => event.currentTarget === event.target && props.onClick()}
       >
-        <div className="modal-window">
+        <div className={theme}>
           <div
             className="small-btn close modal-btn"
             onClick={(event) => event.currentTarget === event.target && props.onClick()}

@@ -28,13 +28,13 @@
 
 .column-wrapper {
   min-height: 50px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   column-gap: 15px;
   padding-bottom: 5px;
   align-items: center;
 }
-
 .column-title {
   width: calc(100% - 55px);
   font-weight: 500;
@@ -44,7 +44,6 @@
   text-overflow: ellipsis;
   text-align: left;
 }
-
 .tasks-container {
   min-height: 50px;
 }

@@ -149,8 +149,8 @@ const TaskForm = (props: {
                 },
               })}
             />
+            {errors.title && <p className="error">{t('task.error')}</p>}
           </label>
-          {errors.title && <p className="error">{t('task.error')}</p>}
         </div>
 
         <div className="form-element-wrapper">
@@ -169,8 +169,8 @@ const TaskForm = (props: {
                 },
               })}
             />
+            {errors.description && <p className="error">{t('task.error')}</p>}
           </label>
-          {errors.description && <p className="error">{t('task.error')}</p>}
         </div>
 
         <div className="form-element-wrapper">
@@ -188,8 +188,8 @@ const TaskForm = (props: {
                 </option>
               ))}
             </select>
+            {errors.userId && <p className="error">{t('task.error')}</p>}
           </label>
-          {errors.userId && <p className="error">{t('task.error')}</p>}
         </div>
 
         <button className="btn" type="submit" disabled={!isValid}>

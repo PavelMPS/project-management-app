@@ -108,8 +108,8 @@ const ColumnForm = (props: { boardId: string; columnInf?: IColumn; type: string 
                 },
               })}
             />
+            {errors.title && <p className="error">{t('column.errors.error')}</p>}
           </label>
-          {errors.title && <p className="error">{t('column.errors.error')}</p>}
         </div>
 
         <button className="btn" type="submit" disabled={!isValid}>

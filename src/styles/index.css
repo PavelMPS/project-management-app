@@ -1,16 +1,36 @@
-:root {
-  --first-color: #eaeaea;
-  --second-color: #ff932e;
+.body.light,
+.modal-window.light,
+.confirmation-window.light {
+  --first-color: #f4f4f4;
+  --second-color: #ffaa5a;
   --third-color: #1f1f1f;
   --forth-color: #d6d6d6;
-  --fifth-color: #2e2e2e;
+  --fifth-color: #ffffff;
   --sixth-color: #585858;  
-  --seventh-color: #fdfdfd;
-  --eighth-color: #ffffff60;  
-  --ninth-color: #ff3911;  
+  --seventh-color: #ffffff;
+  --eighth-color: #1f1f1f;  
+  --ninth-color: #ff795e;  
   --tenth-color: #ffffff;
-  --eleventh-color: #ff932ed3;
-  --twelfth-color: #1f1f1f2f;
+  --eleventh-color: #ffffff76;
+  --twelfth-color: #1f1f1f42;
+  transition: all 0.4s;
+}
+.body.dark,
+.modal-window.dark,
+.confirmation-window.dark {
+  --first-color: #3f3f3f;
+  --second-color: #7abdff;
+  --third-color: #f4f4f4;
+  --forth-color: #d6d6d63c;
+  --fifth-color: #ffffff71;
+  --sixth-color: #2d2d2d;  
+  --seventh-color: #ffffff;
+  --eighth-color: #1f1f1f;  
+  --ninth-color: #8082ff;  
+  --tenth-color: #ffffff;
+  --eleventh-color: #ffffff76;
+  --twelfth-color: #d7d7d76b;
+  transition: all 0.4s;
 }
 
 *, 
@@ -26,6 +46,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: all 0.4s;
 }
 
 code {

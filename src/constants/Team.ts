@@ -1,21 +1,21 @@
 export const Team = [
   {
-    imgSrc: 'vs.png',
+    imgSrc: 'vy1.jpg',
     name: 'Veronika',
     surname: 'Yaschenkova',
-    age: '',
-    about: '',
+    age: '26',
+    about: 'JavaScript, TypeScript, React, Git',
   },
 
   {
-    imgSrc: 'ps.png',
+    imgSrc: 'ps1.png',
     name: 'Pavel',
     surname: 'Mazhaiski',
     age: '35',
     about: 'JavaScript, TypeScript, React, Git',
   },
   {
-    imgSrc: 'vs.png',
+    imgSrc: 'vs1.png',
     name: 'Vitaly',
     surname: 'Soroko',
     age: '27',

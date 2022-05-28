@@ -25,6 +25,14 @@ type usersState = {
   error: string | null;
 };
 
+type themeState = {
+  theme: string;
+};
+
+type choseUserState = {
+  user: string;
+};
+
 interface IBoard {
   id: string;
   title: string;
@@ -141,6 +149,11 @@ interface ILangs {
   ru: string;
 }
 
+interface IThemes {
+  light: string;
+  dark: string;
+}
+
 interface ISignUpResponse {
   statusCode: number;
   message: string;
@@ -164,6 +177,14 @@ interface IRegistrationResponce {
 }
 
 interface ITeam {
+  imgSrc: string;
+  name: string;
+  surname: string;
+  age: string;
+  about: string;
+}
+
+interface IPofile {
   imgSrc: string;
   name: string;
   surname: string;

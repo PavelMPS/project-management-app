@@ -1,15 +1,6 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import './profileCard.css';
-
-interface IPofile {
-  imgSrc: string;
-  name: string;
-  surname: string;
-  age: string;
-  about: string;
-}
 
 const ProfileCard = (props: IPofile): JSX.Element => {
   const { t } = useTranslation();
@@ -20,18 +11,15 @@ const ProfileCard = (props: IPofile): JSX.Element => {
         <img src={require(`../../assets/photo/${props.imgSrc}`)} alt="member-photo" />
       </div>
       <div className="information">
-        <p>
-          {t('profile.name')} : {props.name}
-        </p>
-        <p>
-          {t('profile.surname')} : {props.surname}
-        </p>
-        <p>
+        <div className="information-name">
+          {props.name} {props.surname}
+        </div>
+        <div className="information-age">
           {t('profile.age')}: {props.age}
-        </p>
-        <p>
+        </div>
+        <div className="information-about">
           {t('profile.about')} : {props.about}
-        </p>
+        </div>
       </div>
     </div>
   );

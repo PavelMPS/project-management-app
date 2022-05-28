@@ -1,40 +1,52 @@
+.team-info {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
 .profile-container {
-    margin: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 60vh;
-    width: 300px;
-    align-content: center;
-    text-align: center;
-    gap: 10px;
-    padding: 10px;
-    background-color: rgba(210, 232, 250, 0.7);
-    border-radius: 20px;
-    transition: 0.4s all;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: 250px;
+  width: 250px;
+  align-content: center;
+  text-align: center;
+  gap: 10px;
+  background-color: var(--second-color);
+  border-radius: 5px;
+  transition: all 0.4s;
 }
 
 .profile-container img {
-    display: inline-block;
-    border-radius: 20px;
-    width: 90%;
-    height: 100%;
+  display: inline-block;
+  border-radius: 5px;
+  width: 100%;
+  background-size: cover;
 }
 
 .profile-container:hover {
-    cursor: pointer;
-    -webkit-transform: scale(1.05);
-    -ms-transform: scale(1.05);
-    transform: scale(1.05);
-    transition: 0.4s all;
-    -webkit-box-shadow: 16px 14px 8px 0px rgba(55, 54, 58, 0.28);
-    -moz-box-shadow: 16px 14px 8px 0px rgba(55, 54, 58, 0.28);
-    box-shadow: 16px 14px 8px 0px rgba(55, 54, 58, 0.28);
+  cursor: pointer;
+  -webkit-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  transform: scale(1.05);
+  transition: 0.4s all;
+  -webkit-box-shadow: 8px 8px 8px 0px var(--twelfth-color);
+  -moz-box-shadow: 8px 8px 8px 0px var(--twelfth-color);
+  box-shadow: 8px 8px 8px 0px var(--twelfth-color);
 }
-
-
-
-.team-info {
-    display: flex;
-    justify-content: space-around;
+.information {
+  margin: 10px;
+  margin-top: 0px;
+  text-align: left;
+}
+.information-name {
+  font-weight: 500;
+  font-size: 22px;
+}
+.information-age {
+  font-weight: 200;
+  font-size: 16px;
+  margin-bottom: 15px;
 }

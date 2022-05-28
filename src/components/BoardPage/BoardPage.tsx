@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -18,6 +18,7 @@ import { AppDispatch } from '../../redux/Store';
 import { fetchUsers, selectUsers, selectUsersStatus } from '../../redux/UsersSlice';
 import Column from '../Column/Column';
 import { ColumnState, getBoardById, selectBoardStatus } from '../../redux/GetBoardSlice';
+import { setChoosenUser, selectChoosenUser } from '../../redux/ChooseUserSlice';
 import { useAppSelector } from '../../redux/hooks/redux';
 import { column, fetchStatus, formType } from '../../constants/Constants';
 import { Loader } from '../Loader/Loader';
@@ -26,13 +27,13 @@ import './boardPage.css';
 
 const BoardPage = (): JSX.Element => {
   const { t } = useTranslation();
-  const [choosingUser, setChoosingUser] = useState<string>('');
   const board = useSelector(selectBoard);
-  const statusColumn = useSelector(selectStatusColumn);
-  const statusTasks = useSelector(selectStatusTasks);
-  const statusUsers = useSelector(selectUsersStatus);
-  const statusBoard = useSelector(selectBoardStatus);
+  const statusColumn: string = useSelector(selectStatusColumn);
+  const statusTasks: string = useSelector(selectStatusTasks);
+  const statusUsers: string = useSelector(selectUsersStatus);
+  const statusBoard: string = useSelector(selectBoardStatus);
   const users: IUser[] = useSelector(selectUsers);
+  const choosenUser: string = useSelector(selectChoosenUser);
 
   const { idBoard } = useAppSelector((store) => store.idBoard);
   const [dragState, updateDragState] = useState(idBoard.columns);
@@ -133,9 +134,7 @@ const BoardPage = (): JSX.Element => {
     await dispatch(getBoardById(board.id));
   };
 
-  const chooseUserHandler = (e: FormEvent): void => {
-    e.preventDefault();
-    if (!choosingUser) return;
+  const chooseUserHandler = (choosingUser: string): void => {
     let newState: ColumnState[] = [];
     if (choosingUser === t('board.all')) {
       newState = idBoard.columns;
@@ -150,21 +149,26 @@ const BoardPage = (): JSX.Element => {
       });
     }
     updateDragState(newState);
+    dispatch(setChoosenUser(choosingUser));
   };
+
+  // TODO попробовать сделать так, чтобы после рендеринга оставалась сортировка, или удалить ChooseUserSlice
 
   return (
     <>
       <div className="board-container">
         <div className="board-title-container">
           <h1>{board.title}</h1>
-          <form className="user-task-form" onSubmit={chooseUserHandler}>
+          <form className="user-task-form">
             <label className="form-label">
               {t('task.selectUser')}
               <br />
               <select
                 className="form-input"
-                value={choosingUser}
-                onChange={(e) => setChoosingUser(e.currentTarget.value)}
+                value={t('board.all')}
+                onChange={(e) => {
+                  chooseUserHandler(e.currentTarget.value);
+                }}
               >
                 <option>{t('board.all')}</option>
                 {users.map((user: IUser) => (
@@ -174,7 +178,6 @@ const BoardPage = (): JSX.Element => {
                 ))}
               </select>
             </label>
-            <button className="user-task-btn">{t('board.show')}</button>
           </form>
           <Link className="link" to="/main">
             <div className="btn" onClick={boardCloseHadler}>
