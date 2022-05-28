@@ -163,3 +163,11 @@ interface ITeam {
   age: string;
   about: string;
 }
+
+interface IPofile {
+  imgSrc: string;
+  name: string;
+  surname: string;
+  age: string;
+  about: string;
+}

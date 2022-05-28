@@ -37,6 +37,7 @@ header {
   column-gap: 15px;
   background-color: none;
   border: none;
+  cursor: pointer;
 }
 .header-btn:hover {
   box-shadow: 0px -56px 21px -29px var(--second-color) inset;
@@ -92,9 +93,10 @@ header {
 
 .toglers-container {
   display: flex;
+  justify-content: center;
   flex-direction: column;
   row-gap: 5px;
-  justify-content: center;
+  margin-left: 10px;
 }
 .checkbox {
   display: none;

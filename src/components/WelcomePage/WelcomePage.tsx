@@ -31,23 +31,31 @@ const WelcomePage = (): JSX.Element => {
 
   return (
     <div className="welcome-container">
-      <h1>{t('welcome.title')}</h1>
-      {!isAuth ? (
-        <div className="signup-container">
-          <NavLink to="/login">
-            <button>{t('welcome.login')}</button>
-          </NavLink>
-          <NavLink to="/sign-up">
-            <button>{t('welcome.signup')}</button>
-          </NavLink>
-        </div>
-      ) : (
-        <div className="signup-container">
-          <NavLink to="/main">
-            <button>{t('welcome.toMain')}</button>
-          </NavLink>
-        </div>
-      )}
+      <div className="welcom-title-container">
+        <h1>{t('welcome.title')}</h1>
+        {!isAuth ? (
+          <div className="signup-container">
+            <NavLink className="link" to="/login">
+              <div className="btn welcome-btn">{t('welcome.login')}</div>
+            </NavLink>
+            <NavLink className="link" to="/sign-up">
+              <div className="btn sign-up-btn welcome-btn">{t('welcome.signup')}</div>
+            </NavLink>
+          </div>
+        ) : (
+          <div className="signup-container">
+            <NavLink className="link" to="/main">
+              <div className="btn">{t('welcome.toMain')}</div>
+            </NavLink>
+          </div>
+        )}
+      </div>
+
+      <div className="team-info">
+        {Team.map((item: ITeam) => (
+          <ProfileCard key={Team.indexOf(item)} {...item} />
+        ))}
+      </div>
 
       <div className="project-info">
         <h3>{t('aboutProject.title')}</h3>
@@ -75,11 +83,6 @@ const WelcomePage = (): JSX.Element => {
         </p>
         <p>{t('aboutCourses.pay_it_forward')}</p>
         <p>{t('aboutCourses.description')}</p>
-      </div>
-      <div className="team-info">
-        {Team.map((item: ITeam) => (
-          <ProfileCard key={Team.indexOf(item)} {...item} />
-        ))}
       </div>
     </div>
   );

@@ -65,7 +65,7 @@ const EditProfile = (): JSX.Element => {
                 placeholder={t('edit.newLoginPlaceholder')}
                 {...register('login', { required: true })}
               />
-              {errors.login && <p className="error">{t('edit.errors.name')}</p>}
+              {errors.login && <p className="error">{t('edit.errors.login')}</p>}
             </label>
           </div>
           <div className="form-element-wrapper">
@@ -77,7 +77,7 @@ const EditProfile = (): JSX.Element => {
                 placeholder={t('edit.newPasswordPlaceholder')}
                 {...register('password', { required: true })}
               />
-              {errors.password && <p className="error">{t('edit.errors.name')}</p>}
+              {errors.password && <p className="error">{t('edit.errors.password')}</p>}
             </label>
           </div>
           <div className="edit-form-buttons">

@@ -43,6 +43,10 @@
   transition: 0.2s;
   color: var(--third-color);
 }
+.sign-up-btn {
+  background-color: var(--seventh-color);
+  color: var(--ninth-color);
+}
 .opacity-btn {
   align-items: center;
   height: 40px;
@@ -125,8 +129,8 @@
   margin-bottom: 50px;
 }
 .form-label {
-  line-height: 100%;
   position: relative;
+  line-height: 100%;
   padding-left: 10px;
 }
 .form-input {
@@ -149,7 +153,9 @@
   border: 2px solid var(--ninth-color);
   outline: none;
 }
-
+.column-input {
+  width: 190px;
+}
 .input-error {
   border: 1px solid var(--tenth-color);
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -157,7 +163,7 @@
 }
 .error {
   position: absolute;
-  top: 25px;
+  top: 80%;
   color: #ff0000;
   font-size: 16px;
   text-align: start;

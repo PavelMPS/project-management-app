@@ -89,7 +89,7 @@ const Column = (props: { columnInf: ColumnState; index: number }): JSX.Element =
               {isTitleUpdate && (
                 <>
                   <input
-                    className="form-input"
+                    className="form-input column-input"
                     type="text"
                     defaultValue={props.columnInf.title}
                     onChange={(event) => setTitle(event.target.value)}
