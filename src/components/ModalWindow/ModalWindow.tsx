@@ -19,11 +19,6 @@ const ModalWindow: (props: {
   const [theme, setThemeApp] = useState<string>();
 
   useEffect(() => {
-    if (localStorage.getItem('theme') && localStorage.getItem('theme') === themes.dark) {
-      dispatch(setTheme(themes.dark));
-    } else {
-      dispatch(setTheme(themes.light));
-    }
     setThemeApp(`modal-window ${selectsTheme}`);
   }, [selectsTheme]);
 

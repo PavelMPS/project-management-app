@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux';
 import { logout } from '../../redux/userSlice';
-import ModalFormBoardCreate from '../MainPage/ModalFormBoardCreate';
 import { deleteUser } from '../../redux/DeleteUserSlice';
 import { lngs, themes } from '../../constants/Constants';
 import Confirmation from '../Confirmation/Confirmation';
@@ -13,6 +12,7 @@ import ModalWindow from '../ModalWindow/ModalWindow';
 import { selectTheme, setTheme } from '../../redux/ThemeSlice';
 
 import './header.css';
+import BoardForm from '../MainPage/BoardForm';
 
 const Header = (): JSX.Element => {
   const { t, i18n } = useTranslation();
@@ -171,7 +171,7 @@ const Header = (): JSX.Element => {
       )}
       {isModalCreateBoardOpen && (
         <ModalWindow onClick={handleModalClose}>
-          <ModalFormBoardCreate />
+          <BoardForm />
         </ModalWindow>
       )}
     </header>

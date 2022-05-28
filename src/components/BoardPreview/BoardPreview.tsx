@@ -9,6 +9,9 @@ import { AppDispatch } from '../../redux/Store';
 import { getBoardById } from '../../redux/GetBoardSlice';
 
 import './boardPreview.css';
+import { fetchUsers } from '../../redux/UsersSlice';
+import ModalWindow from '../ModalWindow/ModalWindow';
+import BoardFormUpdate from '../MainPage/BoardFormUpdate';
 
 const BoardPreview = (props: { boardInf: IBoard }): JSX.Element => {
   const { t } = useTranslation();
@@ -17,6 +20,7 @@ const BoardPreview = (props: { boardInf: IBoard }): JSX.Element => {
   const boardError: string | null = useSelector(selectBoardsError);
 
   const [isConfirmationOpen, setIsConfirmationOpen] = useState<boolean>(false);
+  const [isModalOpen, setModalOpen] = useState<boolean>(false);
 
   const confirmationSubmit = async (): Promise<void> => {
     await dispatch(deleteBoardFetch(props.boardInf.id));
@@ -28,20 +32,24 @@ const BoardPreview = (props: { boardInf: IBoard }): JSX.Element => {
   const openBoardHandler = (): void => {
     dispatch(getBoardById(props.boardInf.id));
     dispatch(openBoard(props.boardInf));
+    dispatch(fetchUsers());
   };
+
+  const updateHandler = (): void => {
+    setModalOpen(true);
+  };
+
+  const handleModalClose = (): void => {
+    setModalOpen(false);
+  };
+
   return (
     <>
       <div className="board-prew-container">
         <div className="board-prew-wrapper">
           <div className="board-prew-title">{props.boardInf.title}</div>
           <div className="board-title-btn-container">
-            <div
-              className="small-btn edit"
-              onClick={() => {
-                console.log('update');
-                //TODO add update
-              }}
-            ></div>
+            <div className="small-btn edit" onClick={updateHandler}></div>
             <div className="small-btn trash" onClick={() => setIsConfirmationOpen(true)}></div>
           </div>
         </div>
@@ -52,6 +60,17 @@ const BoardPreview = (props: { boardInf: IBoard }): JSX.Element => {
           </div>
         </Link>
       </div>
+      {isModalOpen && (
+        <ModalWindow onClick={handleModalClose}>
+          {
+            <BoardFormUpdate
+              boardTitle={props.boardInf.title}
+              boardDescription={props.boardInf.description}
+              boardId={props.boardInf.id}
+            />
+          }
+        </ModalWindow>
+      )}
       {isConfirmationOpen && (
         <Confirmation
           onCancel={() => setIsConfirmationOpen(false)}

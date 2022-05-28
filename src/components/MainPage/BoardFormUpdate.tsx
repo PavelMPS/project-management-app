@@ -1,14 +1,22 @@
-import React, { FormEvent, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import { createBoard } from '../../redux/CreateBoardSlice';
-import { fetchBoards } from '../../redux/MainSlice';
 import { AppDispatch } from '../../redux/Store';
 import Confirmation from '../Confirmation/Confirmation';
 import { useForm } from 'react-hook-form';
+import { updateBoard } from '../../redux/UpdateBoardSlice';
+import { fetchBoards } from '../../redux/MainSlice';
 
-const ModalFormBoardCreate = (): JSX.Element => {
+const BoardFormUpdate = ({
+  boardTitle,
+  boardDescription,
+  boardId,
+}: {
+  boardTitle: string;
+  boardDescription: string;
+  boardId: string;
+}): JSX.Element => {
   const { t } = useTranslation();
   const {
     register,
@@ -18,13 +26,13 @@ const ModalFormBoardCreate = (): JSX.Element => {
   } = useForm<ICreateBoard>();
   const [isConfirmationOpen, setIsConfirmationOpen] = useState<boolean>(false);
   const [boardInf, setBoardInf] = useState<ICreateBoard>({
-    title: '',
-    description: '',
+    title: boardTitle,
+    description: boardDescription,
   });
 
   const dispatch = useDispatch<AppDispatch>();
 
-  const createBoardHandler = (data: ICreateBoard): void => {
+  const updateBoardHandler = (data: ICreateBoard): void => {
     setIsConfirmationOpen(true);
     setBoardInf({
       title: data.title,
@@ -33,23 +41,30 @@ const ModalFormBoardCreate = (): JSX.Element => {
   };
 
   const confirmationSubmit = async (): Promise<void> => {
+    console.log('Confirmation submit');
     const { title, description } = boardInf;
     setIsConfirmationOpen(false);
     reset();
-    await dispatch(createBoard({ title, description }));
+    await dispatch(updateBoard({ title: title, description: description, boardId: boardId }));
     await dispatch(fetchBoards());
   };
 
   return (
     <>
-      <form className="form" onSubmit={handleSubmit(createBoardHandler)}>
+      <form className="form" onSubmit={handleSubmit(updateBoardHandler)}>
         <div className="form-element-wrapper">
           <label className="form-label">
             {t('board.title')}
             <input
               className="form-input"
+              value={boardInf.title}
               {...register('title', {
                 required: true,
+                onChange: (e) => {
+                  setBoardInf((state) => {
+                    return { ...state, title: e.target.value };
+                  });
+                },
               })}
               type="text"
               placeholder={t('board.titlePlaceholder')}
@@ -62,14 +77,22 @@ const ModalFormBoardCreate = (): JSX.Element => {
             {t('board.description')}
             <input
               className="form-input"
+              value={boardInf.description}
               type="text"
               placeholder={t('board.descriptionPlaceholder')}
-              {...register('description', { required: true })}
+              {...register('description', {
+                required: true,
+                onChange: (e) => {
+                  setBoardInf((state) => {
+                    return { ...state, description: e.target.value };
+                  });
+                },
+              })}
             />
             {errors.description && <p className="error">{t('board.errors.description')}</p>}
           </label>
         </div>
-        <button className="btn">{t('board.createButton')}</button>
+        <button className="btn">{t('board.update')}</button>
       </form>
       {isConfirmationOpen && (
         <Confirmation
@@ -81,4 +104,4 @@ const ModalFormBoardCreate = (): JSX.Element => {
   );
 };
 
-export default ModalFormBoardCreate;
+export default BoardFormUpdate;

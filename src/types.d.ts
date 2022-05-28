@@ -29,6 +29,10 @@ type themeState = {
   theme: string;
 };
 
+type choseUserState = {
+  user: string;
+};
+
 interface IBoard {
   id: string;
   title: string;
@@ -92,6 +96,13 @@ interface IUserAuthState {
 
 interface ICreateBoardState {
   title: string;
+  isLoading: boolean;
+  error: string;
+}
+
+interface IUpdateBoardState {
+  title: string;
+  description: string;
   isLoading: boolean;
   error: string;
 }
