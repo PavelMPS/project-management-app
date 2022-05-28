@@ -104,6 +104,8 @@ i18n
             open: 'Open',
           },
           board: {
+            all: 'All',
+            show: 'Show tasks',
             close: 'Close',
             addTask: 'Add task',
             addColumn: 'Add column',
@@ -269,6 +271,8 @@ i18n
             open: 'Открыть',
           },
           board: {
+            all: 'Все',
+            show: 'Показать таски',
             close: 'Закрыть',
             addTask: 'Добавить задачу',
             addColumn: 'Добавить колонку',
