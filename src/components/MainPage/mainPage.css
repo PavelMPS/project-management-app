@@ -1,8 +1,6 @@
 .main-page-container {
   width: 100%;
-  height: calc(100vh - 150px);
   padding: 0px 50px;
-  overflow-y: scroll;
 }
 .boards-prew-container {
   width: 100%;
@@ -11,19 +9,4 @@
   justify-content: space-between;
   column-gap: 25px;
   color: rgb(85, 72, 2);
-}
-
-.main-page-container::-webkit-scrollbar {
-  width: 10px;
-  position: fixed;
-  bottom: 0;
-}
-.main-page-container::-webkit-scrollbar-track {
-  background-color: var(--first-color);
-  border-radius: 10px;
-  margin: 10px 0px;
-}
-.main-page-container::-webkit-scrollbar-thumb {
-  background-color: var(--second-color);
-  border-radius: 10px;
 }

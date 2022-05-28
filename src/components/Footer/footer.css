@@ -1,5 +1,9 @@
 footer {
+  position: fixed;
+  z-index: 100;
+  bottom: 0;
   min-height: 75px;
+  width: 100%;
   align-items: center;
   background: linear-gradient(90deg, var(--ninth-color), var(--second-color));
   display: flex;

@@ -159,26 +159,24 @@ const BoardPage = (): JSX.Element => {
       <div className="board-container">
         <div className="board-title-container">
           <h1>{board.title}</h1>
-          <form className="user-task-form">
-            <label className="form-label">
-              {t('task.selectUser')}
-              <br />
-              <select
-                className="form-input"
-                value={t('board.all')}
-                onChange={(e) => {
-                  chooseUserHandler(e.currentTarget.value);
-                }}
-              >
-                <option>{t('board.all')}</option>
-                {users.map((user: IUser) => (
-                  <option key={user.id} value={user.id}>
-                    {user.name}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </form>
+          <label className="form-label">
+            {t('task.selectUser')}
+            <br />
+            <select
+              className="form-input"
+              value={t('board.all')}
+              onChange={(e) => {
+                chooseUserHandler(e.currentTarget.value);
+              }}
+            >
+              <option>{t('board.all')}</option>
+              {users.map((user: IUser) => (
+                <option key={user.id} value={user.id}>
+                  {user.name}
+                </option>
+              ))}
+            </select>
+          </label>
           <Link className="link" to="/main">
             <div className="btn" onClick={boardCloseHadler}>
               {t('board.close')}

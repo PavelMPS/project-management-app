@@ -57,3 +57,19 @@ code {
 h1 {
   font-size: 32px;
 }
+
+::-webkit-scrollbar {
+  width: 20px;
+  position: fixed;
+  top: 100px;
+  bottom: 100px;
+}
+::-webkit-scrollbar-track {
+  background-color: #ffffff;
+  border-radius: 10px;
+  margin: 10px 0px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #2b2b2b;
+  border-radius: 10px;
+}
