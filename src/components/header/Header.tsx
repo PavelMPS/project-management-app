@@ -4,13 +4,13 @@ import { useTranslation } from 'react-i18next';
 
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux';
 import { logout } from '../../redux/userSlice';
-import ModalFormBoardCreate from '../MainPage/ModalFormBoardCreate';
 import { deleteUser } from '../../redux/DeleteUserSlice';
 import { lngs } from '../../constants/Constants';
 import Confirmation from '../Confirmation/Confirmation';
 import ModalWindow from '../ModalWindow/ModalWindow';
 
 import './header.css';
+import BoardForm from '../MainPage/BoardForm';
 
 const Header = (): JSX.Element => {
   const { t, i18n } = useTranslation();
@@ -139,7 +139,7 @@ const Header = (): JSX.Element => {
       )}
       {isModalCreateBoardOpen && (
         <ModalWindow onClick={handleModalClose}>
-          <ModalFormBoardCreate />
+          <BoardForm />
         </ModalWindow>
       )}
     </header>

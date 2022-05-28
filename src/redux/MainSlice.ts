@@ -23,6 +23,9 @@ export const fetchBoards: AsyncThunk<IBoard[], void, EmptyObject> = createAsyncT
         Authorization: `Bearer ${token}`,
       },
     });
+    response.data.sort((a, b) => {
+      return a.title.localeCompare(b.title);
+    });
     return response.data;
   }
 );

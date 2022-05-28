@@ -12,6 +12,7 @@ import EditProfileSlice from './EditProfileSlice';
 import DragAndDropTasksSlice from './DragAndDropTasksSlice';
 import DragAndDropColumnSlice from './DragAndDropColumnSlice';
 import SignUpSlice from './SignUpSlice';
+import updateBoardSlice from './UpdateBoardSlice';
 
 export const store = configureStore({
   reducer: {
@@ -27,6 +28,7 @@ export const store = configureStore({
     dragTask: DragAndDropTasksSlice,
     dragColumn: DragAndDropColumnSlice,
     signUp: SignUpSlice,
+    updateBoard: updateBoardSlice,
   },
 });
 
