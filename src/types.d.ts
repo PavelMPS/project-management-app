@@ -25,6 +25,10 @@ type usersState = {
   error: string | null;
 };
 
+type themeState = {
+  theme: string;
+};
+
 interface IBoard {
   id: string;
   title: string;
@@ -132,6 +136,11 @@ interface IError {
 interface ILangs {
   en: string;
   ru: string;
+}
+
+interface IThemes {
+  light: string;
+  dark: string;
 }
 
 interface ISignUpResponse {

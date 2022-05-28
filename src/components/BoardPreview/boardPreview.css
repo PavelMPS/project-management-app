@@ -23,8 +23,10 @@
 }
 .board-prew-description {
   text-align: left;
-  background-color: var(--eighth-color);
+  background-color: var(--fifth-color);
+  color: var(--eighth-color);
+  font-weight: 400;
   border-radius: 5px;
-  padding: 3px;
+  padding: 3px 5px;
   margin: 10px auto;
 }

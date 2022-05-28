@@ -67,3 +67,8 @@ export const lngs: ILangs = {
   en: 'en',
   ru: 'ru',
 };
+
+export const themes: IThemes = {
+  light: 'light',
+  dark: 'dark',
+};

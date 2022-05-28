@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux';
 import { logout } from '../../redux/userSlice';
 import ModalFormBoardCreate from '../MainPage/ModalFormBoardCreate';
 import { deleteUser } from '../../redux/DeleteUserSlice';
-import { lngs } from '../../constants/Constants';
+import { lngs, themes } from '../../constants/Constants';
 import Confirmation from '../Confirmation/Confirmation';
 import ModalWindow from '../ModalWindow/ModalWindow';
+import { selectTheme, setTheme } from '../../redux/ThemeSlice';
 
 import './header.css';
 
@@ -23,6 +25,9 @@ const Header = (): JSX.Element => {
   const [isConfirmationLogoutOpen, setIsConfirmationLogoutOpen] = useState<boolean>(false);
   const [isModalCreateBoardOpen, setIsModalCreateBoardOpen] = useState<boolean>(false);
 
+  const [themeValue, setThemeValue] = useState<boolean>(false);
+  const appTheme = useSelector(selectTheme);
+
   useEffect((): void => {
     if (localStorage.getItem('i18nextLng') === lngs.en) {
       i18n.changeLanguage(lngs.en);
@@ -35,6 +40,14 @@ const Header = (): JSX.Element => {
       return navigate('/');
     }
   }, [isAuth, i18n]);
+
+  useEffect((): void => {
+    if (appTheme === themes.dark) {
+      setThemeValue(true);
+    } else {
+      setThemeValue(false);
+    }
+  }, []);
 
   const logoutHandler = (): void => {
     setIsConfirmationLogoutOpen(true);
@@ -74,6 +87,19 @@ const Header = (): JSX.Element => {
 
   const createBoardHandler = (): void => {
     setIsModalCreateBoardOpen(true);
+  };
+
+  const changeTheme = (): void => {
+    let newTheme: string;
+    if (appTheme === themes.dark) {
+      newTheme = themes.light;
+      setThemeValue(false);
+    } else {
+      newTheme = themes.dark;
+      setThemeValue(true);
+    }
+    dispatch(setTheme(newTheme));
+    localStorage.setItem('theme', newTheme);
   };
 
   window.addEventListener('scroll', setActiveNavbar);
@@ -117,7 +143,13 @@ const Header = (): JSX.Element => {
               <b className="en">{'EN'}</b>
             </label>
             <label htmlFor="checkbox-theme" className="togler-container">
-              <input className="checkbox" type="checkbox" id="checkbox-theme" />
+              <input
+                className="checkbox"
+                type="checkbox"
+                id="checkbox-theme"
+                onChange={changeTheme}
+                checked={themeValue}
+              />
               <span className="togler-ball"></span>
               <b className="sun"></b>
               <b className="moon"></b>

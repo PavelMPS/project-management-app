@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import EditProfile from '../EditProfilePage/EditProfilePage';
 import Footer from '../Footer/Footer';
@@ -12,11 +13,12 @@ import BoardPage from '../BoardPage/BoardPage';
 import WelcomePage from '../WelcomePage/WelcomePage';
 import Toast from '../Toast/Toast';
 import { RequireAuth } from '../../hoc/RequireAuth';
-
 import { getTokenFromLocalStorage } from '../../redux/ColumnSlice';
 import { getUserAuth } from '../../redux/userSlice';
 import { getIdFromToken } from '../../redux/EditProfileSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux';
+import { themes } from '../../constants/Constants';
+import { selectTheme, setTheme } from '../../redux/ThemeSlice';
 
 import './App.css';
 
@@ -24,6 +26,8 @@ const App = (): JSX.Element => {
   const { isAuth } = useAppSelector((store) => store.user);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [theme, setThemeApp] = useState<string>();
+  const selectsTheme = useSelector(selectTheme);
 
   useEffect(() => {
     const token = getTokenFromLocalStorage();
@@ -38,13 +42,22 @@ const App = (): JSX.Element => {
   }, []);
 
   useEffect(() => {
+    if (localStorage.getItem('theme') && localStorage.getItem('theme') === themes.dark) {
+      dispatch(setTheme(themes.dark));
+    } else {
+      dispatch(setTheme(themes.light));
+    }
+    setThemeApp(`body ${selectsTheme}`);
+  }, [selectsTheme]);
+
+  useEffect(() => {
     if (!isAuth) {
       return navigate('/');
     }
   }, [isAuth]);
 
   return (
-    <div className="body">
+    <div className={theme}>
       <Header />
       <div className="main-container">
         <Routes>

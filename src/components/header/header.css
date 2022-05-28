@@ -149,11 +149,11 @@ header {
 }
 .sun {
   background-image: url(../../assets/sun.svg);
-  left: 2px;
+  right: 2px;
 }
 .moon {
   background-image: url(../../assets/moon.svg);
-  right: 2px;
+  left: 2px;
 }
 
 .checkbox:checked + .togler-ball {

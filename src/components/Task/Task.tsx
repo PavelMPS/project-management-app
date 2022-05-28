@@ -65,12 +65,15 @@ const Task = (props: { taskInf: TaskState; columnId: string; index: number }): J
               <div className="task-title">{props.taskInf.title}</div>
               <div className="task-wrapper">
                 <div
-                  className="small-btn edit"
+                  className="small-btn task-update"
                   onClick={async () => {
                     setModalOpen(true);
                   }}
                 ></div>
-                <div className="small-btn trash" onClick={() => setIsConfirmationOpen(true)}></div>
+                <div
+                  className="small-btn task-trash"
+                  onClick={() => setIsConfirmationOpen(true)}
+                ></div>
               </div>
             </div>
             {isTaskOpen && (

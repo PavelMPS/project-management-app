@@ -32,9 +32,9 @@
   -ms-transform: scale(1.05);
   transform: scale(1.05);
   transition: 0.4s all;
-  -webkit-box-shadow: 8px 8px 8px 0px rgba(55, 54, 58, 0.28);
-  -moz-box-shadow: 8px 8px 8px 0px rgba(55, 54, 58, 0.28);
-  box-shadow: 8px 8px 8px 0px rgba(55, 54, 58, 0.28);
+  -webkit-box-shadow: 8px 8px 8px 0px var(--twelfth-color);
+  -moz-box-shadow: 8px 8px 8px 0px var(--twelfth-color);
+  box-shadow: 8px 8px 8px 0px var(--twelfth-color);
 }
 .information {
   margin: 10px;

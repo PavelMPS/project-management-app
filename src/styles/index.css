@@ -1,16 +1,34 @@
-:root {
+.body.light,
+.modal-window.light,
+.confirmation-window.light {
   --first-color: #f4f4f4;
   --second-color: #ffaa5a;
   --third-color: #1f1f1f;
   --forth-color: #d6d6d6;
-  --fifth-color: #2e2e2e;
+  --fifth-color: #ffffff;
   --sixth-color: #585858;  
   --seventh-color: #ffffff;
-  --eighth-color: #ffffff60;  
+  --eighth-color: #1f1f1f;  
   --ninth-color: #ff795e;  
   --tenth-color: #ffffff;
-  --eleventh-color: #ff932ed3;
-  --twelfth-color: #1f1f1f2f;
+  --eleventh-color: #ffffff76;
+  --twelfth-color: #1f1f1f42;
+}
+.body.dark,
+.modal-window.dark,
+.confirmation-window.dark {
+  --first-color: #3f3f3f;
+  --second-color: #7abdff;
+  --third-color: #f4f4f4;
+  --forth-color: #d6d6d63c;
+  --fifth-color: #ffffff71;
+  --sixth-color: #2d2d2d;  
+  --seventh-color: #ffffff;
+  --eighth-color: #1f1f1f;  
+  --ninth-color: #8082ff;  
+  --tenth-color: #ffffff;
+  --eleventh-color: #ffffff76;
+  --twelfth-color: #d7d7d76b;
 }
 
 *, 
