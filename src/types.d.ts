@@ -92,6 +92,13 @@ interface ICreateBoardState {
   error: string;
 }
 
+interface IUpdateBoardState {
+  title: string;
+  description: string;
+  isLoading: boolean;
+  error: string;
+}
+
 interface IDeleteUserState {
   status: string;
   error: string | null;
