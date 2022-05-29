@@ -39,9 +39,9 @@ const EditProfile = (): JSX.Element => {
       <div className="edit-container">
         <div className="edit-title-container">
           <h1>{t('edit.title')}</h1>
-          <button className="btn" onClick={backToHome}>
+          <div className="btn" onClick={backToHome}>
             {t('edit.cancel')}
-          </button>
+          </div>
         </div>
         <form className="form" onSubmit={handleSubmit(onSubmit)}>
           <div className="form-element-wrapper">
@@ -84,7 +84,7 @@ const EditProfile = (): JSX.Element => {
             </label>
           </div>
           <div className="edit-form-buttons">
-            <button className="btn">{t('edit.submit')}</button>
+            <div className="btn">{t('edit.submit')}</div>
           </div>
         </form>
       </div>

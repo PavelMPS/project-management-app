@@ -48,6 +48,9 @@ const App = (): JSX.Element => {
       dispatch(setTheme(themes.light));
     }
     setThemeApp(`body ${selectsTheme}`);
+
+    const mainBlok = document.querySelector('.main-container')!;
+    mainBlok.addEventListener('scroll', setActiveNavbar);
   }, [selectsTheme]);
 
   useEffect(() => {
@@ -55,6 +58,17 @@ const App = (): JSX.Element => {
       return navigate('/');
     }
   }, [isAuth]);
+
+  const setActiveNavbar = () => {
+    console.log('window.scrollY');
+    // if (window.scrollY >= 100) {
+    //   console.log('scroll');
+    //   setNavbar(true);
+    // } else {
+    //   console.log('noscroll');
+    //   setNavbar(false);
+    // }
+  };
 
   return (
     <div className={theme}>

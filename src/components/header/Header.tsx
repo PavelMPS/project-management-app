@@ -13,6 +13,7 @@ import { selectTheme, setTheme } from '../../redux/ThemeSlice';
 
 import './header.css';
 import BoardForm from '../MainPage/BoardForm';
+import { doc } from 'prettier';
 
 const Header = (): JSX.Element => {
   const { t, i18n } = useTranslation();
@@ -42,7 +43,7 @@ const Header = (): JSX.Element => {
   }, [isAuth, i18n]);
 
   useEffect((): void => {
-    if (appTheme === themes.dark) {
+    if (localStorage.getItem('theme') === themes.dark) {
       setThemeValue(true);
     } else {
       setThemeValue(false);
@@ -66,14 +67,6 @@ const Header = (): JSX.Element => {
   const logoutUserConfirmationSubmit = (): void => {
     setIsConfirmationLogoutOpen(false);
     dispatch(logout());
-  };
-
-  const setActiveNavbar = () => {
-    if (window.scrollY >= 100) {
-      setNavbar(true);
-    } else {
-      setNavbar(false);
-    }
   };
 
   const languageToggler = (): void => {
@@ -102,6 +95,14 @@ const Header = (): JSX.Element => {
     localStorage.setItem('theme', newTheme);
   };
 
+  const setActiveNavbar = () => {
+    if (window.scrollY >= 100) {
+      setNavbar(true);
+    } else {
+      setNavbar(false);
+    }
+  };
+
   window.addEventListener('scroll', setActiveNavbar);
 
   return (
@@ -109,54 +110,56 @@ const Header = (): JSX.Element => {
       <Link to="/">
         <div className="logo"></div>
       </Link>
-      {isAuth && (
-        <div className="menu-container">
-          <Link className="edit-link link" to={'/edit'}>
-            <div className="header-btn">
-              <div className="btn-text">{t('header.edit')}</div>
-              <div className="edit-btn"></div>
+      <div className="header-btns-container">
+        {isAuth && (
+          <div className="menu-container">
+            <Link className="edit-link link" to={'/edit'}>
+              <div className="header-btn">
+                <div className="btn-text">{t('header.edit')}</div>
+                <div className="edit-btn"></div>
+              </div>
+            </Link>
+            <div className="header-btn" onClick={logoutHandler}>
+              <div className="btn-text">{t('header.logout')}</div>
+              <div className="logout-btn"></div>
             </div>
-          </Link>
-          <div className="header-btn" onClick={logoutHandler}>
-            <div className="btn-text">{t('header.logout')}</div>
-            <div className="logout-btn"></div>
+            <div className="header-btn" onClick={deleteUserHandler}>
+              <div className="btn-text">{t('header.delete')}</div>
+              <div className="user-delete-btn"></div>
+            </div>
+            <div className="header-btn" onClick={createBoardHandler}>
+              <div className="btn-text">{t('header.create')}</div>
+              <div className="create-board-btn"></div>
+            </div>
           </div>
-          <div className="header-btn" onClick={deleteUserHandler}>
-            <div className="btn-text">{t('header.delete')}</div>
-            <div className="user-delete-btn"></div>
-          </div>
-          <div className="header-btn" onClick={createBoardHandler}>
-            <div className="btn-text">{t('header.create')}</div>
-            <div className="create-board-btn"></div>
-          </div>
-          <div className="toglers-container">
-            <label htmlFor="checkbox" className="togler-container">
-              <input
-                className="checkbox"
-                type="checkbox"
-                id="checkbox"
-                checked={language}
-                onChange={languageToggler}
-              />
-              <span className="togler-ball"></span>
-              <b className="ru">{'RU'}</b>
-              <b className="en">{'EN'}</b>
-            </label>
-            <label htmlFor="checkbox-theme" className="togler-container">
-              <input
-                className="checkbox"
-                type="checkbox"
-                id="checkbox-theme"
-                onChange={changeTheme}
-                checked={themeValue}
-              />
-              <span className="togler-ball"></span>
-              <b className="sun"></b>
-              <b className="moon"></b>
-            </label>
-          </div>
+        )}
+        <div className="toglers-container">
+          <label htmlFor="checkbox" className="togler-container">
+            <input
+              className="checkbox"
+              type="checkbox"
+              id="checkbox"
+              checked={language}
+              onChange={languageToggler}
+            />
+            <span className="togler-ball"></span>
+            <b className="ru">{'RU'}</b>
+            <b className="en">{'EN'}</b>
+          </label>
+          <label htmlFor="checkbox-theme" className="togler-container">
+            <input
+              className="checkbox"
+              type="checkbox"
+              id="checkbox-theme"
+              onChange={changeTheme}
+              checked={themeValue}
+            />
+            <span className="togler-ball"></span>
+            <b className="sun"></b>
+            <b className="moon"></b>
+          </label>
         </div>
-      )}
+      </div>
       {isConfirmationDeleteOpen && (
         <Confirmation
           onCancel={() => setIsConfirmationDeleteOpen(false)}

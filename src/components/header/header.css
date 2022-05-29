@@ -14,7 +14,7 @@ header {
 }
 
 .header-active{
-  background-color: var(--second-color);
+  background: linear-gradient(270deg, var(--ninth-color), var(--ninth-color));
   transition:all 1s;    
 }
 
@@ -27,8 +27,12 @@ header {
   justify-content: flex-end;
 }
 
+.header-btns-container {
+  display: flex;
+  justify-content: flex-end;
+}
 .header-btn {
-  min-height: 75px;
+  height: 100%;
   min-width: 50px;
   align-items: center;
   padding-left: 10px;
@@ -46,7 +50,7 @@ header {
   background-color: var(--second-color);
 }
 .btn-text {
-  font-size: 16px;  
+  font-size: 1rem;  
 }
 
 .edit-btn,
@@ -128,7 +132,7 @@ header {
 .sun,
 .moon {
   line-height: 30px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
   color: var(--tenth-color);
   position: absolute;
@@ -176,4 +180,98 @@ header {
 
 .logo:active {
   transform: translateY(2px);
+}
+
+@media (max-width: 1050px) {
+  .btn-text {
+    display: none;
+  }
+  .header-btn {
+    min-width: 75px;
+  }
+}
+@media (max-width: 700px) {
+  header {
+    height: 50px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .header-btn {
+    min-width: 50px;
+  }
+  .toglers-container {
+    flex-direction: row;
+    gap: 10px;
+  }
+  .logo {
+    width: 82px;
+    height: 20px;
+    background-image: url(../../assets/logo.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    transition: all 0.4s;
+  }
+}
+
+@media (max-width: 450px) {
+  .edit-btn,
+  .logout-btn,
+  .user-delete-btn,
+  .create-board-btn,
+  .en-btn,
+  .ru-btn {
+    min-width: 25px;
+    height: 25px;
+    background-size: contain;
+  }
+  .header-btn {
+    min-width: 35px;
+    padding: 0;
+  }
+
+  .togler-container {
+    height: 40px;
+    width: 21px;
+    border: 2px solid var(--tenth-color);
+    border-radius: 20px;
+    text-align: center;
+  }
+  .togler-ball {
+    width: 16px;
+    height: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .en,
+  .ru,
+  .sun,
+  .moon {
+    line-height: 20px;
+    font-size: 10px;
+    font-weight: 400;
+  }
+  .en {
+    top: 7px;
+    left: 3px;
+  }
+  .ru {
+    bottom: 25px;
+    left: 2px;
+  }
+  .sun,
+  .moon {
+    height: 16px;
+    width: 16px;
+  }
+  .sun {
+    top: 8px;
+    left: 0px;
+  }
+  .moon {
+    top: 25px;
+    left: 0px;
+  }  
+  .checkbox:checked + .togler-ball {
+    transform: translate(-50%, -18px);
+  }
 }

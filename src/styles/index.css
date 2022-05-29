@@ -47,6 +47,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: all 0.4s;
+  font-size: 18px;
 }
 
 code {
@@ -55,5 +56,32 @@ code {
 }
 
 h1 {
-  font-size: 32px;
+  font-size: 1.8rem;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+::-webkit-scrollbar {
+  width: 20px;
+  position: fixed;
+  top: 100px;
+  bottom: 100px;
+}
+::-webkit-scrollbar-track {
+  background-color: #ffffff;
+  border-radius: 10px;
+  margin: 10px 0px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #2b2b2b;
+  border-radius: 10px;
+}
+
+@media (max-width: 700px) {
+  body {
+    font-size: 14px;
+  }
+  h1 {
+    text-align: center;
+  }
 }
