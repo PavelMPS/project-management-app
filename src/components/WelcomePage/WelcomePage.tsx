@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next';
 import { getTokenFromLocalStorage } from '../../redux/ColumnSlice';
 import { getIdFromToken } from '../../redux/EditProfileSlice';
 import { getUserAuth } from '../../redux/userSlice';
-import { Team } from '../../constants/Team';
 import ProfileCard from '../ProfileCard/ProfileCard';
 
 import './welcomePage.css';
@@ -52,9 +51,27 @@ const WelcomePage = (): JSX.Element => {
       </div>
 
       <div className="team-info">
-        {Team.map((item: ITeam) => (
-          <ProfileCard key={Team.indexOf(item)} {...item} />
-        ))}
+        <ProfileCard
+          imgSrc={t('team.veronika.src')}
+          name={t('team.veronika.name')}
+          surname={t('team.veronika.surname')}
+          age={t('team.veronika.age')}
+          about={t('team.veronika.about')}
+        />
+        <ProfileCard
+          imgSrc={t('team.pavel.src')}
+          name={t('team.pavel.name')}
+          surname={t('team.pavel.surname')}
+          age={t('team.pavel.age')}
+          about={t('team.pavel.about')}
+        />
+        <ProfileCard
+          imgSrc={t('team.vitaly.src')}
+          name={t('team.vitaly.name')}
+          surname={t('team.vitaly.surname')}
+          age={t('team.vitaly.age')}
+          about={t('team.vitaly.about')}
+        />
       </div>
 
       <div className="project-info">

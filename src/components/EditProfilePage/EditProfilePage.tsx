@@ -25,6 +25,7 @@ const EditProfile = (): JSX.Element => {
   };
 
   const onSubmit: SubmitHandler<IProfileState> = (data: IProfileState): void => {
+    console.log('form');
     const token = getTokenFromLocalStorage();
     const id: string = getIdFromToken(token);
     dispatch(
@@ -48,7 +49,6 @@ const EditProfile = (): JSX.Element => {
             <label className="form-label">
               {t('edit.newName')}
               <input
-                id="form-input"
                 className={errors.name ? 'form-input input-error' : 'form-input'}
                 type="text"
                 placeholder={t('edit.newNamePlaceholder')}
@@ -61,7 +61,6 @@ const EditProfile = (): JSX.Element => {
             <label className="form-label">
               {t('edit.newLogin')}
               <input
-                id="form-input"
                 className={errors.login ? 'form-input input-error' : 'form-input'}
                 type="text"
                 placeholder={t('edit.newLoginPlaceholder')}
@@ -74,7 +73,6 @@ const EditProfile = (): JSX.Element => {
             <label className="form-label">
               {t('edit.newPassword')}
               <input
-                id="form-input"
                 className={errors.password ? 'form-input input-error' : 'form-input'}
                 type="text"
                 placeholder={t('edit.newPasswordPlaceholder')}
@@ -84,7 +82,7 @@ const EditProfile = (): JSX.Element => {
             </label>
           </div>
           <div className="edit-form-buttons">
-            <div className="btn">{t('edit.submit')}</div>
+            <button className="btn">{t('edit.submit')}</button>
           </div>
         </form>
       </div>
