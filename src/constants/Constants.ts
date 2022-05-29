@@ -62,3 +62,5 @@ export const themes: IThemes = {
   light: 'light',
   dark: 'dark',
 };
+
+export const logotype = 'RSello';

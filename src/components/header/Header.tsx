@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks/redux';
 import { logout } from '../../redux/userSlice';
 import { deleteUser } from '../../redux/DeleteUserSlice';
-import { lngs, themes } from '../../constants/Constants';
+import { lngs, logotype, themes } from '../../constants/Constants';
 import Confirmation from '../Confirmation/Confirmation';
 import ModalWindow from '../ModalWindow/ModalWindow';
 import { selectTheme, setTheme } from '../../redux/ThemeSlice';
@@ -108,7 +108,7 @@ const Header = (): JSX.Element => {
   return (
     <header className={navbar ? 'header-active' : ''}>
       <Link to="/">
-        <div className="logo"></div>
+        <div className="logo">{logotype}</div>
       </Link>
       <div className="header-btns-container">
         {isAuth && (
