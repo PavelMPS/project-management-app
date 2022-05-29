@@ -14,7 +14,7 @@ header {
 }
 
 .header-active{
-  background: linear-gradient(270deg, var(--ninth-color), var(--second-color) 150%);
+  background: linear-gradient(270deg, var(--ninth-color), var(--ninth-color));
   transition:all 1s;    
 }
 
@@ -132,7 +132,7 @@ header {
 .sun,
 .moon {
   line-height: 30px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
   color: var(--tenth-color);
   position: absolute;
