@@ -23,8 +23,16 @@
   margin-top: 25px;
 }
 
+@media (max-width: 820px) {
+  .edit-title-container {
+    display: block;
+  }
+  .edit-title-container .btn {
+    width: 70px;
+    margin: auto;
+  }
+}
 @media (max-width: 420px) {
-
   #form-input {
     width: 280px;
   }

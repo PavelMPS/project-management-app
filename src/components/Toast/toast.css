@@ -1,5 +1,5 @@
 .toast-container {
-  font-size: 18px;
+  font-size: 1rem;
   box-sizing: border-box;
   position: fixed;
   z-index: 999999;

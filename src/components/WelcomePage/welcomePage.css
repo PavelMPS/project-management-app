@@ -3,7 +3,6 @@
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  padding: 0px 50px;
 }
 
 .welcom-title-container {
@@ -26,4 +25,13 @@
 }
 .welcome-btn {
   width: 200px;
+}
+
+@media (max-width: 700px) {
+  .welcom-title-container {
+    flex-direction: column;
+  }
+  .welcome-container {
+    padding: 0px 15px;
+  }
 }

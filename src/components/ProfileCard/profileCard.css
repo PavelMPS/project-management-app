@@ -43,10 +43,10 @@
 }
 .information-name {
   font-weight: 500;
-  font-size: 22px;
+  font-size: 1.2rem;
 }
 .information-age {
   font-weight: 200;
-  font-size: 16px;
+  font-size: 1rem;
   margin-bottom: 15px;
 }

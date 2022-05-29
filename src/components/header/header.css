@@ -14,7 +14,7 @@ header {
 }
 
 .header-active{
-  background: linear-gradient(270deg, var(--second-color), var(--second-color));
+  background: linear-gradient(270deg, var(--ninth-color), var(--second-color) 150%);
   transition:all 1s;    
 }
 
@@ -50,7 +50,7 @@ header {
   background-color: var(--second-color);
 }
 .btn-text {
-  font-size: 16px;  
+  font-size: 1rem;  
 }
 
 .edit-btn,
@@ -187,16 +187,17 @@ header {
     display: none;
   }
   .header-btn {
-    width: 75px;
+    min-width: 75px;
   }
 }
 @media (max-width: 700px) {
   header {
     height: 50px;
     padding-left: 15px;
+    padding-right: 15px;
   }
   .header-btn {
-    width: 50px;
+    min-width: 50px;
   }
   .toglers-container {
     flex-direction: row;
@@ -219,12 +220,12 @@ header {
   .create-board-btn,
   .en-btn,
   .ru-btn {
-    width: 20px;
-    height: 20px;
+    min-width: 25px;
+    height: 25px;
     background-size: contain;
   }
   .header-btn {
-    width: 20px;
+    min-width: 35px;
     padding: 0;
   }
 
@@ -272,8 +273,5 @@ header {
   }  
   .checkbox:checked + .togler-ball {
     transform: translate(-50%, -18px);
-  }
-  .logo {
-    display: none;
   }
 }

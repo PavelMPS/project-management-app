@@ -16,12 +16,22 @@
   column-gap: 15px;
   align-items: center;
 }
+.board-prew-title {
+  width: calc(100% - 55px);
+  font-weight: 500;
+  line-height: 50px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+}
 .board-title-btn-container {
   display: flex;
   justify-content: flex-end;
   column-gap: 15px;
 }
 .board-prew-description {
+  min-height: 75px;
   text-align: left;
   background-color: var(--fifth-color);
   color: var(--eighth-color);
@@ -29,4 +39,11 @@
   border-radius: 5px;
   padding: 3px 5px;
   margin: 10px auto;
+  overflow: hidden;
+}
+
+@media (max-width: 360px) {
+  .board-prew-container {
+    width: 250px;
+  }
 }
