@@ -35,10 +35,11 @@ export const signupSlice = createSlice({
     [setUser.fulfilled.type]: (state: ISignUpState, action: PayloadAction<string>) => {
       state.isLoading = false;
       state.isRegistrationSucces = true;
-      state.error = action.payload;
+      state.error = '201';
     },
     [setUser.pending.type]: (state: ISignUpState) => {
       state.isLoading = true;
+      state.error = null;
     },
     [setUser.rejected.type]: (state: ISignUpState, action) => {
       state.isLoading = false;

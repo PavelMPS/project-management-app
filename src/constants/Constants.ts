@@ -54,6 +54,7 @@ export const formType = {
 };
 
 export const serverErrorText = {
+  201: 'You have successfully created a new account !',
   400: 'Oops, the server does not understand the request... Try it differently!',
   401: 'Oops, you need authentication to get the requested response... Try it!',
   403: 'Oops, the client does not have permission to access the content, so the server refuses to respond... You need to login to your account!',
