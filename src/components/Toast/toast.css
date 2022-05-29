@@ -1,35 +1,35 @@
 .toast-container {
-	font-size: 18px;
-	box-sizing: border-box;
-	position: fixed;
-	z-index: 999999;
+  font-size: 18px;
+  box-sizing: border-box;
+  position: fixed;
+  z-index: 999999;
   bottom: 50px;
-	left: 25px;
-	transition: transform .6s ease-in;
-	animation: toast-in-left .7s;
+  left: 25px;
+  transition: transform 0.6s ease-in;
+  animation: toast-in-left 0.7s;
 }
 
 .toast {
-	background: var(--tenth-color);
-	transition: .5s ease;
-	position: relative;
-	pointer-events: auto;
-	overflow: hidden;
-	margin: 0 0 6px;
-	margin-bottom: 15px;
-	box-shadow: 0 0 10px var(--fifth-color);
-	color: var(--third-color);
-	background-position: 15px;
-	background-repeat: no-repeat;
+  background: var(--tenth-color);
+  transition: 0.5s ease;
+  position: relative;
+  pointer-events: auto;
+  overflow: hidden;
+  margin: 0 0 6px;
+  margin-bottom: 15px;
+  box-shadow: 0 0 10px var(--fifth-color);
+  color: var(--eighth-color);
+  background-position: 15px;
+  background-repeat: no-repeat;
   min-height: 50px;
   width: 365px;
-	padding: 20px 15px 10px 10px;
-  transition: transform .6s ease-in;
-	animation: toast-in-left .7s;
+  padding: 20px 15px 10px 10px;
+  transition: transform 0.6s ease-in;
+  animation: toast-in-left 0.7s;
 }
 .toast:hover {
-	box-shadow: 0 0 12px var(--ninth-color);
-	cursor: pointer
+  box-shadow: 0 0 12px var(--ninth-color);
+  cursor: pointer;
 }
 .toast-close {
   position: absolute;
@@ -40,17 +40,17 @@
 }
 
 .toast-message {
-	margin: 0;
-	text-align: left;
+  margin: 0;
+  text-align: left;
   overflow: hidden;
   white-space: normal;
 }
 
 @keyframes toast-in-left {
-	from {
-		transform: translateX(-100%);		
-	}
-	to {
-		transform: translateX(0);
-	}
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }

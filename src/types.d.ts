@@ -47,13 +47,13 @@ interface ICreateBoard {
 interface IColumn {
   id?: string;
   title: string;
-  order: number;
+  order?: number;
 }
 
 interface ITask {
   id?: string;
   title: string;
-  order: number;
+  order?: number;
   description: string;
   userId: string;
   boardId?: string;
