@@ -38,11 +38,13 @@ const SignupPage = (): JSX.Element => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<IUserCredentials>();
 
   const onSubmit: SubmitHandler<IUserCredentials> = (data): void => {
     dispatch(setCredentials(data));
     dispatch(setUser({ name: data.name, login: data.login, password: data.password }));
+    reset();
   };
 
   return (

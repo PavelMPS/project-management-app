@@ -108,7 +108,7 @@ export const updateTaskFetch: AsyncThunk<ITask, ITask, EmptyObject> = createAsyn
       requestString,
       {
         title: taskInf.title,
-        order: +taskInf.order,
+        order: +taskInf.order!,
         description: taskInf.description,
         userId: taskInf.userId,
         boardId: taskInf.boardId,
@@ -133,7 +133,7 @@ export const updateTaskChangeColumn: AsyncThunk<ITask, ITask, EmptyObject> = cre
       requestString,
       {
         title: taskInf.title,
-        order: +taskInf.order,
+        order: +taskInf.order!,
         description: taskInf.description,
         userId: taskInf.userId,
         boardId: taskInf.boardId,

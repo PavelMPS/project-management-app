@@ -9,35 +9,18 @@ import { selectGetBoardsError } from '../../redux/GetBoardSlice';
 import { selectBoardsError } from '../../redux/MainSlice';
 import { selectTasksError } from '../../redux/TaskSlice';
 import { selectUsersError } from '../../redux/UsersSlice';
-import { selectUserError } from '../../redux/userSlice';
+import { logout, selectUserError } from '../../redux/userSlice';
 import { selectEditProfileError } from '../../redux/EditProfileSlice';
-import { serverErrorText } from '../../constants/Constants';
 import { sigupUserError } from '../../redux/SignUpSlice';
+import { useAppDispatch } from '../../redux/hooks/redux';
 
 import './toast.css';
-
-const getErrorText = (error: string) => {
-  const status = error.slice(-3);
-  switch (status) {
-    case '400':
-      return serverErrorText[400];
-    case '401':
-      return serverErrorText[401];
-    case '403':
-      return serverErrorText[403];
-    case '404':
-      return serverErrorText[404];
-    case '409':
-      return serverErrorText[409];
-    case '500':
-      return serverErrorText[500];
-    default:
-      return serverErrorText.default;
-  }
-};
+import { useTranslation } from 'react-i18next';
 
 const Toast = (): JSX.Element => {
+  const { t } = useTranslation();
   const [list, setList] = useState<IError[]>([]);
+  const dispatch = useAppDispatch();
 
   const editProfileError: string | null = useSelector(selectEditProfileError);
   const userError: string | null = useSelector(selectUserError);
@@ -48,6 +31,29 @@ const Toast = (): JSX.Element => {
   const taskError: string | null = useSelector(selectTasksError);
   const usersError: string | null = useSelector(selectUsersError);
   const signupError: string | null = useSelector(sigupUserError);
+
+  const getErrorText = (error: string) => {
+    const status = error.slice(-3);
+    switch (status) {
+      case '201':
+        return t('serverErrorText.201');
+      case '400':
+        return t('serverErrorText.400');
+      case '401':
+        dispatch(logout());
+        return t('serverErrorText.401');
+      case '403':
+        return t('serverErrorText.403');
+      case '404':
+        return t('serverErrorText.404');
+      case '409':
+        return t('serverErrorText.409');
+      case '500':
+        return t('serverErrorText.500');
+      default:
+        return t('serverErrorText.default');
+    }
+  };
 
   useEffect(() => {
     const errors: IError[] = list;

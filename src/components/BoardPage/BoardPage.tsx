@@ -15,10 +15,9 @@ import {
 } from '../../redux/TaskSlice';
 import { selectBoard } from '../../redux/MainSlice';
 import { AppDispatch } from '../../redux/Store';
-import { fetchUsers, selectUsers, selectUsersStatus } from '../../redux/UsersSlice';
+import { fetchUsers, selectUsersStatus } from '../../redux/UsersSlice';
 import Column from '../Column/Column';
 import { ColumnState, getBoardById, selectBoardStatus } from '../../redux/GetBoardSlice';
-import { setChoosenUser, selectChoosenUser } from '../../redux/ChooseUserSlice';
 import { useAppSelector } from '../../redux/hooks/redux';
 import { column, fetchStatus, formType } from '../../constants/Constants';
 import { Loader } from '../Loader/Loader';
@@ -32,8 +31,6 @@ const BoardPage = (): JSX.Element => {
   const statusTasks: string = useSelector(selectStatusTasks);
   const statusUsers: string = useSelector(selectUsersStatus);
   const statusBoard: string = useSelector(selectBoardStatus);
-  const users: IUser[] = useSelector(selectUsers);
-  const choosenUser: string = useSelector(selectChoosenUser);
 
   const { idBoard } = useAppSelector((store) => store.idBoard);
   const [dragState, updateDragState] = useState(idBoard.columns);
@@ -134,49 +131,11 @@ const BoardPage = (): JSX.Element => {
     await dispatch(getBoardById(board.id));
   };
 
-  const chooseUserHandler = (choosingUser: string): void => {
-    let newState: ColumnState[] = [];
-    if (choosingUser === t('board.all')) {
-      newState = idBoard.columns;
-    } else {
-      newState = idBoard.columns.map((column) => {
-        return {
-          ...column,
-          tasks: column.tasks.filter((task) => {
-            return task.userId === choosingUser;
-          }),
-        };
-      });
-    }
-    updateDragState(newState);
-    dispatch(setChoosenUser(choosingUser));
-  };
-
-  // TODO попробовать сделать так, чтобы после рендеринга оставалась сортировка, или удалить ChooseUserSlice
-
   return (
     <>
       <div className="board-container">
         <div className="board-title-container">
           <h1>{board.title}</h1>
-          <label className="form-label">
-            {t('task.selectUser')}
-            <br />
-            <select
-              className="form-input"
-              value={t('board.all')}
-              onChange={(e) => {
-                chooseUserHandler(e.currentTarget.value);
-              }}
-            >
-              <option>{t('board.all')}</option>
-              {users.map((user: IUser) => (
-                <option key={user.id} value={user.id}>
-                  {user.name}
-                </option>
-              ))}
-            </select>
-          </label>
           <Link className="link" to="/main">
             <div className="btn" onClick={boardCloseHadler}>
               {t('board.close')}

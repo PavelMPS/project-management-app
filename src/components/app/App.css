@@ -190,3 +190,15 @@
   padding: 0 5px;
   display: inline-block;
 }
+
+@media (max-width: 1070px) {
+  .form-input {
+    width: 300px;
+  }
+}
+
+@media (max-width: 860px) {
+  .form-input {
+    width: 250px;
+  }
+}

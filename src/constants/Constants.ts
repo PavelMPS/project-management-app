@@ -53,16 +53,6 @@ export const formType = {
   update: 'update',
 };
 
-export const serverErrorText = {
-  400: 'Oops, the server does not understand the request... Try it differently!',
-  401: 'Oops, you need authentication to get the requested response... Try it!',
-  403: 'Oops, the client does not have permission to access the content, so the server refuses to respond... You need to login to your account!',
-  404: 'Oops, the server can not find the requested resource...Try it differently!',
-  409: 'Oops, User login already exists! Try it differently!',
-  500: 'Oops, something went wrong and the server does not know what... Try it differently!',
-  default: 'Oops, something went wrong... Try it differently!',
-};
-
 export const lngs: ILangs = {
   en: 'en',
   ru: 'ru',
