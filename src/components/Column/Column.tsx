@@ -76,7 +76,10 @@ const Column = (props: { columnInf: ColumnState; index: number }): JSX.Element =
                   <div
                     {...provided.dragHandleProps}
                     className="column-title"
-                    onClick={() => setIsTitleUpdate(true)}
+                    onClick={() => {
+                      setIsTitleUpdate(true);
+                      setTitle(props.columnInf.title);
+                    }}
                   >
                     {props.columnInf.title}
                   </div>
@@ -91,7 +94,7 @@ const Column = (props: { columnInf: ColumnState; index: number }): JSX.Element =
                   <input
                     className="form-input column-input"
                     type="text"
-                    defaultValue={props.columnInf.title}
+                    value={title}
                     onChange={(event) => setTitle(event.target.value)}
                   ></input>
                   <div className="small-btn check" onClick={updateTitle}></div>

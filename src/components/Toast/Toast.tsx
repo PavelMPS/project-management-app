@@ -11,13 +11,14 @@ import { selectTasksError } from '../../redux/TaskSlice';
 import { selectUsersError } from '../../redux/UsersSlice';
 import { logout, selectUserError } from '../../redux/userSlice';
 import { selectEditProfileError } from '../../redux/EditProfileSlice';
-import { serverErrorText } from '../../constants/Constants';
 import { sigupUserError } from '../../redux/SignUpSlice';
 import { useAppDispatch } from '../../redux/hooks/redux';
 
 import './toast.css';
+import { useTranslation } from 'react-i18next';
 
 const Toast = (): JSX.Element => {
+  const { t } = useTranslation();
   const [list, setList] = useState<IError[]>([]);
   const dispatch = useAppDispatch();
 
@@ -35,22 +36,22 @@ const Toast = (): JSX.Element => {
     const status = error.slice(-3);
     switch (status) {
       case '201':
-        return serverErrorText[201];
+        return t('serverErrorText.201');
       case '400':
-        return serverErrorText[400];
+        return t('serverErrorText.400');
       case '401':
         dispatch(logout());
-        return serverErrorText[401];
+        return t('serverErrorText.401');
       case '403':
-        return serverErrorText[403];
+        return t('serverErrorText.403');
       case '404':
-        return serverErrorText[404];
+        return t('serverErrorText.404');
       case '409':
-        return serverErrorText[409];
+        return t('serverErrorText.409');
       case '500':
-        return serverErrorText[500];
+        return t('serverErrorText.500');
       default:
-        return serverErrorText.default;
+        return t('serverErrorText.default');
     }
   };
 

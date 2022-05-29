@@ -1,14 +1,14 @@
 import { useState } from 'react';
-import { FieldError, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import { updateTaskFetch, createTaskFetch, selectTasksError } from '../../redux/TaskSlice';
-import { getBoardById, ColumnState } from '../../redux/GetBoardSlice';
+import { updateTaskFetch, createTaskFetch } from '../../redux/TaskSlice';
+import { getBoardById } from '../../redux/GetBoardSlice';
 import { selectUsers } from '../../redux/UsersSlice';
 import { AppDispatch } from '../../redux/Store';
 import Confirmation from '../Confirmation/Confirmation';
-import { useAppSelector } from '../../redux/hooks/redux';
+import { formType } from '../../constants/Constants';
 
 const TaskForm = (props: {
   boardId: string;
@@ -25,9 +25,6 @@ const TaskForm = (props: {
     clearErrors,
   } = useForm<ITask>();
 
-  const { idBoard } = useAppSelector((store) => store.idBoard);
-
-  const [isValid, setIsValid] = useState<boolean>(false);
   const [title, setTitle] = useState<string>(() => {
     if (props.taskInf) {
       return props.taskInf.title;
@@ -42,20 +39,7 @@ const TaskForm = (props: {
       return '';
     }
   });
-  const [order, setOrder] = useState<number>(() => {
-    if (props.taskInf) {
-      return props.taskInf.order;
-    } else {
-      const column: ColumnState | undefined = idBoard.columns.find((column: ColumnState) => {
-        return column.id === props.columnId;
-      });
-      if (column) {
-        return column?.tasks.length + 1;
-      } else {
-        return 1;
-      }
-    }
-  });
+
   const [userId, setUserId] = useState<string>(() => {
     if (props.taskInf) {
       return props.taskInf.userId;
@@ -63,18 +47,17 @@ const TaskForm = (props: {
       return '';
     }
   });
+
   const [taskInf, setTaskInf] = useState<ITask>({} as ITask);
   const [isConfirmationOpen, setIsConfirmationOpen] = useState<boolean>(false);
 
   const dispatch = useDispatch<AppDispatch>();
 
   const users: IUser[] = useSelector(selectUsers);
-  const taskError: string | null = useSelector(selectTasksError);
 
   const handleSubmite = async (data: ITask) => {
     const taskInf: ITask = {
       title: data.title,
-      order: order,
       description: data.description,
       userId: data.userId,
     };
@@ -85,11 +68,10 @@ const TaskForm = (props: {
   };
 
   const confirmationSubmit = async (): Promise<void> => {
-    if (props.type === 'create') {
+    if (props.type === formType.create) {
       const task: ITask = {
         title: taskInf.title,
         description: taskInf.description,
-        order: taskInf.order,
         userId: taskInf.userId,
         columnId: props.columnId,
         boardId: props.boardId,
@@ -98,58 +80,38 @@ const TaskForm = (props: {
     } else {
       const task: ITask = {
         id: props.taskInf!.id,
-        title: taskInf.title,
-        description: taskInf.description,
-        order: taskInf.order,
-        userId: taskInf.userId,
+        title: title,
+        order: props.taskInf!.order,
+        description: description,
+        userId: userId,
         columnId: props.columnId,
         boardId: props.boardId,
       };
       await dispatch(updateTaskFetch(task));
     }
-    if (!taskError) {
-      dispatch(getBoardById(props.boardId));
-    }
-  };
-
-  const handleError = (): void => {
-    setIsValid(false);
-  };
-
-  const changeSubmitBTN = (): void => {
-    setIsValid(true);
-    setTimeout(() => {
-      const values = Object.values(errors);
-      values.forEach((value: FieldError | FieldError[]): void => {
-        if (value) {
-          setIsValid(false);
-        } else {
-          setIsValid(true);
-        }
-      }, 100);
-    });
+    dispatch(getBoardById(props.boardId));
   };
 
   return (
     <>
-      <form className="form" onSubmit={handleSubmit(handleSubmite, handleError)}>
+      <form className="form" onSubmit={handleSubmit(handleSubmite)}>
         <div className="form-element-wrapper">
           <label className="form-label">
             {t('task.title')}
             <br />
             <input
               className="form-input"
+              placeholder={t('task.placeholder.title')}
               value={title}
               type="text"
               {...register('title', {
                 required: true,
                 onChange: (e) => {
-                  changeSubmitBTN();
                   setTitle(e.target.value);
                 },
               })}
             />
-            {errors.title && <p className="error">{t('task.error')}</p>}
+            {errors.title && <p className="error">{t('task.error.title')}</p>}
           </label>
         </div>
 
@@ -159,17 +121,17 @@ const TaskForm = (props: {
             <br />
             <input
               className="form-input"
+              placeholder={t('task.placeholder.description')}
               value={description}
               type="text"
               {...register('description', {
                 required: true,
                 onChange: (e) => {
-                  changeSubmitBTN();
                   setDescription(e.target.value);
                 },
               })}
             />
-            {errors.description && <p className="error">{t('task.error')}</p>}
+            {errors.description && <p className="error">{t('task.error.description')}</p>}
           </label>
         </div>
 
@@ -178,9 +140,15 @@ const TaskForm = (props: {
             {t('task.selectUser')}
             <br />
             <select
+              placeholder={t('task.placeholder.user')}
               className="form-input"
-              defaultValue={userId}
-              {...register('userId', { required: true })}
+              value={userId}
+              {...register('userId', {
+                required: true,
+                onChange: (e) => {
+                  setUserId(e.target.value);
+                },
+              })}
             >
               {users.map((user: IUser) => (
                 <option key={user.id} value={user.id}>
@@ -188,11 +156,11 @@ const TaskForm = (props: {
                 </option>
               ))}
             </select>
-            {errors.userId && <p className="error">{t('task.error')}</p>}
+            {errors.userId && <p className="error">{t('task.error.user')}</p>}
           </label>
         </div>
 
-        <button className="btn" type="submit" disabled={!isValid}>
+        <button className="btn" type="submit">
           {t('task.submit')}
         </button>
       </form>
