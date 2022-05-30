@@ -58,7 +58,7 @@ i18n
           },
           login: {
             title: 'Log in page',
-            noAccaunt: 'No accaunt?',
+            noAccaunt: 'No account?',
             registerBtn: 'Register',
             enterBtn: 'Enter',
             errors: {
@@ -78,7 +78,7 @@ i18n
           },
           signup: {
             title: 'Sign up page',
-            haveAccaunt: 'Have an accaunt?',
+            haveAccaunt: 'Have an account?',
             registerBtn: 'Registration',
             enterBtn: 'Enter',
             placeholder: {
@@ -178,9 +178,9 @@ i18n
             submit: 'Submit',
             cancel: 'Cancel',
             errors: {
-              name: 'Enter correct name!',
-              login: 'Enter correct login!',
-              password: 'Enter correct password!',
+              name: 'Enter correct name!(3-15 symbols)',
+              login: 'Enter correct login!(3-15 symbols)',
+              password: 'Enter correct password!(3-15 symbols)',
             },
           },
           footer: {
@@ -390,9 +390,9 @@ i18n
             submit: 'Отправить',
             cancel: 'Отменить',
             errors: {
-              name: 'Введите корректное имя!',
-              login: 'Введите корректный логин!',
-              password: 'Введите корректный пароль!',
+              name: 'Введите корректное имя!(3-15 символов)',
+              login: 'Введите корректный логин!(3-15 символов)',
+              password: 'Введите корректный пароль!(3-15 символов)',
             },
           },
           footer: {
