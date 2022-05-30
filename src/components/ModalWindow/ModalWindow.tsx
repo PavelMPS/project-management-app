@@ -2,9 +2,7 @@ import { useEffect, useState } from 'react';
 import ReactDom from 'react-dom';
 import { useSelector } from 'react-redux';
 
-import { selectTheme, setTheme } from '../../redux/ThemeSlice';
-import { useAppDispatch } from '../../redux/hooks/redux';
-import { themes } from '../../constants/Constants';
+import { selectTheme } from '../../redux/ThemeSlice';
 
 import './modalWindow.css';
 
@@ -14,7 +12,6 @@ const ModalWindow: (props: {
 }) => JSX.Element = (props: { children: JSX.Element; onClick: () => void }): JSX.Element => {
   const root = document.createElement('div');
 
-  const dispatch = useAppDispatch();
   const selectsTheme = useSelector(selectTheme);
   const [theme, setThemeApp] = useState<string>();
 

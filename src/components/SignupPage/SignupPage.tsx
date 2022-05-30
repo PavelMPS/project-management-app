@@ -19,7 +19,7 @@ const SignupPage = (): JSX.Element => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { token, isAuth } = useAppSelector((store) => store.user);
-  const { isLoading, error } = useAppSelector((store) => store.signUp);
+  const { error } = useAppSelector((store) => store.signUp);
   const navigate = useNavigate();
 
   useEffect((): void => {

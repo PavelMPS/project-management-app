@@ -3,9 +3,7 @@ import ReactDom from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
-import { selectTheme, setTheme } from '../../redux/ThemeSlice';
-import { useAppDispatch } from '../../redux/hooks/redux';
-import { themes } from '../../constants/Constants';
+import { selectTheme } from '../../redux/ThemeSlice';
 
 import './confirmation.css';
 
@@ -15,8 +13,6 @@ const Confirmation: (props: {
 }) => JSX.Element = (props: { onCancel: () => void; onSubmit: () => void }): JSX.Element => {
   const root = document.createElement('div');
   const { t } = useTranslation();
-
-  const dispatch = useAppDispatch();
   const selectsTheme = useSelector(selectTheme);
   const [theme, setThemeApp] = useState<string>();
 

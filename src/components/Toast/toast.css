@@ -31,13 +31,6 @@
   box-shadow: 0 0 12px var(--ninth-color);
   cursor: pointer;
 }
-.toast-close {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  height: 20px;
-  width: 20px;
-}
 
 .toast-message {
   margin: 0;

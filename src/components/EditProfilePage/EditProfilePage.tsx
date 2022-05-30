@@ -25,7 +25,6 @@ const EditProfile = (): JSX.Element => {
   };
 
   const onSubmit: SubmitHandler<IProfileState> = (data: IProfileState): void => {
-    console.log('form');
     const token = getTokenFromLocalStorage();
     const id: string = getIdFromToken(token);
     dispatch(
