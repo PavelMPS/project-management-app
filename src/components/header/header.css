@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Shadows+Into+Light&display=swap');
+
 header {
   background: linear-gradient(270deg, var(--ninth-color), var(--second-color));
   display: flex;
@@ -167,15 +169,19 @@ header {
 .logo {
   width: 163px;
   height: 41px;
-  background-image: url(../../assets/logo.png);
-  background-size: cover;
-  background-repeat: no-repeat;
+  font-size: 40px;
+  color: white;
+  font-family: 'Dancing Script', cursive;
   transition: all 0.4s;
+}
+
+a {
+  text-decoration: none;
 }
 
 .logo:hover {
   transition: all 0.4s;
-  transform: scale(1.2);
+  transform: scale(1.1);
 }
 
 .logo:active {
@@ -206,9 +212,7 @@ header {
   .logo {
     width: 82px;
     height: 20px;
-    background-image: url(../../assets/logo.png);
-    background-size: cover;
-    background-repeat: no-repeat;
+    font-size: 30px;
     transition: all 0.4s;
   }
 }

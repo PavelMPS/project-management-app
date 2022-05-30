@@ -36,7 +36,8 @@ i18n
               func_2: 'user login',
               func_3: 'project management page (main page)',
               func_4: 'board page',
-              func_5: 'additional functionality(change day and night theme)',
+              func_5:
+                'additional functionality (change day and night theme, ability to edit the board)',
             },
             develop: {
               title: 'Development process',
@@ -197,6 +198,29 @@ i18n
             500: 'Oops, something went wrong and the server does not know what... Try it differently!',
             default: 'Oops, something went wrong... Try it differently!',
           },
+          team: {
+            veronika: {
+              src: 'vy1.jpg',
+              name: 'Veronika',
+              surname: 'Yaschenkova',
+              age: '26',
+              about: 'JavaScript, TypeScript, React, Git',
+            },
+            pavel: {
+              src: 'ps1.png',
+              name: 'Pavel',
+              surname: 'Mazhaiski',
+              age: '35',
+              about: 'JavaScript, TypeScript, React, Git',
+            },
+            vitaly: {
+              src: 'vs1.png',
+              name: 'Vitaly',
+              surname: 'Soroko',
+              age: '27',
+              about: ' JavaScript, TypeScript, React, RTK, GIT, Webpack, Gulp',
+            },
+          },
         },
       },
       ru: {
@@ -223,7 +247,8 @@ i18n
               func_2: 'пользовательский логин',
               func_3: 'страница управления проектами',
               func_4: 'страница управления проектом',
-              func_5: 'дополнительный функционал(смена дневной и ночной темы)',
+              func_5:
+                'дополнительный функционал (смена дневной и ночной темы, редактирование борды)',
             },
             develop: {
               title: 'Процесс разработки',
@@ -384,6 +409,29 @@ i18n
             409: 'К сожалению, логин пользователя уже существует! Попробуйте по-другому!',
             500: 'Ой, что-то пошло не так и сервер не знает что происходит... Попробуйте по-другому!',
             default: 'Ой, что-то пошло не так... Попробуйте по-другому!',
+          },
+          team: {
+            veronika: {
+              src: 'vy1.jpg',
+              name: 'Вероника',
+              surname: 'Ященкова',
+              age: '26',
+              about: 'JavaScript, TypeScript, React, Git',
+            },
+            pavel: {
+              src: 'ps1.png',
+              name: 'Павел',
+              surname: 'Можайский',
+              age: '35',
+              about: 'JavaScript, TypeScript, React, Git',
+            },
+            vitaly: {
+              src: 'vs1.png',
+              name: 'Виталий',
+              surname: 'Сороко',
+              age: '27',
+              about: ' JavaScript, TypeScript, React, RTK, GIT, Webpack, Gulp',
+            },
           },
         },
       },
