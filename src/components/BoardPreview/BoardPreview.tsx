@@ -11,6 +11,7 @@ import ModalWindow from '../ModalWindow/ModalWindow';
 import BoardFormUpdate from '../MainPage/BoardFormUpdate';
 
 import './boardPreview.css';
+import { fetchUsers } from '../../redux/UsersSlice';
 
 const BoardPreview = (props: { boardInf: IBoard }): JSX.Element => {
   const { t } = useTranslation();
@@ -31,6 +32,7 @@ const BoardPreview = (props: { boardInf: IBoard }): JSX.Element => {
   const openBoardHandler = (): void => {
     dispatch(getBoardById(props.boardInf.id));
     dispatch(openBoard(props.boardInf));
+    dispatch(fetchUsers());
   };
 
   const updateHandler = (): void => {
