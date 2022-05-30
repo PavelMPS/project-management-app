@@ -58,7 +58,7 @@ i18n
           },
           login: {
             title: 'Log in page',
-            noAccaunt: 'No accaunt?',
+            noAccaunt: 'No account?',
             registerBtn: 'Register',
             enterBtn: 'Enter',
             errors: {
@@ -78,7 +78,7 @@ i18n
           },
           signup: {
             title: 'Sign up page',
-            haveAccaunt: 'Have an accaunt?',
+            haveAccaunt: 'Have an account?',
             registerBtn: 'Registration',
             enterBtn: 'Enter',
             placeholder: {
