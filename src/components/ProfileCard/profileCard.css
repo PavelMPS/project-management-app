@@ -1,0 +1,52 @@
+.team-info {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.profile-container {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: 250px;
+  width: 250px;
+  align-content: center;
+  text-align: center;
+  gap: 10px;
+  background-color: var(--second-color);
+  border-radius: 5px;
+  transition: all 0.4s;
+}
+
+.profile-container img {
+  display: inline-block;
+  border-radius: 5px;
+  width: 100%;
+  background-size: cover;
+}
+
+.profile-container:hover {
+  cursor: pointer;
+  -webkit-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  transform: scale(1.05);
+  transition: 0.4s all;
+  -webkit-box-shadow: 8px 8px 8px 0px var(--twelfth-color);
+  -moz-box-shadow: 8px 8px 8px 0px var(--twelfth-color);
+  box-shadow: 8px 8px 8px 0px var(--twelfth-color);
+}
+.information {
+  margin: 10px;
+  margin-top: 0px;
+  text-align: left;
+}
+.information-name {
+  font-weight: 500;
+  font-size: 1.2rem;
+}
+.information-age {
+  font-weight: 200;
+  font-size: 1rem;
+  margin-bottom: 15px;
+}

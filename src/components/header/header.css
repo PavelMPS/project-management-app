@@ -1,0 +1,277 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Shadows+Into+Light&display=swap');
+
+header {
+  background: linear-gradient(270deg, var(--ninth-color), var(--second-color));
+  display: flex;
+  justify-content: space-between;
+  padding-left: 30px;
+  padding-right: 30px;
+  align-items: center;
+  height: 75px;
+  position: sticky;
+  width: 100%; 
+  top: 0;
+  z-index: 999;
+  color: var(--tenth-color);
+}
+
+.header-active{
+  background: linear-gradient(270deg, var(--ninth-color), var(--ninth-color));
+  transition:all 1s;    
+}
+
+.header-title {
+  text-align: left;
+}
+
+.menu-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.header-btns-container {
+  display: flex;
+  justify-content: flex-end;
+}
+.header-btn {
+  height: 100%;
+  min-width: 50px;
+  align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  display: flex;
+  column-gap: 15px;
+  background-color: none;
+  border: none;
+  cursor: pointer;
+}
+.header-btn:hover {
+  box-shadow: 0px -56px 21px -29px var(--second-color) inset;
+}
+.header-btn:active {
+  background-color: var(--second-color);
+}
+.btn-text {
+  font-size: 1rem;  
+}
+
+.edit-btn,
+.logout-btn,
+.user-delete-btn,
+.create-board-btn,
+.en-btn,
+.ru-btn {
+  min-width: 30px;
+  height: 30px;
+  background: transparent;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  transition: all 0.4s;
+}
+
+.edit-btn {
+  background-image: url(../../assets/user-1.svg);
+}
+
+.logout-btn {
+  background-image: url(../../assets/logout.svg);
+}
+
+.user-delete-btn {
+  background-image: url(../../assets/trash.svg);
+}
+
+.create-board-btn {
+  background-image: url(../../assets/plus.svg);
+}
+
+.edit-btn:hover,
+.logout-btn:hover,
+.user-delete-btn:hover,
+.create-board-btn:hover,
+.en-btn:hover,
+.ru-btn:hover {
+  transform: scale(1.2);
+}
+/* togglers */
+
+.toglers-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  row-gap: 5px;
+  margin-left: 10px;
+}
+.checkbox {
+  display: none;
+}
+.togler-container {
+  display: block;
+  width: 60px;
+  height: 31px;
+  border: 3px solid var(--tenth-color);
+  border-radius: 30px;
+  position: relative;
+  cursor: pointer;
+}
+.togler-ball {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-color: var(--tenth-color);
+  border-radius: 50%;
+  left: 1px;
+  z-index: 10;
+  transition: transform 0.5s ease-in-out;
+}
+.en,
+.ru,
+.sun,
+.moon {
+  line-height: 30px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--tenth-color);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.en {
+  right: 5px;
+}
+.ru {
+  left: 5px;
+}
+.sun,
+.moon {
+  height: 24px;
+  width: 24px;
+  background-size: cover;
+}
+.sun {
+  background-image: url(../../assets/sun.svg);
+  right: 2px;
+}
+.moon {
+  background-image: url(../../assets/moon.svg);
+  left: 2px;
+}
+
+.checkbox:checked + .togler-ball {
+  transform: translate(29px, -50%);
+}
+
+.logo {
+  font-size: 40px;
+  color: white;
+  font-family: 'Dancing Script', cursive;
+  transition: all 0.4s;
+}
+
+a {
+  text-decoration: none;
+}
+
+.logo:hover {
+  transition: all 0.4s;
+  transform: scale(1.1);
+}
+
+.logo:active {
+  transform: translateY(2px);
+}
+
+@media (max-width: 1050px) {
+  .btn-text {
+    display: none;
+  }
+  .header-btn {
+    min-width: 75px;
+  }
+}
+@media (max-width: 700px) {
+  header {
+    height: 50px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .header-btn {
+    min-width: 50px;
+  }
+  .toglers-container {
+    flex-direction: row;
+    gap: 10px;
+  }
+  .logo {
+    font-size: 30px;
+    transition: all 0.4s;
+  }
+}
+
+@media (max-width: 450px) {
+  .edit-btn,
+  .logout-btn,
+  .user-delete-btn,
+  .create-board-btn,
+  .en-btn,
+  .ru-btn {
+    min-width: 25px;
+    height: 25px;
+    background-size: contain;
+  }
+  .header-btn {
+    min-width: 35px;
+    padding: 0;
+  }
+
+  .togler-container {
+    height: 40px;
+    width: 21px;
+    border: 2px solid var(--tenth-color);
+    border-radius: 20px;
+    text-align: center;
+  }
+  .togler-ball {
+    width: 16px;
+    height: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .en,
+  .ru,
+  .sun,
+  .moon {
+    line-height: 20px;
+    font-size: 10px;
+    font-weight: 400;
+  }
+  .en {
+    top: 7px;
+    left: 3px;
+  }
+  .ru {
+    bottom: 25px;
+    left: 2px;
+  }
+  .sun,
+  .moon {
+    height: 16px;
+    width: 16px;
+  }
+  .sun {
+    top: 8px;
+    left: 0px;
+  }
+  .moon {
+    top: 25px;
+    left: 0px;
+  }  
+  .checkbox:checked + .togler-ball {
+    transform: translate(-50%, -17px);
+  }
+}

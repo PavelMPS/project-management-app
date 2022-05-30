@@ -1,0 +1,11 @@
+.main-page-container {
+  width: 100%;
+}
+.boards-prew-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  column-gap: 25px;
+  color: rgb(85, 72, 2);
+}

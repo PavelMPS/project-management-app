@@ -1,0 +1,109 @@
+footer {
+  position: fixed;
+  z-index: 100;
+  bottom: 0;
+  height: 75px;
+  width: 100%;
+  align-items: center;
+  background: linear-gradient(90deg, var(--ninth-color), var(--second-color));
+  display: flex;
+  color: var(--tenth-color);
+}
+
+.footer-container {
+  align-items: center;
+  margin: auto;
+  width: 90%;
+  display: grid;
+  grid-template-columns: 3fr 1fr 3fr;
+}
+
+.github-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.github-container a {
+  height: 75px;
+  min-width: 50px;
+  align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  display: flex;
+  background-color: none;
+  border: none;
+}
+.github-container a:hover {
+  box-shadow: 0px 56px 21px -29px var(--second-color) inset;
+}
+.github-container a:active {
+  background-color: var(--second-color);
+}
+
+.year {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+.logo-link {
+  display: flex;
+  justify-content: flex-end;
+}
+.rsschool-logo {
+  width: 111px;
+  height: 41px;
+  background-image: url('../../assets/rsschool.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: all 0.6s;
+}
+.rsschool-logo:hover {
+  transition: all 0.6s;
+  transform: scale(1.1);
+}
+
+@media (max-width: 1050px) {
+  .footer-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  .year {
+    display: none;
+  }
+}
+
+@media (max-width: 700px) {
+  footer {
+    height: 50px;
+  }
+  .github-container a {
+    height: 50px;
+  }
+  .rsschool-logo {
+    width: 55px;
+    height: 20px;
+    background-image: url('../../assets/rsschool.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    transition: all 0.6s;
+  }
+}
+@media (max-width: 460px) {
+  .footer-container {
+    width: 100%;
+  }
+  .github-container a {
+    padding-left: 10px;
+    padding-right: 0px;
+  }
+}
+@media (max-width: 400px) {
+  .github-container a {
+    padding-left: 5px;
+  }
+}
