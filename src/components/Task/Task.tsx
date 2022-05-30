@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
+import { Draggable } from 'react-beautiful-dnd';
 
 import Confirmation from '../Confirmation/Confirmation';
 import { deleteTaskFetch, selectTasksError } from '../../redux/TaskSlice';
@@ -11,7 +12,6 @@ import { getBoardById, TaskState } from '../../redux/GetBoardSlice';
 import { useAppSelector } from '../../redux/hooks/redux';
 
 import './task.css';
-import { Draggable } from 'react-beautiful-dnd';
 
 const Task = (props: { taskInf: TaskState; columnId: string; index: number }): JSX.Element => {
   const dispatch = useDispatch<AppDispatch>();

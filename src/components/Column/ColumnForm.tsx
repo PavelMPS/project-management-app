@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { FieldError, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import { useAppSelector } from '../../redux/hooks/redux';
 import { formType } from '../../constants/Constants';
 import { createColumnFetch, updateColumnFetch, selectColumnsError } from '../../redux/ColumnSlice';
 import { getBoardById } from '../../redux/GetBoardSlice';

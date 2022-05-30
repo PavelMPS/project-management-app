@@ -1,4 +1,4 @@
-import { AsyncThunk, createAsyncThunk, createSlice, PayloadAction, Slice } from '@reduxjs/toolkit';
+import { AsyncThunk, createAsyncThunk, createSlice, Slice } from '@reduxjs/toolkit';
 import axios, { AxiosResponse } from 'axios';
 import { EmptyObject } from 'react-hook-form';
 import { path } from '../constants/Constants';

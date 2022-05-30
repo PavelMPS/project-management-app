@@ -10,10 +10,9 @@ import { lngs, logotype, themes } from '../../constants/Constants';
 import Confirmation from '../Confirmation/Confirmation';
 import ModalWindow from '../ModalWindow/ModalWindow';
 import { selectTheme, setTheme } from '../../redux/ThemeSlice';
+import BoardForm from '../MainPage/BoardForm';
 
 import './header.css';
-import BoardForm from '../MainPage/BoardForm';
-import { doc } from 'prettier';
 
 const Header = (): JSX.Element => {
   const { t, i18n } = useTranslation();
