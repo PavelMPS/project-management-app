@@ -167,8 +167,6 @@ header {
 }
 
 .logo {
-  width: 163px;
-  height: 41px;
   font-size: 40px;
   color: white;
   font-family: 'Dancing Script', cursive;
@@ -210,8 +208,6 @@ a {
     gap: 10px;
   }
   .logo {
-    width: 82px;
-    height: 20px;
     font-size: 30px;
     transition: all 0.4s;
   }
@@ -276,6 +272,6 @@ a {
     left: 0px;
   }  
   .checkbox:checked + .togler-ball {
-    transform: translate(-50%, -18px);
+    transform: translate(-50%, -17px);
   }
 }
