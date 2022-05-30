@@ -51,7 +51,7 @@ const EditProfile = (): JSX.Element => {
                 className={errors.name ? 'form-input input-error' : 'form-input'}
                 type="text"
                 placeholder={t('edit.newNamePlaceholder')}
-                {...register('name', { required: true })}
+                {...register('name', { required: true, maxLength: 15, minLength: 3 })}
               />
               {errors.name && <p className="error">{t('edit.errors.name')}</p>}
             </label>
@@ -63,7 +63,7 @@ const EditProfile = (): JSX.Element => {
                 className={errors.login ? 'form-input input-error' : 'form-input'}
                 type="text"
                 placeholder={t('edit.newLoginPlaceholder')}
-                {...register('login', { required: true })}
+                {...register('login', { required: true, maxLength: 15, minLength: 3 })}
               />
               {errors.login && <p className="error">{t('edit.errors.login')}</p>}
             </label>
@@ -75,7 +75,7 @@ const EditProfile = (): JSX.Element => {
                 className={errors.password ? 'form-input input-error' : 'form-input'}
                 type="text"
                 placeholder={t('edit.newPasswordPlaceholder')}
-                {...register('password', { required: true })}
+                {...register('password', { required: true, maxLength: 15, minLength: 3 })}
               />
               {errors.password && <p className="error">{t('edit.errors.password')}</p>}
             </label>
