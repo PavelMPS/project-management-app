@@ -69,7 +69,8 @@ export const userSlice = createSlice({
       state.authLogin = '';
       state.authPass = '';
       state.isAuth = false;
-      localStorage.clear();
+      localStorage.removeItem('token');
+      localStorage.removeItem('isAuth');
       state.token = '';
     },
   },
@@ -102,7 +103,8 @@ export const userSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload.error;
       state = initialState;
-      localStorage.clear();
+      localStorage.removeItem('token');
+      localStorage.removeItem('isAuth');
     },
   },
 });
